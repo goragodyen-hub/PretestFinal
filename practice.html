@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>แบบฝึกหัดออนไลน์ Interactive • Past Simple Tense ม.2</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/theme.js"></script>
     <style>
         .unscramble-container {
-            background: #f8fafc;
+            background: var(--bg-page);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
             padding: 16px;
@@ -15,7 +16,7 @@
         }
         .chip-slot {
             min-height: 48px;
-            border: 2px dashed #94a3b8;
+            border: 2px dashed var(--border-subtle);
             border-radius: var(--radius-sm);
             padding: 8px;
             margin-top: 10px;
@@ -23,7 +24,7 @@
             flex-wrap: wrap;
             gap: 6px;
             align-items: center;
-            background: white;
+            background: var(--card-bg);
         }
         .chip-pool {
             display: flex;
@@ -71,6 +72,7 @@
                 <a href="grammar.html" class="nav-link">📖 สรุปไวยากรณ์ & โค้ชผู้ปกครอง</a>
                 <a href="practice.html" class="nav-link active">✍️ ทำแบบฝึกหัดออนไลน์</a>
                 <a href="printable.html" class="nav-link">🖨️ ใบงานพิมพ์ได้ (Printable)</a>
+                <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()">🌙 โหมดมืด</button>
             </nav>
         </div>
     </header>

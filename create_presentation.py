@@ -5,36 +5,65 @@ from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN
 from pptx.enum.shapes import MSO_SHAPE
 
-def create_deck():
+def create_deck(is_dark=False, filename="Past_Simple_Tense_Presentation.pptx"):
     prs = Presentation()
-    # Set slide size to 16:9 widescreen
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
-    blank_slide_layout = prs.slide_layouts[6] # Blank
+    blank_slide_layout = prs.slide_layouts[6]
 
-    # Color Palette
-    PRIMARY = RGBColor(30, 58, 138)       # #1e3a8a Navy
-    PRIMARY_DARK = RGBColor(15, 23, 42)   # #0f172a
-    SECONDARY = RGBColor(2, 132, 199)     # #0284c7 Sky Blue
-    ACCENT = RGBColor(217, 119, 6)        # #d97706 Amber
-    SUCCESS = RGBColor(22, 163, 74)       # #16a34a Green
-    SUCCESS_DARK = RGBColor(21, 128, 61)  # #15803d
-    DANGER = RGBColor(220, 38, 38)        # #dc2626 Red
-    TEXT_DARK = RGBColor(30, 41, 59)      # #1e293b
-    TEXT_MUTED = RGBColor(100, 116, 139)  # #64748b
-    BG_CARD = RGBColor(248, 250, 252)     # #f8fafc
-    BORDER_COLOR = RGBColor(226, 232, 240)# #e2e8f0
-    WHITE = RGBColor(255, 255, 255)
-    LIGHT_BLUE = RGBColor(239, 246, 255)
-    LIGHT_GREEN = RGBColor(240, 253, 244)
-    LIGHT_RED = RGBColor(254, 242, 242)
-    LIGHT_AMBER = RGBColor(254, 243, 199)
+    if is_dark:
+        # Dark Theme Palette
+        BG_SLIDE = RGBColor(15, 23, 42)        # #0f172a Deep Slate
+        BG_CARD = RGBColor(30, 41, 59)         # #1e293b Slate 800
+        BORDER_COLOR = RGBColor(51, 65, 85)    # #334155 Slate 700
+        PRIMARY = RGBColor(96, 165, 250)       # #60a5fa Bright Blue
+        SECONDARY = RGBColor(56, 189, 248)     # #38bdf8 Sky 400
+        ACCENT = RGBColor(251, 191, 36)        # #fbbf24 Amber
+        SUCCESS = RGBColor(74, 222, 128)       # #4ade80 Emerald
+        SUCCESS_DARK = RGBColor(74, 222, 128)
+        DANGER = RGBColor(248, 113, 113)       # #f87171 Red 400
+        TEXT_DARK = RGBColor(241, 245, 249)    # #f1f5f9
+        TEXT_MUTED = RGBColor(148, 163, 184)   # #94a3b8
+        WHITE = RGBColor(255, 255, 255)
+        LIGHT_BLUE = RGBColor(23, 37, 84)      # Dark Blue Box
+        LIGHT_GREEN = RGBColor(6, 78, 59)      # Dark Green Box
+        LIGHT_RED = RGBColor(69, 10, 10)       # Dark Red Box
+        LIGHT_AMBER = RGBColor(69, 26, 3)      # Dark Amber Box
+        TBL_HEADER_BG = RGBColor(30, 58, 138)
+        TBL_ROW_ALT = RGBColor(15, 23, 42)
+    else:
+        # Light Theme Palette
+        BG_SLIDE = RGBColor(255, 255, 255)
+        BG_CARD = RGBColor(248, 250, 252)
+        BORDER_COLOR = RGBColor(226, 232, 240)
+        PRIMARY = RGBColor(30, 58, 138)
+        SECONDARY = RGBColor(2, 132, 199)
+        ACCENT = RGBColor(217, 119, 6)
+        SUCCESS = RGBColor(22, 163, 74)
+        SUCCESS_DARK = RGBColor(21, 128, 61)
+        DANGER = RGBColor(220, 38, 38)
+        TEXT_DARK = RGBColor(30, 41, 59)
+        TEXT_MUTED = RGBColor(100, 116, 139)
+        WHITE = RGBColor(255, 255, 255)
+        LIGHT_BLUE = RGBColor(239, 246, 255)
+        LIGHT_GREEN = RGBColor(240, 253, 244)
+        LIGHT_RED = RGBColor(254, 242, 242)
+        LIGHT_AMBER = RGBColor(254, 243, 199)
+        TBL_HEADER_BG = RGBColor(241, 245, 249)
+        TBL_ROW_ALT = BG_CARD
 
     FONT_MAIN = "Sarabun"
     FONT_HEADING = "Outfit"
 
+    def apply_slide_bg(slide):
+        bg = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
+        bg.fill.solid()
+        bg.fill.fore_color.rgb = BG_SLIDE
+        bg.line.fill.background()
+
     def add_header(slide, tag_text, title_text, slide_num):
-        # Header Box
+        apply_slide_bg(slide)
+
         header_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.733), Inches(1.1))
         tf = header_box.text_frame
         tf.word_wrap = True
@@ -52,10 +81,9 @@ def create_deck():
         p1.font.name = FONT_MAIN
         p1.font.size = Pt(24)
         p1.font.bold = True
-        p1.font.color.rgb = PRIMARY
+        p1.font.color.rgb = PRIMARY if not is_dark else SECONDARY
         p1.space_before = Pt(2)
 
-        # Slide Number Box
         num_box = slide.shapes.add_textbox(Inches(10.5), Inches(0.45), Inches(2.0), Inches(0.5))
         tf_num = num_box.text_frame
         p_num = tf_num.paragraphs[0]
@@ -65,7 +93,6 @@ def create_deck():
         p_num.font.size = Pt(13)
         p_num.font.color.rgb = TEXT_MUTED
 
-        # Divider line
         line = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.8), Inches(1.5), Inches(11.733), Inches(0.02))
         line.fill.solid()
         line.fill.fore_color.rgb = BORDER_COLOR
@@ -77,13 +104,12 @@ def create_deck():
     s1 = prs.slides.add_slide(blank_slide_layout)
     bg1 = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
     bg1.fill.solid()
-    bg1.fill.fore_color.rgb = PRIMARY
+    bg1.fill.fore_color.rgb = RGBColor(15, 23, 42) if is_dark else RGBColor(30, 58, 138)
     bg1.line.fill.background()
 
-    # Badge shape
     badge1 = s1.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(4.666), Inches(1.6), Inches(4.0), Inches(0.5))
     badge1.fill.solid()
-    badge1.fill.fore_color.rgb = SECONDARY
+    badge1.fill.fore_color.rgb = RGBColor(37, 99, 235) if is_dark else SECONDARY
     badge1.line.fill.background()
     tf_b1 = badge1.text_frame
     p_b1 = tf_b1.paragraphs[0]
@@ -94,7 +120,6 @@ def create_deck():
     p_b1.font.bold = True
     p_b1.font.color.rgb = WHITE
 
-    # Title & Subtitle Box
     tbox1 = s1.shapes.add_textbox(Inches(1.5), Inches(2.4), Inches(10.333), Inches(3.2))
     tf1 = tbox1.text_frame
     tf1.word_wrap = True
@@ -104,7 +129,7 @@ def create_deck():
     p_t1.font.name = FONT_HEADING
     p_t1.font.size = Pt(54)
     p_t1.font.bold = True
-    p_t1.font.color.rgb = WHITE
+    p_t1.font.color.rgb = WHITE if not is_dark else RGBColor(56, 189, 248)
 
     p_sub1 = tf1.add_paragraph()
     p_sub1.text = "สรุปหลักไวยากรณ์ กฎการสร้างประโยค และเทคนิคจำแม่นเพื่อการสื่อสารและทำข้อสอบ"
@@ -128,11 +153,10 @@ def create_deck():
     s2 = prs.slides.add_slide(blank_slide_layout)
     add_header(s2, "Core Concept", "หัวใจหลักของ Past Simple Tense", 2)
 
-    # Box 1: Concept
     b_concept = s2.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(11.733), Inches(1.4))
     b_concept.fill.solid()
     b_concept.fill.fore_color.rgb = LIGHT_BLUE
-    b_concept.line.color.rgb = RGBColor(191, 219, 254)
+    b_concept.line.color.rgb = RGBColor(30, 58, 138) if is_dark else RGBColor(191, 219, 254)
     tf_c = b_concept.text_frame
     tf_c.word_wrap = True
     tf_c.margin_left = tf_c.margin_right = Inches(0.3)
@@ -149,7 +173,6 @@ def create_deck():
     p_c2.font.color.rgb = TEXT_DARK
     p_c2.space_before = Pt(6)
 
-    # Time Expression Header
     tb_time_hdr = s2.shapes.add_textbox(Inches(0.8), Inches(3.4), Inches(11.733), Inches(0.5))
     p_th = tb_time_hdr.text_frame.paragraphs[0]
     p_th.text = "⏰ คำบอกเวลาที่พบบ่อย (Past Time Expressions)"
@@ -158,7 +181,6 @@ def create_deck():
     p_th.font.bold = True
     p_th.font.color.rgb = PRIMARY
 
-    # 4 Cards for time
     time_cards = [
         ("yesterday", "เมื่อวานนี้\n(yesterday morning, yesterday afternoon)"),
         ("last + เวลา", "...ที่แล้ว\n(last night, last week, last month, last year)"),
@@ -221,7 +243,6 @@ def create_deck():
         p1.font.bold = True
         p1.font.color.rgb = theme_color
 
-        # Formula tag
         p2 = tf_c.add_paragraph()
         p2.text = f"  {formula}  "
         p2.font.name = FONT_HEADING
@@ -230,7 +251,6 @@ def create_deck():
         p2.font.color.rgb = theme_color
         p2.space_before = Pt(12)
 
-        # Note
         p3 = tf_c.add_paragraph()
         p3.text = note
         p3.font.name = FONT_MAIN
@@ -238,7 +258,6 @@ def create_deck():
         p3.font.color.rgb = TEXT_MUTED
         p3.space_before = Pt(10)
 
-        # Examples
         p4 = tf_c.add_paragraph()
         p4.text = "ตัวอย่าง:"
         p4.font.name = FONT_MAIN
@@ -273,13 +292,13 @@ def create_deck():
     for i, h in enumerate(headers):
         cell = tbl.cell(0, i)
         cell.fill.solid()
-        cell.fill.fore_color.rgb = RGBColor(241, 245, 249)
+        cell.fill.fore_color.rgb = TBL_HEADER_BG
         p = cell.text_frame.paragraphs[0]
         p.text = h
         p.font.name = FONT_MAIN
         p.font.size = Pt(14)
         p.font.bold = True
-        p.font.color.rgb = PRIMARY
+        p.font.color.rgb = WHITE if is_dark else PRIMARY
 
     table_data = [
         ("1. เติม -ed ทั่วไป", "กริยาส่วนใหญ่เติม -ed ได้ทันที", "watch → watched\nclean → cleaned"),
@@ -293,7 +312,7 @@ def create_deck():
         for col_idx, text in enumerate(data):
             cell = tbl.cell(row_idx, col_idx)
             cell.fill.solid()
-            cell.fill.fore_color.rgb = WHITE if row_idx % 2 != 0 else BG_CARD
+            cell.fill.fore_color.rgb = BG_CARD if row_idx % 2 != 0 else TBL_ROW_ALT
             p = cell.text_frame.paragraphs[0]
             p.text = text
             p.font.name = FONT_MAIN
@@ -308,7 +327,6 @@ def create_deck():
     s5 = prs.slides.add_slide(blank_slide_layout)
     add_header(s5, "Irregular Verbs", "กริยาเปลี่ยนรูปยอดฮิต (ต้องจำให้แม่น)", 5)
 
-    # 2 Tables side by side
     t1_data = [
         ("Base (V.1)", "Past (V.2)", "ความหมาย"),
         ("eat", "ate", "กิน"),
@@ -338,15 +356,15 @@ def create_deck():
                 cell = t.cell(r_idx, c_idx)
                 cell.fill.solid()
                 if r_idx == 0:
-                    cell.fill.fore_color.rgb = RGBColor(241, 245, 249)
+                    cell.fill.fore_color.rgb = TBL_HEADER_BG
                 else:
-                    cell.fill.fore_color.rgb = WHITE if r_idx % 2 != 0 else BG_CARD
+                    cell.fill.fore_color.rgb = BG_CARD if r_idx % 2 != 0 else TBL_ROW_ALT
                 p = cell.text_frame.paragraphs[0]
                 p.text = val
                 p.font.name = FONT_MAIN
                 p.font.size = Pt(13 if r_idx > 0 else 14)
                 p.font.bold = (r_idx == 0 or c_idx < 2)
-                p.font.color.rgb = PRIMARY if r_idx == 0 else (SUCCESS_DARK if c_idx == 1 else TEXT_DARK)
+                p.font.color.rgb = (WHITE if is_dark else PRIMARY) if r_idx == 0 else (SUCCESS_DARK if c_idx == 1 else TEXT_DARK)
 
     render_verb_tbl(s5, t1_data, Inches(0.8), Inches(1.8), Inches(5.7), Inches(4.8))
     render_verb_tbl(s5, t2_data, Inches(6.8), Inches(1.8), Inches(5.7), Inches(4.8))
@@ -357,7 +375,6 @@ def create_deck():
     s6 = prs.slides.add_slide(blank_slide_layout)
     add_header(s6, "Common Trap", "⚠️ กฎทอง \"ถอดเครื่องแบบ\" (จุดตายของข้อสอบ)", 6)
 
-    # Highlight Warning Box
     w_box = s6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), Inches(11.733), Inches(1.6))
     w_box.fill.solid()
     w_box.fill.fore_color.rgb = LIGHT_AMBER
@@ -370,22 +387,20 @@ def create_deck():
     p_w1.font.name = FONT_MAIN
     p_w1.font.size = Pt(16)
     p_w1.font.bold = True
-    p_w1.font.color.rgb = RGBColor(146, 64, 14)
+    p_w1.font.color.rgb = RGBColor(252, 211, 77) if is_dark else RGBColor(146, 64, 14)
     p_w2 = tf_w.add_paragraph()
     p_w2.text = "กริยาแท้ต้องถูก \"ถอดรูปอดีตทิ้ง\" แล้วกลับไปเป็น กริยาช่อง 1 ตัวเดิม (Base Form / V.inf) เสมอ!"
     p_w2.font.name = FONT_MAIN
     p_w2.font.size = Pt(15)
     p_w2.font.bold = True
-    p_w2.font.color.rgb = RGBColor(146, 64, 14)
+    p_w2.font.color.rgb = RGBColor(252, 211, 77) if is_dark else RGBColor(146, 64, 14)
     p_w2.space_before = Pt(6)
 
-    # 2 Comparison Columns
     col_width_half = Inches(5.7)
-    # Wrong Box
     b_wrong = s6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(3.7), col_width_half, Inches(3.2))
     b_wrong.fill.solid()
     b_wrong.fill.fore_color.rgb = LIGHT_RED
-    b_wrong.line.color.rgb = RGBColor(252, 165, 165)
+    b_wrong.line.color.rgb = DANGER
     tf_wr = b_wrong.text_frame
     tf_wr.word_wrap = True
     tf_wr.margin_left = tf_wr.margin_right = Inches(0.3)
@@ -402,11 +417,10 @@ def create_deck():
     p_wr2.font.color.rgb = TEXT_DARK
     p_wr2.space_before = Pt(14)
 
-    # Correct Box
     b_corr = s6.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.833), Inches(3.7), col_width_half, Inches(3.2))
     b_corr.fill.solid()
     b_corr.fill.fore_color.rgb = LIGHT_GREEN
-    b_corr.line.color.rgb = RGBColor(134, 239, 172)
+    b_corr.line.color.rgb = SUCCESS
     tf_cr = b_corr.text_frame
     tf_cr.word_wrap = True
     tf_cr.margin_left = tf_cr.margin_right = Inches(0.3)
@@ -429,7 +443,6 @@ def create_deck():
     s7 = prs.slides.add_slide(blank_slide_layout)
     add_header(s7, "Skill Building", "สูตรกันตาย 3 สเต็ปสร้างประโยคจาก Verb", 7)
 
-    # Intro note
     tb_intro = s7.shapes.add_textbox(Inches(0.8), Inches(1.6), Inches(11.733), Inches(0.4))
     p_in = tb_intro.text_frame.paragraphs[0]
     p_in.text = "เมื่อโจทย์ให้ Verb มาคำเดียว แล้วคิดไม่ออก ให้จำ 3 สเต็ปนี้:"
@@ -467,7 +480,7 @@ def create_deck():
         p2.font.name = FONT_MAIN
         p2.font.size = Pt(16)
         p2.font.bold = True
-        p2.font.color.rgb = PRIMARY
+        p2.font.color.rgb = WHITE if is_dark else PRIMARY
         p2.space_before = Pt(6)
 
         p3 = tf_s.add_paragraph()
@@ -487,11 +500,10 @@ def create_deck():
 
         s_left += s_width + Inches(0.316)
 
-    # Word Bank
     wb_box = s7.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(6.2), Inches(11.733), Inches(0.85))
     wb_box.fill.solid()
     wb_box.fill.fore_color.rgb = LIGHT_GREEN
-    wb_box.line.color.rgb = RGBColor(134, 239, 172)
+    wb_box.line.color.rgb = SUCCESS
     tf_wb = wb_box.text_frame
     p_wb = tf_wb.paragraphs[0]
     p_wb.text = "💡 คลังคำนามช่วยชีวิต: noodles, milk, pizza, my room, YouTube, football, to school, a cat, a movie"
@@ -506,13 +518,11 @@ def create_deck():
     s8 = prs.slides.add_slide(blank_slide_layout)
     add_header(s8, "Unit 5 & 6 Focus", "Adjectives: ลงท้าย -ed VS -ing", 8)
 
-    # 2 Comparison Cards
     adj_w = Inches(5.7)
-    # -ed Card
     ed_card = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.8), Inches(1.8), adj_w, Inches(5.1))
     ed_card.fill.solid()
     ed_card.fill.fore_color.rgb = LIGHT_GREEN
-    ed_card.line.color.rgb = RGBColor(187, 247, 208)
+    ed_card.line.color.rgb = SUCCESS
     tf_ed = ed_card.text_frame
     tf_ed.word_wrap = True
     tf_ed.margin_left = tf_ed.margin_right = Inches(0.3)
@@ -523,13 +533,13 @@ def create_deck():
     p_e1.font.name = FONT_MAIN
     p_e1.font.size = Pt(18)
     p_e1.font.bold = True
-    p_e1.font.color.rgb = RGBColor(22, 101, 52)
+    p_e1.font.color.rgb = SUCCESS
 
     p_e2 = tf_ed.add_paragraph()
     p_e2.text = "ใช้อธิบาย ความรู้สึกของคนหรือสัตว์"
     p_e2.font.name = FONT_MAIN
     p_e2.font.size = Pt(14)
-    p_e2.font.color.rgb = RGBColor(20, 83, 45)
+    p_e2.font.color.rgb = TEXT_DARK
     p_e2.space_before = Pt(8)
 
     p_e3 = tf_ed.add_paragraph()
@@ -544,14 +554,13 @@ def create_deck():
     p_e4.font.name = FONT_MAIN
     p_e4.font.size = Pt(14)
     p_e4.font.bold = True
-    p_e4.font.color.rgb = RGBColor(22, 101, 52)
+    p_e4.font.color.rgb = SUCCESS
     p_e4.space_before = Pt(16)
 
-    # -ing Card
     ing_card = s8.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(6.833), Inches(1.8), adj_w, Inches(5.1))
     ing_card.fill.solid()
     ing_card.fill.fore_color.rgb = LIGHT_RED
-    ing_card.line.color.rgb = RGBColor(254, 202, 202)
+    ing_card.line.color.rgb = DANGER
     tf_ing = ing_card.text_frame
     tf_ing.word_wrap = True
     tf_ing.margin_left = tf_ing.margin_right = Inches(0.3)
@@ -562,13 +571,13 @@ def create_deck():
     p_i1.font.name = FONT_MAIN
     p_i1.font.size = Pt(18)
     p_i1.font.bold = True
-    p_i1.font.color.rgb = RGBColor(153, 27, 27)
+    p_i1.font.color.rgb = DANGER
 
     p_i2 = tf_ing.add_paragraph()
     p_i2.text = "ใช้อธิบาย ลักษณะของสิ่งของ หนัง หรือเหตุการณ์"
     p_i2.font.name = FONT_MAIN
     p_i2.font.size = Pt(14)
-    p_i2.font.color.rgb = RGBColor(127, 29, 29)
+    p_i2.font.color.rgb = TEXT_DARK
     p_i2.space_before = Pt(8)
 
     p_i3 = tf_ing.add_paragraph()
@@ -583,7 +592,7 @@ def create_deck():
     p_i4.font.name = FONT_MAIN
     p_i4.font.size = Pt(14)
     p_i4.font.bold = True
-    p_i4.font.color.rgb = RGBColor(153, 27, 27)
+    p_i4.font.color.rgb = DANGER
     p_i4.space_before = Pt(16)
 
     # -------------------------------------------------------------
@@ -614,7 +623,7 @@ def create_deck():
         p1.font.name = FONT_MAIN
         p1.font.size = Pt(16)
         p1.font.bold = True
-        p1.font.color.rgb = PRIMARY
+        p1.font.color.rgb = SECONDARY if is_dark else PRIMARY
 
         p2 = tf_t.add_paragraph()
         p2.text = desc
@@ -631,10 +640,9 @@ def create_deck():
     s10 = prs.slides.add_slide(blank_slide_layout)
     bg10 = s10.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, Inches(13.333), Inches(7.5))
     bg10.fill.solid()
-    bg10.fill.fore_color.rgb = RGBColor(15, 118, 110) # Teal gradient look
+    bg10.fill.fore_color.rgb = RGBColor(19, 78, 74) if is_dark else RGBColor(15, 118, 110)
     bg10.line.fill.background()
 
-    # Badge shape
     badge10 = s10.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(5.166), Inches(1.6), Inches(3.0), Inches(0.5))
     badge10.fill.solid()
     badge10.fill.fore_color.rgb = RGBColor(13, 148, 136)
@@ -648,7 +656,6 @@ def create_deck():
     p_b10.font.bold = True
     p_b10.font.color.rgb = WHITE
 
-    # Title & Subtitle Box
     tbox10 = s10.shapes.add_textbox(Inches(1.5), Inches(2.4), Inches(10.333), Inches(3.5))
     tf10 = tbox10.text_frame
     tf10.word_wrap = True
@@ -676,9 +683,9 @@ def create_deck():
     p_note10.font.color.rgb = RGBColor(153, 246, 228)
     p_note10.space_before = Pt(14)
 
-    output_path = "Past_Simple_Tense_Presentation.pptx"
-    prs.save(output_path)
-    print(f"Saved PowerPoint presentation to {output_path}")
+    prs.save(filename)
+    print(f"Saved {filename}")
 
 if __name__ == "__main__":
-    create_deck()
+    create_deck(is_dark=False, filename="Past_Simple_Tense_Presentation.pptx")
+    create_deck(is_dark=True, filename="Past_Simple_Tense_Presentation_Dark.pptx")

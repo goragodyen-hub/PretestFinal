@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Simple Tense Presentation - Grade 8</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #eff6ff;
+            --secondary: #0284c7;
+            --secondary-light: #e0f2fe;
+            --accent: #d97706;
+            --accent-light: #fffbeb;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --danger: #dc2626;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #0f172a;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-dark);
+        /* Dark Slide Theme Overrides */
+        body.dark-slide .slide-viewport { background-color: #0f172a; border: 1px solid #334155; }
+        body.dark-slide .slide { background: #0f172a; color: #f1f5f9; }
+        body.dark-slide .slide-header { border-bottom-color: #334155; }
+        body.dark-slide .slide-title { color: #38bdf8; }
+        body.dark-slide .card { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+        body.dark-slide .card h3 { color: #60a5fa; }
+        body.dark-slide .example-box { background: #0f172a; border-color: #475569; color: #f1f5f9; }
+        body.dark-slide table.slide-table th { background-color: #1e3a8a; color: #ffffff; border-color: #334155; }
+        body.dark-slide table.slide-table td { border-color: #334155; color: #f1f5f9; }
+        body.dark-slide table.slide-table tr:nth-child(even) td { background-color: #162032; }
+
+        /* 16:9 Presentation Frame */
+        .slide-viewport {
+            width: 1000px;
+            height: 562.5px; /* 16:9 Aspect Ratio */
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 44px 56px;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: #ffffff;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Slide Headers */
+        .slide-header {
+            margin-bottom: 24px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .slide-tag {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .slide-title {
+            font-size: 1.85rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .slide-number {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Content Elements */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex: 1;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-highlight {
+            border-top: 5px solid var(--secondary);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .formula-tag {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            display: inline-block;
+            border-left: 4px solid var(--primary);
+        }
+
+        .example-box {
+            background: #ffffff;
+            border: 1px dashed #cbd5e1;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        .example-box strong {
+            color: var(--secondary);
+        }
+
+        /* Tables */
+        table.slide-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            margin-top: 8px;
+        }
+
+        table.slide-table th, 
+        table.slide-table td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        table.slide-table th {
+            background-color: #f1f5f9;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Callout Box */
+        .callout-warning {
+            background-color: var(--accent-light);
+            border-left: 5px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: 8px;
+            color: #92400e;
+            margin-top: 14px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .callout-success {
+            background-color: var(--success-light);
+            border-left: 5px solid var(--success);
+            padding: 16px 20px;
+            border-radius: 8px;
+            color: #14532d;
+            margin-top: 14px;
+            font-size: 1.05rem;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background: #1e293b;
+            color: #ffffff;
+            border: 1px solid #334155;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Title Slide Special Styling */
+        .title-slide {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px;
+        }
+
+        .title-slide h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .title-slide p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-bottom: 28px;
+        }
+
+        .title-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: inline-block;
+        }
+
+        /* Printable / Fullscreen Helper */
+        @media print {
+            body { background: white; padding: 0; }
+            .slide-viewport { width: 100%; height: auto; box-shadow: none; border-radius: 0; }
+            .slide { position: relative; display: flex !important; opacity: 1 !important; page-break-after: always; height: 100vh; }
+            .controls { display: none; }
+        }
+    </style>
+</head>
+<body class="dark-slide">
+
+    <!-- 16:9 Presentation Viewport -->
+    <div class="slide-viewport">
+
+        <!-- SLIDE 1: Cover -->
+        <div class="slide title-slide active">
+            <span class="title-badge">English Grammar • Grade 8 (ม.2)</span>
+            <h1>Past Simple Tense</h1>
+            <p>สรุปหลักไวยากรณ์ กฎการสร้างประโยค และเทคนิคจำแม่นเพื่อการสื่อสารและทำข้อสอบ</p>
+            <div style="font-size: 0.95rem; opacity: 0.75;">ฉบับคู่มือการสอนติวเข้มสำหรับลูก</div>
+        </div>
+
+        <!-- SLIDE 2: Core Concept -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Core Concept</div>
+                    <div class="slide-title">หัวใจหลักของ Past Simple Tense</div>
+                </div>
+                <div class="slide-number">Slide 2 / 10</div>
+            </div>
+            <div class="card" style="margin-bottom: 16px; background: var(--primary-light); border-color: #bfdbfe;">
+                <h3 style="color: var(--primary); font-size: 1.35rem; margin-bottom: 6px;">💡 ใช้เมื่อไหร่?</h3>
+                <p style="font-size: 1.15rem; color: #1e3a8a;">
+                    ใช้กับเหตุการณ์หรือการกระทำที่ <strong>"เกิดขึ้นและจบสิ้นลงอย่างสมบูรณ์แล้วในอดีต"</strong> (ปัจจุบันไม่ได้ทำแล้ว)
+                </p>
+            </div>
+            <div class="card card-highlight">
+                <h3>⏰ คำบอกเวลาที่พบบ่อย (Time Expressions)</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px;">
+                    <div class="example-box">
+                        <strong>yesterday</strong>: เมื่อวานนี้<br>
+                        <em>(yesterday morning, yesterday afternoon)</em>
+                    </div>
+                    <div class="example-box">
+                        <strong>last + เวลา</strong>: ...ที่แล้ว<br>
+                        <em>(last night, last week, last month, last year)</em>
+                    </div>
+                    <div class="example-box">
+                        <strong>ช่วงเวลา + ago</strong>: ...ที่ผ่านมา<br>
+                        <em>(two hours ago, three days ago, a year ago)</em>
+                    </div>
+                    <div class="example-box">
+                        <strong>in + ปีอดีต</strong>: ในปี...<br>
+                        <em>(in 2020, in the past, when I was young)</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Sentence Structures -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Grammar Rules</div>
+                    <div class="slide-title">โครงสร้างประโยค 3 รูปแบบ (+, -, ?)</div>
+                </div>
+                <div class="slide-number">Slide 3 / 10</div>
+            </div>
+            <div class="grid-3">
+                <div class="card card-highlight">
+                    <h3 style="color: var(--success);">1. บอกเล่า (+)</h3>
+                    <div class="formula-tag">Subject + V.2</div>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px;">ใช้กริยาช่องที่ 2 เสมอ</p>
+                    <div class="example-box">
+                        We <strong>played</strong> football.<br>
+                        He <strong>went</strong> to Japan.
+                    </div>
+                </div>
+                <div class="card card-highlight">
+                    <h3 style="color: var(--danger);">2. ปฏิเสธ (-)</h3>
+                    <div class="formula-tag" style="background:#fee2e2; color:#b91c1c; border-color:#ef4444;">S + didn't + V.inf</div>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px;">ใช้ didn't แล้วคืนรูปกริยาเดิม</p>
+                    <div class="example-box">
+                        We <strong>didn't play</strong> football.<br>
+                        He <strong>didn't go</strong> to Japan.
+                    </div>
+                </div>
+                <div class="card card-highlight">
+                    <h3 style="color: var(--secondary);">3. คำถาม (?)</h3>
+                    <div class="formula-tag" style="background:#e0f2fe; color:#0369a1; border-color:#0284c7;">Did + S + V.inf ...?</div>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px;">เอา Did ขึ้นหน้า กริยาใช้รูปเดิม</p>
+                    <div class="example-box">
+                        <strong>Did</strong> they <strong>play</strong>?<br>
+                        <strong>Did</strong> he <strong>go</strong> to Japan?
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Regular Verbs Rules -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Regular Verbs</div>
+                    <div class="slide-title">กฎ 5 ข้อของการเติม -ed</div>
+                </div>
+                <div class="slide-number">Slide 4 / 10</div>
+            </div>
+            <table class="slide-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">กฎการเติม</th>
+                        <th style="width: 45%;">คำอธิบาย</th>
+                        <th style="width: 30%;">ตัวอย่าง</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. เติม -ed ทั่วไป</strong></td>
+                        <td>กริยาส่วนใหญ่เติม -ed ได้ทันที</td>
+                        <td>watch &rarr; <strong>watched</strong><br>clean &rarr; <strong>cleaned</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. ลงท้ายด้วย e</strong></td>
+                        <td>เติมเพียง <strong>-d</strong> ท้ายคำได้เลย</td>
+                        <td>live &rarr; <strong>lived</strong><br>arrive &rarr; <strong>arrived</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. พยัญชนะ + y</strong></td>
+                        <td>เปลี่ยน <strong>y</strong> เป็น <strong>i</strong> แล้วเติม <strong>-ed</strong></td>
+                        <td>study &rarr; <strong>studied</strong><br>tidy &rarr; <strong>tidied</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. สระ + y</strong></td>
+                        <td>เติม <strong>-ed</strong> ได้ทันที (ห้ามเปลี่ยนรูป)</td>
+                        <td>play &rarr; <strong>played</strong><br>stay &rarr; <strong>stayed</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. 1 สระ + 1 ตัวสะกด</strong></td>
+                        <td>เบิ้ลตัวสะกดท้ายอีก 1 ตัวก่อนเติม -ed</td>
+                        <td>stop &rarr; <strong>stopped</strong><br>plan &rarr; <strong>planned</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SLIDE 5: Irregular Verbs Table -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Irregular Verbs</div>
+                    <div class="slide-title">กริยาเปลี่ยนรูปยอดฮิต (ต้องจำให้แม่น)</div>
+                </div>
+                <div class="slide-number">Slide 5 / 10</div>
+            </div>
+            <div class="grid-2">
+                <table class="slide-table">
+                    <thead>
+                        <tr><th>Base (V.1)</th><th>Past (V.2)</th><th>ความหมาย</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>eat</strong></td><td><strong style="color:var(--success);">ate</strong></td><td>กิน</td></tr>
+                        <tr><td><strong>buy</strong></td><td><strong style="color:var(--success);">bought</strong></td><td>ซื้อ</td></tr>
+                        <tr><td><strong>go</strong></td><td><strong style="color:var(--success);">went</strong></td><td>ไป</td></tr>
+                        <tr><td><strong>see</strong></td><td><strong style="color:var(--success);">saw</strong></td><td>เห็น/พบ</td></tr>
+                        <tr><td><strong>have</strong></td><td><strong style="color:var(--success);">had</strong></td><td>มี / รับประทาน</td></tr>
+                    </tbody>
+                </table>
+                <table class="slide-table">
+                    <thead>
+                        <tr><th>Base (V.1)</th><th>Past (V.2)</th><th>ความหมาย</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>make</strong></td><td><strong style="color:var(--success);">made</strong></td><td>ทำ/สร้าง</td></tr>
+                        <tr><td><strong>lose</strong></td><td><strong style="color:var(--success);">lost</strong></td><td>ทำหาย/แพ้</td></tr>
+                        <tr><td><strong>read</strong></td><td><strong style="color:var(--success);">read</strong> (เรด)</td><td>อ่าน</td></tr>
+                        <tr><td><strong>write</strong></td><td><strong style="color:var(--success);">wrote</strong></td><td>เขียน</td></tr>
+                        <tr><td><strong>drink</strong></td><td><strong style="color:var(--success);">drank</strong></td><td>ดื่ม</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Critical Warning -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Common Trap</div>
+                    <div class="slide-title">⚠️ กฎทอง "ถอดเครื่องแบบ" (จุดตายของข้อสอบ)</div>
+                </div>
+                <div class="slide-number">Slide 6 / 10</div>
+            </div>
+            <div class="callout-warning">
+                <strong>เมื่อไหร่ที่มี Did หรือ didn't โผล่เข้ามาในประโยค...</strong><br>
+                กริยาแท้ต้องถูก <u>ถอดรูปอดีตทิ้ง</u> แล้วกลับไปเป็น <strong>กริยาช่อง 1 ตัวเดิม (V.inf) เสมอ!</strong>
+            </div>
+            <div class="grid-2" style="margin-top: 16px;">
+                <div class="card" style="background:#fee2e2; border-color:#fca5a5;">
+                    <h3 style="color:#b91c1c;">❌ สิ่งที่เด็กๆ ชอบผิด</h3>
+                    <ul style="padding-left: 20px; font-size: 1.05rem; line-height: 1.8;">
+                        <li>He didn't <strong>went</strong> to school.</li>
+                        <li>Did you <strong>saw</strong> that cat?</li>
+                        <li>We didn't <strong>watched</strong> TV.</li>
+                    </ul>
+                </div>
+                <div class="card" style="background:#dcfce7; border-color:#86efac;">
+                    <h3 style="color:#15803d;">✔️ ประโยคที่ถูกต้อง</h3>
+                    <ul style="padding-left: 20px; font-size: 1.05rem; line-height: 1.8;">
+                        <li>He didn't <strong>go</strong> to school.</li>
+                        <li>Did you <strong>see</strong> that cat?</li>
+                        <li>We didn't <strong>watch</strong> TV.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Step-by-Step Sentence Building -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Skill Building</div>
+                    <div class="slide-title">สูตรกันตาย 3 สเต็ปสร้างประโยคจาก Verb</div>
+                </div>
+                <div class="slide-number">Slide 7 / 10</div>
+            </div>
+            <p style="margin-bottom: 12px; font-size: 1.05rem;">เมื่อโจทย์ให้ Verb มาคำเดียว แล้วลูกคิดไม่ออก ให้จำ 3 สเต็ปนี้:</p>
+            <div class="grid-3">
+                <div class="card card-highlight">
+                    <div style="font-size: 1.3rem; font-weight:800; color:var(--secondary); margin-bottom:6px;">Step 1</div>
+                    <h3 style="font-size: 1.1rem;">ผันเป็น V.2 ให้ถูก</h3>
+                    <p style="font-size: 0.95rem; color:var(--text-muted);">เปลี่ยนรูป หรือเติม -ed ทันที</p>
+                    <div class="example-box"><strong>eat</strong> &rarr; <strong>ate</strong></div>
+                </div>
+                <div class="card card-highlight">
+                    <div style="font-size: 1.3rem; font-weight:800; color:var(--secondary); margin-bottom:6px;">Step 2</div>
+                    <h3 style="font-size: 1.1rem;">เติมนามสั้นๆ 1 ตัว</h3>
+                    <p style="font-size: 0.95rem; color:var(--text-muted);">ทำอะไร? หรือไปที่ไหน?</p>
+                    <div class="example-box">กินอะไร? &rarr; <strong>noodles</strong></div>
+                </div>
+                <div class="card card-highlight">
+                    <div style="font-size: 1.3rem; font-weight:800; color:var(--secondary); margin-bottom:6px;">Step 3</div>
+                    <h3 style="font-size: 1.1rem;">ประกอบร่างเข้าสูตร</h3>
+                    <p style="font-size: 0.95rem; color:var(--text-muted);">I + [V.2] + [กรรม] + yesterday.</p>
+                    <div class="example-box" style="color:var(--success); font-weight:bold;">
+                        I ate noodles yesterday.
+                    </div>
+                </div>
+            </div>
+            <div class="callout-success" style="margin-top: 14px; font-size: 0.95rem; padding: 12px 16px;">
+                💡 <strong>คลังคำนามช่วยชีวิต:</strong> noodles, milk, pizza, my room, YouTube, football, to school
+            </div>
+        </div>
+
+        <!-- SLIDE 8: -ed vs -ing Adjectives -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Unit 5 & 6 Focus</div>
+                    <div class="slide-title">Adjectives: ลงท้าย -ed VS -ing</div>
+                </div>
+                <div class="slide-number">Slide 8 / 10</div>
+            </div>
+            <div class="grid-2">
+                <div class="card" style="background:#f0fdf4; border: 1px solid #bbf7d0;">
+                    <h3 style="color:#166534;">😊 ลงท้ายด้วย -ed = "รู้สึก..."</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 10px; color:#14532d;">ใช้อธิบาย <strong>ความรู้สึกของคนหรือสัตว์</strong></p>
+                    <ul style="padding-left: 20px; font-size: 1rem; line-height: 1.7;">
+                        <li><strong>bored</strong> = รู้สึกเบื่อ</li>
+                        <li><strong>interested</strong> = รู้สึกสนใจ</li>
+                        <li><strong>relaxed</strong> = รู้สึกผ่อนคลาย</li>
+                        <li><strong>annoyed</strong> = รู้สึกหงุดหงิด/รำคาญ</li>
+                    </ul>
+                    <div class="example-box" style="margin-top: 14px;">
+                        <em>"I was <strong>bored</strong> during the lesson."</em>
+                    </div>
+                </div>
+                <div class="card" style="background:#fef2f2; border: 1px solid #fecaca;">
+                    <h3 style="color:#991b1b;">🎬 ลงท้ายด้วย -ing = "น่า..."</h3>
+                    <p style="font-size: 0.95rem; margin-bottom: 10px; color:#7f1d1d;">ใช้อธิบาย <strong>ลักษณะของสิ่งของ หนัง หรือเหตุการณ์</strong></p>
+                    <ul style="padding-left: 20px; font-size: 1rem; line-height: 1.7;">
+                        <li><strong>boring</strong> = น่าเบื่อ</li>
+                        <li><strong>interesting</strong> = น่าสนใจ</li>
+                        <li><strong>relaxing</strong> = น่าผ่อนคลาย</li>
+                        <li><strong>annoying</strong> = น่ารำคาญ</li>
+                    </ul>
+                    <div class="example-box" style="margin-top: 14px;">
+                        <em>"That movie was really <strong>boring</strong>."</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Exam Traps -->
+        <div class="slide">
+            <div class="slide-header">
+                <div>
+                    <div class="slide-tag">Exam Diagnostics</div>
+                    <div class="slide-title">3 จุดหลอกยอดฮิตที่เด็ก ม.2 ชอบเสียคะแนน</div>
+                </div>
+                <div class="slide-number">Slide 9 / 10</div>
+            </div>
+            <div class="card card-highlight" style="margin-bottom: 12px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 4px;">1. สะกดคำผิดเมื่อเติม -ed กับตัว y</h3>
+                <p style="font-size: 0.95rem;">
+                    &bull; ถ้าหน้า y เป็นพยัญชนะ เปลี่ยน y &rarr; i เช่น <strong>studied</strong> (ไม่ใช่ <span style="text-decoration:line-through; color:red;">studyed</span>)<br>
+                    &bull; ถ้าหน้า y เป็นสระ เติม -ed ได้เลย เช่น <strong>played</strong> (ไม่ใช่ <span style="text-decoration:line-through; color:red;">plaied</span>)
+                </p>
+            </div>
+            <div class="card card-highlight" style="margin-bottom: 12px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 4px;">2. คำบอกเวลากลางคืน</h3>
+                <p style="font-size: 0.95rem;">
+                    ภาษาอังกฤษใช้ <strong>last night</strong> (ห้ามพูด <span style="text-decoration:line-through; color:red;">yesterday night</span> ❌)
+                </p>
+            </div>
+            <div class="card card-highlight">
+                <h3 style="font-size: 1.1rem; margin-bottom: 4px;">3. การแสดงความเป็นเจ้าของ Double Genitive</h3>
+                <p style="font-size: 0.95rem;">
+                    ใช้ a friend of <strong>mine</strong> (ไม่ใช่ <span style="text-decoration:line-through; color:red;">a friend of me</span> ❌)
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Closing -->
+        <div class="slide title-slide" style="background: linear-gradient(135deg, #0f766e 0%, #1e3a8a 100%);">
+            <span class="title-badge">Great Job!</span>
+            <h1 style="font-size: 2.5rem;">พร้อมลุยทำแบบฝึกหัดแล้ว!</h1>
+            <p style="font-size: 1.2rem;">
+                "ฝึกฝนสม่ำเสมอ จับตาดู Did/didn't และจำรูปกริยาให้แม่น แล้วลูกจะทำข้อสอบได้อย่างมั่นใจแน่นอน"
+            </p>
+            <div style="margin-top: 10px; font-size: 1rem; opacity: 0.85;">
+                คุณพ่อสามารถเปิดหน้าแบบฝึกหัดให้น้องเริ่มทำต่อได้เลยครับ 👏
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="controls">
+        <button class="btn" id="prevBtn" onclick="prevSlide()">❮ ก่อนหน้า (Previous)</button>
+        <span id="slideIndicator">1 / 10</span>
+        <button class="btn" id="nextBtn" onclick="nextSlide()">ถัดไป (Next) ❯</button>
+        <button class="btn" onclick="toggleSlideDark()" style="margin-left: 12px; background: #0284c7;">🌙 / ☀️ สลับธีมสไลด์</button>
+        <span style="margin-left: 16px;">(หรือใช้ปุ่มลูกศร ◄ / ► บนคีย์บอร์ด)</span>
+    </div>
+
+    <!-- Slide Navigation Script -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slideIndicator = document.getElementById('slideIndicator');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function toggleSlideDark() {
+            document.body.classList.toggle('dark-slide');
+        }
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            slideIndicator.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                prevSlide();
+            }
+        });
+
+        // Initialize state
+        updateSlide();
+    </script>
+</body>
+</html>

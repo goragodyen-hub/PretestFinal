@@ -6,9 +6,10 @@
     <title>ใบงานแบบฝึกหัดพิมพ์ได้ (Printable Worksheets) • Past Simple Tense ม.2</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/print.css">
+    <script src="js/theme.js"></script>
     <style>
         .print-control-bar {
-            background: white;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 16px 20px;
@@ -52,6 +53,7 @@
                 <a href="grammar.html" class="nav-link">📖 สรุปไวยากรณ์ & โค้ชผู้ปกครอง</a>
                 <a href="practice.html" class="nav-link">✍️ ทำแบบฝึกหัดออนไลน์</a>
                 <a href="printable.html" class="nav-link active">🖨️ ใบงานพิมพ์ได้ (Printable)</a>
+                <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()">🌙 โหมดมืด</button>
             </nav>
         </div>
     </header>
