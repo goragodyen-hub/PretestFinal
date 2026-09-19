@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คู่มือสรุปไวยากรณ์และชุดแบบฝึกหัด Past Simple Tense ม.2 (ฉบับสมบูรณ์สำหรับผู้ปกครอง)</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #eff6ff;
+            --secondary: #0284c7;
+            --secondary-light: #e0f2fe;
+            --accent: #d97706;
+            --accent-light: #fffbeb;
+            --success: #166534;
+            --success-light: #f0fdf4;
+            --success-border: #86efac;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header Banner */
+        .main-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 50%, #0d9488 100%);
+            color: white;
+            padding: 36px 28px;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.25);
+        }
+
+        .badge-header {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .main-header h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .main-header p {
+            font-size: 1.05rem;
+            opacity: 0.95;
+            max-width: 800px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Section Headings */
+        .part-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        .part-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .part-title {
+            font-size: 1.45rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Cards & Containers */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 22px 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+        }
+
+        h2.card-title {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 10px;
+        }
+
+        h3.sub-title {
+            font-size: 1.08rem;
+            color: #1e293b;
+            margin: 16px 0 8px 0;
+        }
+
+        /* Teaching Highlight Boxes */
+        .formula-box {
+            background: var(--primary-light);
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid var(--primary);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.96rem;
+        }
+
+        .warning-box {
+            background: var(--accent-light);
+            border: 1px solid #fde68a;
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 14px 0;
+            font-size: 0.93rem;
+            color: #92400e;
+        }
+
+        .tip-box {
+            background-color: #fefce8;
+            border: 1px solid #fef08a;
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 0.93rem;
+            color: #854d0e;
+        }
+
+        .coach-box {
+            background: #f0fdf4;
+            border: 1px solid var(--success-border);
+            border-left: 4px solid var(--success);
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin: 14px 0;
+            font-size: 0.94rem;
+        }
+
+        .coach-box strong {
+            color: var(--success);
+        }
+
+        /* Tables */
+        table.custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.93rem;
+            margin: 12px 0;
+        }
+
+        table.custom-table th, 
+        table.custom-table td {
+            border: 1px solid var(--border);
+            padding: 9px 12px;
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        table.custom-table th {
+            background-color: #f1f5f9;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        table.custom-table tr:nth-child(even) td {
+            background-color: #f8fafc;
+        }
+
+        /* Student Worksheet Elements */
+        .student-info-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.95rem;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+        }
+
+        .info-field {
+            flex: 1;
+            min-width: 170px;
+            border-bottom: 1px dotted var(--text-muted);
+            padding-bottom: 2px;
+        }
+
+        .fill-line {
+            display: inline-block;
+            min-width: 120px;
+            border-bottom: 1px solid #475569;
+            height: 1.2em;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 110px;
+            border-bottom: 1px solid #475569;
+            margin: 0 4px;
+            text-align: center;
+        }
+
+        .write-blank {
+            display: inline-block;
+            width: 95%;
+            border-bottom: 1px dashed #64748b;
+            min-height: 24px;
+        }
+
+        .word-tag {
+            display: inline-block;
+            background-color: #f1f5f9;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-weight: 600;
+            color: #0f172a;
+            margin-right: 4px;
+            font-size: 0.88rem;
+        }
+
+        .badge-score {
+            float: right;
+            background: var(--secondary-light);
+            color: var(--secondary);
+            font-size: 0.85rem;
+            padding: 3px 12px;
+            border-radius: 999px;
+            font-weight: bold;
+        }
+
+        .badge-pos {
+            background-color: #dcfce7;
+            color: #15803d;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .badge-neg {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        /* Step List */
+        .step-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 12px 0;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 14px;
+        }
+
+        .step-num {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            background: var(--secondary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.82rem;
+            font-weight: bold;
+        }
+
+        .q-list {
+            padding-left: 22px;
+            margin: 10px 0;
+        }
+
+        .q-list li {
+            margin-bottom: 12px;
+        }
+
+        /* Master Answer Section */
+        .answer-section {
+            background: var(--success-light);
+            border: 2px dashed var(--success-border);
+            border-radius: 12px;
+            padding: 22px;
+            margin: 24px 0;
+        }
+
+        .answer-title {
+            color: var(--success);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ans-block {
+            margin-bottom: 20px;
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #dcfce7;
+        }
+
+        .ans-block h4 {
+            color: #15803d;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #bbf7d0;
+            padding-bottom: 4px;
+        }
+
+        .ans-list {
+            padding-left: 20px;
+            font-size: 0.94rem;
+        }
+
+        .ans-list li {
+            margin-bottom: 6px;
+        }
+
+        .expl {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-left: 6px;
+        }
+
+        /* Print Settings */
+        @media print {
+            body { background: white; padding: 0; font-size: 9.5pt; }
+            .container { max-width: 100%; }
+            .nav-bar { display: none; }
+            .card { box-shadow: none; border: 1px solid #94a3b8; page-break-inside: avoid; }
+            .part-divider { page-break-before: always; }
+            .answer-section { page-break-before: always; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header Banner -->
+    <header class="main-header">
+        <span class="badge-header">English Grammar & Teaching Manual • Grade 8 (ม.2)</span>
+        <h1>คู่มือสรุปไวยากรณ์ & ชุดแบบฝึกหัด Past Simple Tense (ฉบับรวมสมบูรณ์)</h1>
+        <p>รวบรวมเนื้อหาครบถ้วนจาก Unit 5 (No Place Like Home) & Unit 6 (Friends Forever), เทคนิคการสอนสำหรับผู้ปกครอง, แบบฝึกหัด 3 ชุด พร้อมเฉลยละเอียดและวิเคราะห์จุดตาย</p>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-bar">
+        <a href="#part1" class="nav-link">1. สรุปไวยากรณ์ (Unit 5 & 6)</a>
+        <a href="#part2" class="nav-link">2. เทคนิคการสอนสำหรับคุณพ่อ</a>
+        <a href="#part3" class="nav-link">3. ใบงานรวม (25 คะแนน)</a>
+        <a href="#part4" class="nav-link">4. แบบฝึก Sentence Building</a>
+        <a href="#part5" class="nav-link">5. แบบฝึก Verb 10 ข้อ (Step-by-Step)</a>
+        <a href="#part6" class="nav-link">6. คลังเฉลยละเอียด (Master Keys)</a>
+    </nav>
+
+    <!-- ================================================================= -->
+    <!-- PART 1: COMPREHENSIVE GRAMMAR SUMMARY -->
+    <!-- ================================================================= -->
+    <section id="part1">
+        <div class="part-divider">
+            <span class="part-badge">ส่วนที่ 1</span>
+            <h2 class="part-title">สรุปเนื้อหาไวยากรณ์และคำศัพท์ (Unit 5 & Unit 6)</h2>
+        </div>
+
+        <!-- 1.1 Past Simple Structures -->
+        <div class="card">
+            <h2 class="card-title">1. Past Simple Tense: กฎและการสร้างประโยค</h2>
+            <p>ใช้เล่าถึงเหตุการณ์หรือการกระทำที่<strong>เกิดขึ้นและจบสิ้นลงอย่างสมบูรณ์แล้วในอดีต</strong> มักมีคำระบุเวลาเจาะจง</p>
+
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">ชนิดประโยค</th>
+                        <th style="width: 35%;">โครงสร้าง</th>
+                        <th style="width: 40%;">ตัวอย่างประโยค</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>บอกเล่า (Affirmative)</strong></td>
+                        <td>Subject + <strong>V.2</strong> (เติม -ed หรือเปลี่ยนรูป)</td>
+                        <td>
+                            • We <strong>played</strong> football yesterday.<br>
+                            • They <strong>went</strong> to Japan last year.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>ปฏิเสธ (Negative)</strong></td>
+                        <td>Subject + <strong>did not (didn't) + V.inf</strong></td>
+                        <td>
+                            • She <strong>didn't watch</strong> TV last night.<br>
+                            • We <strong>didn't go</strong> to the mall.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>คำถาม (Yes/No)</strong></td>
+                        <td><strong>Did + Subject + V.inf ...?</strong></td>
+                        <td>
+                            • <strong>Did you see</strong> that movie?<br>
+                            <em>(Yes, I did. / No, I didn't.)</em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>คำถาม (Wh-Questions)</strong></td>
+                        <td><strong>Wh-word + did + Subject + V.inf ...?</strong></td>
+                        <td>
+                            • <strong>Where did you meet</strong> your friend?<br>
+                            • <strong>What did he buy</strong> this morning?
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ กฎเหล็กจุดตายของเด็ก ม.2 (Get It Right!):</strong><br>
+                เมื่อใดก็ตามที่มีกริยาช่วย <strong>did / didn't</strong> โผล่เข้ามาในประโยคปฏิเสธหรือคำถาม กริยาแท้ต้องถูกถอดกลับเป็น <strong>รูปเดิมไม่ผัน (Base Form / V.inf) เสมอ!</strong><br>
+                &bull; <em>didn't went</em> ❌ ➔ <em>didn't go</em> ✔️<br>
+                &bull; <em>Did you saw?</em> ❌ ➔ <em>Did you see?</em> ✔️
+            </div>
+        </div>
+
+        <!-- 1.2 Regular vs Irregular -->
+        <div class="card">
+            <h2 class="card-title">2. การสร้างกริยาช่องที่ 2 (Regular vs Irregular Verbs)</h2>
+            
+            <h3 class="sub-title">1) Regular Verbs (กริยาปกติ เติม -ed)</h3>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">หลักเกณฑ์</th>
+                        <th style="width: 40%;">คำอธิบาย</th>
+                        <th style="width: 35%;">ตัวอย่าง</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>เติม -ed ปกติ</strong></td>
+                        <td>กริยาทั่วไปเติม -ed ได้ทันที</td>
+                        <td>look ➔ <strong>looked</strong>, watch ➔ <strong>watched</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>ลงท้ายด้วย e</strong></td>
+                        <td>เติมเพียง -d ท้ายคำ</td>
+                        <td>live ➔ <strong>lived</strong>, arrive ➔ <strong>arrived</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>พยัญชนะ + y</strong></td>
+                        <td>เปลี่ยน y เป็น <strong>i</strong> แล้วเติม -ed</td>
+                        <td>study ➔ <strong>studied</strong>, tidy ➔ <strong>tidied</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>สระ + y</strong></td>
+                        <td>เติม -ed ได้เลย (ห้ามเปลี่ยน y)</td>
+                        <td>play ➔ <strong>played</strong>, stay ➔ <strong>stayed</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong>สระ 1 ตัว + ตัวสะกด 1 ตัว</strong></td>
+                        <td>เบิ้ลตัวสะกดท้าย 1 ตัวก่อนเติม -ed</td>
+                        <td>stop ➔ <strong>stopped</strong>, plan ➔ <strong>planned</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">2) Irregular Verbs ที่พบบ่อยในบทเรียน (กริยาเปลี่ยนรูป)</h3>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Base Form (V.1)</th>
+                        <th style="width: 25%;">Past Simple (V.2)</th>
+                        <th style="width: 25%;">Base Form (V.1)</th>
+                        <th style="width: 25%;">Past Simple (V.2)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>eat (กิน)</td><td><strong>ate</strong></td><td>buy (ซื้อ)</td><td><strong>bought</strong></td></tr>
+                    <tr><td>go (ไป)</td><td><strong>went</strong></td><td>see (เห็น)</td><td><strong>saw</strong></td></tr>
+                    <tr><td>write (เขียน)</td><td><strong>wrote</strong></td><td>read (อ่าน)</td><td><strong>read</strong> (ออกเสียง เรด)</td></tr>
+                    <tr><td>drink (ดื่ม)</td><td><strong>drank</strong></td><td>have (มี/กิน)</td><td><strong>had</strong></td></tr>
+                    <tr><td>make (ทำ)</td><td><strong>made</strong></td><td>lose (ทำหาย)</td><td><strong>lost</strong></td></tr>
+                    <tr><td>take (พาไป/หยิบ)</td><td><strong>took</strong></td><td>meet (พบ)</td><td><strong>met</strong></td></tr>
+                    <tr><td>know (รู้)</td><td><strong>knew</strong></td><td>think (คิด)</td><td><strong>thought</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 1.3 Grammar Points from Unit 5 & 6 -->
+        <div class="card">
+            <h2 class="card-title">3. ไวยากรณ์เสริมสำคัญ (Unit 5 & Unit 6)</h2>
+
+            <h3 class="sub-title">ก. คำบอกเวลาในอดีต (Past Time Expressions)</h3>
+            <ul style="padding-left: 20px; margin-bottom: 12px;">
+                <li><strong>yesterday:</strong> <em>yesterday morning, yesterday afternoon</em> (หมายเหตุ: ตอนกลางคืนใช้ <em>last night</em> ไม่ใช้ yesterday night)</li>
+                <li><strong>last + เวลา:</strong> <em>last night, last week, last month, last year, last Sunday</em></li>
+                <li><strong>ช่วงเวลา + ago:</strong> <em>two hours ago, three days ago, ten years ago</em></li>
+            </ul>
+
+            <h3 class="sub-title">ข. คำขยายระดับ (Modifiers: quite, very, really)</h3>
+            <table class="custom-table">
+                <thead>
+                    <tr><th>คำขยาย</th><th>ระดับความหมาย</th><th>ตัวอย่าง</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>quite</strong></td><td>ค่อนข้าง / ปานกลาง</td><td>The room is <strong>quite cosy</strong>. (ห้องค่อนข้างสบาย)</td></tr>
+                    <tr><td><strong>very</strong></td><td>มาก (เน้นระดับสูง)</td><td>The exam was <strong>very important</strong>. (ข้อสอบสำคัญมาก)</td></tr>
+                    <tr><td><strong>really</strong></td><td>จริงๆ / อย่างยิ่ง</td><td>I was <strong>really hungry</strong>. (ฉันหิวมากจริงๆ)</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="sub-title">ค. Adjectives ลงท้าย -ed vs -ing</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0;">
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 12px; border-radius: 8px;">
+                    <strong style="color: #166534;">-ed = ความรู้สึก (คน/สัตว์ รู้สึก...)</strong>
+                    <ul style="padding-left: 18px; margin-top: 6px; font-size: 0.9rem;">
+                        <li><strong>bored</strong> = รู้สึกเบื่อ</li>
+                        <li><strong>interested</strong> = รู้สึกสนใจ</li>
+                        <li><strong>relaxed</strong> = รู้สึกผ่อนคลาย</li>
+                        <li><em>I feel <strong>bored</strong> in this room.</em></li>
+                    </ul>
+                </div>
+                <div style="background: #fef2f2; border: 1px solid #fecaca; padding: 12px; border-radius: 8px;">
+                    <strong style="color: #991b1b;">-ing = คุณลักษณะ (สิ่งนั้น น่า...)</strong>
+                    <ul style="padding-left: 18px; margin-top: 6px; font-size: 0.9rem;">
+                        <li><strong>boring</strong> = น่าเบื่อ</li>
+                        <li><strong>interesting</strong> = น่าสนใจ</li>
+                        <li><strong>relaxing</strong> = น่านั่งพักผ่อน</li>
+                        <li><em>This movie is <strong>boring</strong>.</em></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="sub-title">ง. Double Genitive (การแสดงความเป็นเจ้าของสองชั้น)</h3>
+            <p style="font-size: 0.92rem;">ใช้บอกว่า <em>"เป็นหนึ่งในบรรดาหลายสิ่ง/หลายคนที่มีอยู่"</em> โครงสร้าง: <code>a friend of + mine / yours / his / hers / ours / theirs / Name's</code></p>
+            <ul style="padding-left: 20px; font-size: 0.92rem; margin-top: 6px;">
+                <li>He is a friend <strong>of mine</strong>. (เขาเป็นเพื่อนคนหนึ่งของฉัน — ไม่ใช้ of me ❌)</li>
+                <li>She is a cousin <strong>of John's</strong>. (เธอเป็นลูกพี่ลูกน้องคนหนึ่งของจอห์น — ต้องมี 's)</li>
+            </ul>
+
+            <h3 class="sub-title">จ. Personality Adjectives (คำคุณศัพท์บอกนิสัย - Unit 6)</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                <span class="badge-pos">cheerful (ร่าเริง)</span>
+                <span class="badge-pos">confident (มั่นใจ)</span>
+                <span class="badge-pos">easy-going (สบายๆ)</span>
+                <span class="badge-pos">generous (ใจกว้าง)</span>
+                <span class="badge-pos">honest (ซื่อสัตย์)</span>
+                <span class="badge-pos">patient (อดทน)</span>
+                <span class="badge-neg">boring (น่าเบื่อ)</span>
+                <span class="badge-neg">jealous (ขี้อิจฉา)</span>
+                <span class="badge-neg">lazy (ขี้เกียจ)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PART 2: PARENT'S COACHING STRATEGY -->
+    <!-- ================================================================= -->
+    <section id="part2">
+        <div class="part-divider">
+            <span class="part-badge">ส่วนที่ 2</span>
+            <h2 class="part-title">เทคนิคการโค้ชลูกสำหรับคุณพ่อ (Parent's Coaching Guide)</h2>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">แนวทางสอนทีละขั้นตอน (Step-by-Step Teaching)</h2>
+            <div class="coach-box">
+                <strong>🎯 คาถา 3 ข้อที่คุณพ่อใช้ทบทวนกับลูกก่อนเริ่มทำแบบฝึกหัด:</strong><br>
+                1. <strong>มองหาคำบอกเวลา:</strong> ให้ลูกกวาดสายตาหา <em>yesterday, last..., ago</em> ก่อนเสมอ ถ้าเจอแปลว่า <u>"นี่คือเรื่องในอดีต ต้องใช้ Past Simple แน่นอน"</u><br>
+                2. <strong>เช็กประเภทประโยค:</strong><br>
+                &nbsp;&nbsp;&nbsp;&bull; ถ้าเป็น <strong>บอกเล่า</strong> ➔ จับกริยาเปลี่ยนเป็น <strong>ช่อง 2 (V.2)</strong> ทันที<br>
+                &nbsp;&nbsp;&nbsp;&bull; ถ้ามี <strong>not (ปฏิเสธ)</strong> ➔ นึกถึง <strong>didn't + กริยาเดิม (V.1)</strong><br>
+                &nbsp;&nbsp;&nbsp;&bull; ถ้ามี <strong>เครื่องหมาย ? (คำถาม)</strong> ➔ ดึง <strong>Did</strong> มาไว้หน้าสุด แล้วใช้ <strong>กริยาเดิม (V.1)</strong><br>
+                3. <strong>กฎทอง "ถอดเครื่องแบบ":</strong> ย้ำลูกสั้นๆ ว่า <em>"เมื่อไหร่ที่มี Did หรือ didn't โผล่มา กริยาตัวจริงต้องถอดรูปอดีตทิ้ง กลับมาเป็นกริยาช่อง 1 ตัวเดิมเสมอ!"</em>
+            </div>
+
+            <h3 class="sub-title">สูตรกันตายสำหรับแต่งประโยค (เมื่อโจทย์มีแค่ Verb ตัวเดียว):</h3>
+            <div class="tip-box">
+                ให้นึกถึงลำดับ 4 ช่อง: <code>[ใคร] + [ทำอะไรในอดีต] + [กับสิ่งไหน/ที่ไหน] + [เมื่อไหร่]</code><br>
+                <strong>สูตรล็อกคำ:</strong> <code>I</code> + <code>[ผันเป็น V.2]</code> + <code>[คำนามง่ายๆ]</code> + <code>yesterday.</code><br>
+                <em>ตัวอย่าง: โจทย์ให้ eat ➔ คิด V.2 คือ ate ➔ เติมนาม noodles ➔ รวมเป็น <strong>I ate noodles yesterday.</strong></em>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PART 3: WORKSHEET 1 - COMPREHENSIVE (25 MARKS) -->
+    <!-- ================================================================= -->
+    <section id="part3">
+        <div class="part-divider">
+            <span class="part-badge">ส่วนที่ 3</span>
+            <h2 class="part-title">ใบงานประเมินผลรอบด้าน (Comprehensive Worksheet - 25 คะแนน)</h2>
+        </div>
+
+        <div class="student-info-bar">
+            <div class="info-field">ชื่อ-นามสกุล: ___________________________</div>
+            <div class="info-field" style="max-width: 120px;">ชั้น: ม.2 / _____</div>
+            <div class="info-field" style="max-width: 120px;">เลขที่: _____</div>
+            <div class="info-field" style="max-width: 150px;">คะแนน: ______ / 25</div>
+        </div>
+
+        <!-- 3.1 Regular & Irregular -->
+        <div class="card">
+            <h2 class="card-title">Part 1: Regular and Irregular Verbs <span class="badge-score">8 คะแนน</span></h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">คำชี้แจง: จงเขียนรูปอดีต (Past Form / V.2) ของคำกริยาที่กำหนดให้ถูกต้อง</p>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Base Form (V.1)</th>
+                        <th style="width: 25%;">Past Form (V.2)</th>
+                        <th style="width: 25%;">Base Form (V.1)</th>
+                        <th style="width: 25%;">Past Form (V.2)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1. watch</td><td><span class="fill-line"></span></td><td>5. buy</td><td><span class="fill-line"></span></td></tr>
+                    <tr><td>2. study</td><td><span class="fill-line"></span></td><td>6. see</td><td><span class="fill-line"></span></td></tr>
+                    <tr><td>3. stop</td><td><span class="fill-line"></span></td><td>7. write</td><td><span class="fill-line"></span></td></tr>
+                    <tr><td>4. play</td><td><span class="fill-line"></span></td><td>8. go</td><td><span class="fill-line"></span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3.2 Fill in blanks -->
+        <div class="card">
+            <h2 class="card-title">Part 2: Fill in the Blanks <span class="badge-score">6 คะแนน</span></h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">คำชี้แจง: เติมคำในช่องว่างด้วยรูปกริยา Past Simple Tense ที่ถูกต้อง</p>
+            <ol class="q-list">
+                <li>Yesterday, Mark <span class="blank"></span> (visit) his grandparents in Ayutthaya.</li>
+                <li>We <span class="blank"></span> (not / have) school last Friday.</li>
+                <li>Sarah <span class="blank"></span> (eat) noodles for lunch two hours ago.</li>
+                <li>They <span class="blank"></span> (not / watch) the football match on TV last night.</li>
+                <li>The train <span class="blank"></span> (arrive) at the station late this morning.</li>
+                <li>I <span class="blank"></span> (lose) my key yesterday, but my brother found it.</li>
+            </ol>
+        </div>
+
+        <!-- 3.3 Sentence transformation -->
+        <div class="card">
+            <h2 class="card-title">Part 3: Sentence Transformation <span class="badge-score">6 คะแนน</span></h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">คำชี้แจง: เปลี่ยนประโยคบอกเล่าต่อไปนี้เป็นประโยคปฏิเสธ (-) และประโยคคำถาม (?)</p>
+            
+            <div style="margin-bottom: 16px; padding: 10px 14px; background: #f8fafc; border-radius: 6px;">
+                <strong>1. Ken bought a new comic book yesterday.</strong>
+                <div style="margin-top: 4px;">(-) __________________________________________________________________</div>
+                <div style="margin-top: 4px;">(?) __________________________________________________________________</div>
+            </div>
+
+            <div style="margin-bottom: 16px; padding: 10px 14px; background: #f8fafc; border-radius: 6px;">
+                <strong>2. They went to the cinema last Sunday.</strong>
+                <div style="margin-top: 4px;">(-) __________________________________________________________________</div>
+                <div style="margin-top: 4px;">(?) __________________________________________________________________</div>
+            </div>
+
+            <div style="padding: 10px 14px; background: #f8fafc; border-radius: 6px;">
+                <strong>3. Jane made a delicious cake for the party.</strong>
+                <div style="margin-top: 4px;">(-) __________________________________________________________________</div>
+                <div style="margin-top: 4px;">(?) __________________________________________________________________</div>
+            </div>
+        </div>
+
+        <!-- 3.4 Error correction -->
+        <div class="card">
+            <h2 class="card-title">Part 4: Error Correction <span class="badge-score">5 คะแนน</span></h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">คำชี้แจง: ขีดเส้นใต้คำที่ผิดในแต่ละประโยค แล้วเขียนแก้ไขประโยคให้ถูกต้องลงในช่องว่าง</p>
+            <ol class="q-list">
+                <li>He didn't went to school yesterday because he was sick.<br>
+                แก้ไข: _________________________________________________________________</li>
+                <li>Did you saw the news this morning?<br>
+                แก้ไข: _________________________________________________________________</li>
+                <li>We studyed English together last night.<br>
+                แก้ไข: _________________________________________________________________</li>
+                <li>My father drink coffee two hours ago.<br>
+                แก้ไข: _________________________________________________________________</li>
+                <li>Did they played badminton after class yesterday?<br>
+                แก้ไข: _________________________________________________________________</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PART 4: WORKSHEET 2 - SENTENCE BUILDING -->
+    <!-- ================================================================= -->
+    <section id="part4">
+        <div class="part-divider">
+            <span class="part-badge">ส่วนที่ 4</span>
+            <h2 class="part-title">แบบฝึกสร้างประโยคจาก Keyword ที่กำหนด (Sentence Building)</h2>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">ตอนที่ 1: Unscramble the Words (เรียงคำเป็นประโยค) <span class="badge-score">6 คะแนน</span></h2>
+            <div style="margin-bottom: 14px;">
+                1. <span class="word-tag">football</span> <span class="word-tag">played</span> <span class="word-tag">after school</span> <span class="word-tag">They</span> <span class="word-tag">yesterday</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div style="margin-bottom: 14px;">
+                2. <span class="word-tag">watch</span> <span class="word-tag">didn't</span> <span class="word-tag">TV</span> <span class="word-tag">last night</span> <span class="word-tag">My brother</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div style="margin-bottom: 14px;">
+                3. <span class="word-tag">you</span> <span class="word-tag">go</span> <span class="word-tag">last weekend</span> <span class="word-tag">to the mall</span> <span class="word-tag">Did</span> <span class="word-tag">?</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div>
+                4. <span class="word-tag">a delicious cake</span> <span class="word-tag">baked</span> <span class="word-tag">Mom</span> <span class="word-tag">two days ago</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">ตอนที่ 2: ผันกริยาและแต่งประโยคตามประเภทที่กำหนด <span class="badge-score">8 คะแนน</span></h2>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 32%;">คำที่กำหนดให้</th>
+                        <th style="width: 16%;">ชนิดประโยค</th>
+                        <th>เขียนประโยคที่ถูกต้องสมบูรณ์</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lisa / lose / her phone / yesterday</strong></td>
+                        <td><span style="color: green; font-weight: bold;">บอกเล่า (+)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>We / not see / the movie / last Sunday</strong></td>
+                        <td><span style="color: red; font-weight: bold;">ปฏิเสธ (-)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>you / eat / papaya salad / for lunch / ?</strong></td>
+                        <td><span style="color: blue; font-weight: bold;">คำถาม (?)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tom / buy / a new bike / last month</strong></td>
+                        <td><span style="color: green; font-weight: bold;">บอกเล่า (+)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">ตอนที่ 3: บริบทเดียวแต่ง 3 ร่าง [ Peter / visit / Japan / last year ] <span class="badge-score">6 คะแนน</span></h2>
+            <div style="margin-bottom: 10px;">
+                <strong>1. บอกเล่า (+):</strong>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>2. ปฏิเสธ (-):</strong>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div>
+                <strong>3. คำถาม (?):</strong>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PART 5: WORKSHEET 3 - VERB TO SENTENCE (10 ITEMS) -->
+    <!-- ================================================================= -->
+    <section id="part5">
+        <div class="part-divider">
+            <span class="part-badge">ส่วนที่ 5</span>
+            <h2 class="part-title">แบบฝึกสร้างประโยคจาก Verb คำเดียว (10 ข้อ Step-by-Step)</h2>
+        </div>
+
+        <div class="card" style="overflow-x: auto;">
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">
+                คำชี้แจง: ฝึกฝนการแต่งประโยค Past Simple Tense ทีละขั้นตอน (1. ผันกริยา ➔ 2. เติมกรรม/สถานที่ ➔ 3. เขียนประโยคเต็ม)
+            </p>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%; text-align: center;">ข้อ</th>
+                        <th style="width: 14%; text-align: center;">Verb (V.1)</th>
+                        <th style="width: 13%; text-align: center;">ความหมาย</th>
+                        <th style="width: 16%; text-align: center;">สเต็ป 1: ผันเป็น V.2</th>
+                        <th style="width: 18%; text-align: center;">สเต็ป 2: ทำอะไร / ที่ไหน?</th>
+                        <th style="width: 34%;">สเต็ป 3: ประโยคเต็มสมบูรณ์</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f8fafc; font-style: italic;">
+                        <td style="text-align: center;">Ex.</td>
+                        <td style="text-align: center; font-weight: bold;">play</td>
+                        <td style="text-align: center;">เล่น</td>
+                        <td style="text-align: center;">played</td>
+                        <td style="text-align: center;">football / ROV</td>
+                        <td>I played football yesterday.</td>
+                    </tr>
+                    <tr><td style="text-align: center;">1</td><td style="text-align: center; font-weight: bold;">eat</td><td style="text-align: center;">กิน</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">2</td><td style="text-align: center; font-weight: bold;">buy</td><td style="text-align: center;">ซื้อ</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">3</td><td style="text-align: center; font-weight: bold;">watch</td><td style="text-align: center;">ดู / ชม</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">4</td><td style="text-align: center; font-weight: bold;">go</td><td style="text-align: center;">ไป</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">5</td><td style="text-align: center; font-weight: bold;">clean</td><td style="text-align: center;">ทำความสะอาด</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">6</td><td style="text-align: center; font-weight: bold;">see</td><td style="text-align: center;">เห็น / พบ</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">7</td><td style="text-align: center; font-weight: bold;">read</td><td style="text-align: center;">อ่าน</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">8</td><td style="text-align: center; font-weight: bold;">listen</td><td style="text-align: center;">ฟัง (คู่กับ to)</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">9</td><td style="text-align: center; font-weight: bold;">write</td><td style="text-align: center;">เขียน</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">10</td><td style="text-align: center; font-weight: bold;">drink</td><td style="text-align: center;">ดื่ม</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 14px; padding: 10px 14px; background: #f8fafc; border-radius: 6px; font-size: 0.88rem; color: var(--text-muted);">
+                <strong>คลังคำนามช่วยชีวิต (Word Bank):</strong> noodles, a book, milk, my room, YouTube, a comic book, a movie, to school, a cat, music, a new pen, water
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- PART 6: MASTER ANSWER KEYS & DIAGNOSTICS -->
+    <!-- ================================================================= -->
+    <section id="part6">
+        <div class="part-divider">
+            <span class="part-badge">ส่วนที่ 6</span>
+            <h2 class="part-title">คลังเฉลยละเอียดและวิเคราะห์จุดผิด (Master Answer Keys)</h2>
+        </div>
+
+        <div class="answer-section">
+            <div class="answer-title">
+                📋 เฉลย Part 3: ใบงานประเมินผลรอบด้าน (25 คะแนน)
+            </div>
+
+            <div class="ans-block">
+                <h4>Part 1: Regular & Irregular Verbs (8 คะแนน)</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.92rem;">
+                    <div>1. <strong>watched</strong> (เติม -ed ปกติ)</div>
+                    <div>5. <strong>bought</strong> (buy เปลี่ยนรูป)</div>
+                    <div>2. <strong>studied</strong> (เปลี่ยน y เป็น i + ed)</div>
+                    <div>6. <strong>saw</strong> (see เปลี่ยนรูป)</div>
+                    <div>3. <strong>stopped</strong> (1 สระ 1 ตัวสะกด เบิ้ล p + ed)</div>
+                    <div>7. <strong>wrote</strong> (write เปลี่ยนรูป)</div>
+                    <div>4. <strong>played</strong> (หน้า y เป็นสระ เติม -ed ได้เลย)</div>
+                    <div>8. <strong>went</strong> (go เปลี่ยนรูป)</div>
+                </div>
+            </div>
+
+            <div class="ans-block">
+                <h4>Part 2: Fill in the Blanks (6 คะแนน)</h4>
+                <ol class="ans-list">
+                    <li><strong>visited</strong> <span class="expl">→ กริยาปกติเติม -ed</span></li>
+                    <li><strong>didn't have</strong> หรือ <strong>did not have</strong> <span class="expl">→ รูปปฏิเสธใช้ didn't + V.inf</span></li>
+                    <li><strong>ate</strong> <span class="expl">→ eat เปลี่ยนรูปเป็น ate</span></li>
+                    <li><strong>didn't watch</strong> หรือ <strong>did not watch</strong> <span class="expl">→ รูปปฏิเสธใช้ didn't + V.inf</span></li>
+                    <li><strong>arrived</strong> <span class="expl">→ ลงท้ายด้วย e เติม -d ได้ทันที</span></li>
+                    <li><strong>lost</strong> <span class="expl">→ lose เปลี่ยนรูปเป็น lost</span></li>
+                </ol>
+            </div>
+
+            <div class="ans-block">
+                <h4>Part 3: Sentence Transformation (6 คะแนน)</h4>
+                <ol class="ans-list">
+                    <li>
+                        (-) <strong>Ken didn't buy a new comic book yesterday.</strong><br>
+                        (?) <strong>Did Ken buy a new comic book yesterday?</strong>
+                    </li>
+                    <li>
+                        (-) <strong>They didn't go to the cinema last Sunday.</strong><br>
+                        (?) <strong>Did they go to the cinema last Sunday?</strong>
+                    </li>
+                    <li>
+                        (-) <strong>Jane didn't make a delicious cake for the party.</strong><br>
+                        (?) <strong>Did Jane make a delicious cake for the party?</strong>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="ans-block">
+                <h4>Part 4: Error Correction (5 คะแนน)</h4>
+                <ol class="ans-list">
+                    <li>คำผิด: <em>went</em> ➔ แก้เป็น: <strong>He didn't go to school yesterday because he was sick.</strong> <span class="expl">(หลัง didn't ใช้ V.inf)</span></li>
+                    <li>คำผิด: <em>saw</em> ➔ แก้เป็น: <strong>Did you see the news this morning?</strong> <span class="expl">(หลัง Did ใช้ V.inf)</span></li>
+                    <li>คำผิด: <em>studyed</em> ➔ แก้เป็น: <strong>We studied English together last night.</strong> <span class="expl">(สะกดผิด ต้องเปลี่ยน y เป็น i)</span></li>
+                    <li>คำผิด: <em>drink</em> ➔ แก้เป็น: <strong>My father drank coffee two hours ago.</strong> <span class="expl">(อดีตใช้ V.2 คือ drank)</span></li>
+                    <li>คำผิด: <em>played</em> ➔ แก้เป็น: <strong>Did they play badminton after class yesterday?</strong> <span class="expl">(มี Did แล้ว ใช้ play รูปเดิม)</span></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="answer-section">
+            <div class="answer-title">
+                📋 เฉลย Part 4: แบบฝึกสร้างประโยคจาก Keyword
+            </div>
+
+            <div class="ans-block">
+                <h4>ตอนที่ 1: Unscramble the Words</h4>
+                <ol class="ans-list">
+                    <li><strong>They played football after school yesterday.</strong> (หรือ Yesterday, they played...)</li>
+                    <li><strong>My brother didn't watch TV last night.</strong> (didn't + V.inf ห้ามใช้ watched)</li>
+                    <li><strong>Did you go to the mall last weekend?</strong> (Did + S + V.inf และลงท้ายด้วย ?)</li>
+                    <li><strong>Mom baked a delicious cake two days ago.</strong> (S + V.2 + Object + Time)</li>
+                </ol>
+            </div>
+
+            <div class="ans-block">
+                <h4>ตอนที่ 2 & 3: Word Clues & Mini Story</h4>
+                <ul class="ans-list">
+                    <li>1. Lisa: <strong>Lisa lost her phone yesterday.</strong></li>
+                    <li>2. We: <strong>We didn't see the movie last Sunday.</strong></li>
+                    <li>3. you: <strong>Did you eat papaya salad for lunch?</strong></li>
+                    <li>4. Tom: <strong>Tom bought a new bike last month.</strong></li>
+                    <li>Peter (+): <strong>Peter visited Japan last year.</strong></li>
+                    <li>Peter (-): <strong>Peter didn't visit Japan last year.</strong></li>
+                    <li>Peter (?): <strong>Did Peter visit Japan last year?</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="answer-section">
+            <div class="answer-title">
+                📋 เฉลย Part 5: แบบฝึกสร้างประโยคจาก Verb 10 ข้อ
+            </div>
+            <table class="custom-table" style="background: white;">
+                <thead>
+                    <tr>
+                        <th style="width: 6%;">ข้อ</th>
+                        <th style="width: 14%;">V.1</th>
+                        <th style="width: 16%;">V.2 (ตายตัว)</th>
+                        <th style="width: 24%;">ตัวอย่างคำนาม (สเต็ป 2)</th>
+                        <th>ตัวอย่างประโยคสมบูรณ์ (สเต็ป 3)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>eat</strong></td><td><strong style="color: green;">ate</strong></td><td>noodles / pizza</td><td><strong>I ate noodles yesterday.</strong></td></tr>
+                    <tr><td>2</td><td><strong>buy</strong></td><td><strong style="color: green;">bought</strong></td><td>a new pen / snacks</td><td><strong>I bought a new pen yesterday.</strong></td></tr>
+                    <tr><td>3</td><td><strong>watch</strong></td><td><strong style="color: green;">watched</strong></td><td>a movie / YouTube</td><td><strong>I watched a movie yesterday.</strong></td></tr>
+                    <tr><td>4</td><td><strong>go</strong></td><td><strong style="color: green;">went</strong></td><td>to school / to the mall</td><td><strong>I went to school yesterday.</strong></td></tr>
+                    <tr><td>5</td><td><strong>clean</strong></td><td><strong style="color: green;">cleaned</strong></td><td>my room / the house</td><td><strong>I cleaned my room yesterday.</strong></td></tr>
+                    <tr><td>6</td><td><strong>see</strong></td><td><strong style="color: green;">saw</strong></td><td>a cat / my teacher</td><td><strong>I saw a cat yesterday.</strong></td></tr>
+                    <tr><td>7</td><td><strong>read</strong></td><td><strong style="color: green;">read</strong> (ออกเสียง เรด)</td><td>a comic book / a story</td><td><strong>I read a comic book yesterday.</strong></td></tr>
+                    <tr><td>8</td><td><strong>listen</strong></td><td><strong style="color: green;">listened</strong></td><td>to music / to the teacher</td><td><strong>I listened to music yesterday.</strong></td></tr>
+                    <tr><td>9</td><td><strong>write</strong></td><td><strong style="color: green;">wrote</strong></td><td>a letter / homework</td><td><strong>I wrote a letter yesterday.</strong></td></tr>
+                    <tr><td>10</td><td><strong>drink</strong></td><td><strong style="color: green;">drank</strong></td><td>milk / water</td><td><strong>I drank milk yesterday.</strong></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>

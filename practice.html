@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัดออนไลน์ Interactive • Past Simple Tense ม.2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .unscramble-container {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 18px;
+        }
+        .chip-slot {
+            min-height: 48px;
+            border: 2px dashed #94a3b8;
+            border-radius: var(--radius-sm);
+            padding: 8px;
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            background: white;
+        }
+        .chip-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+            font-size: 0.92rem;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-brand-badge">P2</div>
+                <div>
+                    <div class="nav-brand-title">Past Simple Tense Suite</div>
+                    <div class="nav-brand-sub">โมดูลที่ 2: แบบฝึกหัดออนไลน์ (Interactive)</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">🏠 หน้าหลัก</a>
+                <a href="grammar.html" class="nav-link">📖 สรุปไวยากรณ์ & โค้ชผู้ปกครอง</a>
+                <a href="practice.html" class="nav-link active">✍️ ทำแบบฝึกหัดออนไลน์</a>
+                <a href="printable.html" class="nav-link">🖨️ ใบงานพิมพ์ได้ (Printable)</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Header -->
+        <section class="hero-banner" style="background: linear-gradient(135deg, #065f46 0%, #047857 50%, #0284c7 100%);">
+            <span class="badge-tag">Interactive Exercise Suite</span>
+            <h1>แบบฝึกหัดออนไลน์ Past Simple Tense (ม.2)</h1>
+            <p>
+                ฝึกฝนทักษะการผันกริยา, เติมคำ, แปลงประโยค, แก้ไขจุดผิด, และการเรียงประโยค Unscramble ด้วยระบบตรวจคำตอบและคิดคะแนนแบบ Real-time!
+            </p>
+        </section>
+
+        <!-- PART 1: Verbs -->
+        <section class="card" id="part1">
+            <h2 class="card-title">
+                <span>Part 1: Regular & Irregular Verbs</span>
+                <span class="badge-score">8 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 14px;">
+                คำชี้แจง: พิมพ์รูปอดีตกริยาช่อง 2 (Past Form / V.2) ลงในช่องว่างให้ถูกต้อง
+            </p>
+
+            <div class="custom-table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Base Form (V.1)</th>
+                            <th style="width: 25%;">Past Form (V.2)</th>
+                            <th style="width: 25%;">Base Form (V.1)</th>
+                            <th style="width: 25%;">Past Form (V.2)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. watch</td>
+                            <td><input type="text" id="p1_1" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                            <td>5. buy</td>
+                            <td><input type="text" id="p1_5" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                        </tr>
+                        <tr>
+                            <td>2. study</td>
+                            <td><input type="text" id="p1_2" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                            <td>6. see</td>
+                            <td><input type="text" id="p1_6" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                        </tr>
+                        <tr>
+                            <td>3. stop</td>
+                            <td><input type="text" id="p1_3" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                            <td>7. write</td>
+                            <td><input type="text" id="p1_7" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                        </tr>
+                        <tr>
+                            <td>4. play</td>
+                            <td><input type="text" id="p1_4" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                            <td>8. go</td>
+                            <td><input type="text" id="p1_8" class="practice-input" placeholder="พิมพ์ V.2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PART 2: Fill in Blanks -->
+        <section class="card" id="part2">
+            <h2 class="card-title">
+                <span>Part 2: Fill in the Blanks</span>
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 14px;">
+                คำชี้แจง: เติมคำในช่องว่างด้วยรูปกริยา Past Simple Tense ที่ถูกต้องตามบริบทประโยค
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.96rem;">
+                <div>
+                    1. Yesterday, Mark <input type="text" id="p2_1" class="practice-input" style="width: 140px;" placeholder="คำตอบ"> (visit) his grandparents in Ayutthaya.
+                </div>
+                <div>
+                    2. We <input type="text" id="p2_2" class="practice-input" style="width: 160px;" placeholder="คำตอบ"> (not / have) school last Friday.
+                </div>
+                <div>
+                    3. Sarah <input type="text" id="p2_3" class="practice-input" style="width: 140px;" placeholder="คำตอบ"> (eat) noodles for lunch two hours ago.
+                </div>
+                <div>
+                    4. They <input type="text" id="p2_4" class="practice-input" style="width: 160px;" placeholder="คำตอบ"> (not / watch) the football match on TV last night.
+                </div>
+                <div>
+                    5. The train <input type="text" id="p2_5" class="practice-input" style="width: 140px;" placeholder="คำตอบ"> (arrive) at the station late this morning.
+                </div>
+                <div>
+                    6. I <input type="text" id="p2_6" class="practice-input" style="width: 140px;" placeholder="คำตอบ"> (lose) my key yesterday, but my brother found it.
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 3: Sentence Transformation -->
+        <section class="card" id="part3">
+            <h2 class="card-title">
+                <span>Part 3: Sentence Transformation</span>
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 14px;">
+                คำชี้แจง: แปลงประโยคบอกเล่าต่อไปนี้เป็นประโยคปฏิเสธ (-) และประโยคคำถาม (?)
+            </p>
+
+            <!-- Item 1 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+                <strong>1. Ken bought a new comic book yesterday.</strong>
+                <div style="margin-top: 8px;">
+                    <span style="font-weight: 600; color: #b91c1c;">(-) ปฏิเสธ:</span>
+                    <input type="text" id="p3_1_neg" class="practice-input" style="width: 100%; margin-top: 4px;" placeholder="เช่น Ken didn't buy a new comic book yesterday.">
+                </div>
+                <div style="margin-top: 8px;">
+                    <span style="font-weight: 600; color: #0369a1;">(?) คำถาม:</span>
+                    <input type="text" id="p3_1_q" class="practice-input" style="width: 100%; margin-top: 4px;" placeholder="เช่น Did Ken buy a new comic book yesterday?">
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px;">
+                <strong>2. They went to the cinema last Sunday.</strong>
+                <div style="margin-top: 8px;">
+                    <span style="font-weight: 600; color: #b91c1c;">(-) ปฏิเสธ:</span>
+                    <input type="text" id="p3_2_neg" class="practice-input" style="width: 100%; margin-top: 4px;" placeholder="เช่น They didn't go to the cinema last Sunday.">
+                </div>
+                <div style="margin-top: 8px;">
+                    <span style="font-weight: 600; color: #0369a1;">(?) คำถาม:</span>
+                    <input type="text" id="p3_2_q" class="practice-input" style="width: 100%; margin-top: 4px;" placeholder="เช่น Did they go to the cinema last Sunday?">
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 16px;">
+                <strong>3. Jane made a delicious cake for the party.</strong>
+                <div style="margin-top: 8px;">
+                    <span style="font-weight: 600; color: #b91c1c;">(-) ปฏิเสธ:</span>
+                    <input type="text" id="p3_3_neg" class="practice-input" style="width: 100%; margin-top: 4px;" placeholder="เช่น Jane didn't make a delicious cake for the party.">
+                </div>
+                <div style="margin-top: 8px;">
+                    <span style="font-weight: 600; color: #0369a1;">(?) คำถาม:</span>
+                    <input type="text" id="p3_3_q" class="practice-input" style="width: 100%; margin-top: 4px;" placeholder="เช่น Did Jane make a delicious cake for the party?">
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 4: Error Correction -->
+        <section class="card" id="part4">
+            <h2 class="card-title">
+                <span>Part 4: Error Correction (จับจุดผิด)</span>
+                <span class="badge-score">5 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 14px;">
+                คำชี้แจง: สังเกตจุดที่ใช้ไวยากรณ์ผิด แล้วพิมพ์เขียนประโยคที่ถูกต้องลงในช่องว่าง
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <strong>1. He <u style="color: #dc2626; text-decoration-color: #dc2626;">didn't went</u> to school yesterday because he was sick.</strong>
+                    <input type="text" id="p4_1" class="practice-input" style="width: 100%; margin-top: 6px;" placeholder="พิมพ์ประโยคที่ถูกต้อง หรือพิมพ์คำแก้ เช่น go">
+                </div>
+
+                <div>
+                    <strong>2. Did you <u style="color: #dc2626; text-decoration-color: #dc2626;">saw</u> the news this morning?</strong>
+                    <input type="text" id="p4_2" class="practice-input" style="width: 100%; margin-top: 6px;" placeholder="พิมพ์ประโยคที่ถูกต้อง หรือพิมพ์คำแก้ เช่น see">
+                </div>
+
+                <div>
+                    <strong>3. We <u style="color: #dc2626; text-decoration-color: #dc2626;">studyed</u> English together last night.</strong>
+                    <input type="text" id="p4_3" class="practice-input" style="width: 100%; margin-top: 6px;" placeholder="พิมพ์ประโยคที่ถูกต้อง หรือพิมพ์คำแก้ เช่น studied">
+                </div>
+
+                <div>
+                    <strong>4. My father <u style="color: #dc2626; text-decoration-color: #dc2626;">drink</u> coffee two hours ago.</strong>
+                    <input type="text" id="p4_4" class="practice-input" style="width: 100%; margin-top: 6px;" placeholder="พิมพ์ประโยคที่ถูกต้อง หรือพิมพ์คำแก้ เช่น drank">
+                </div>
+
+                <div>
+                    <strong>5. Did they <u style="color: #dc2626; text-decoration-color: #dc2626;">played</u> badminton after class yesterday?</strong>
+                    <input type="text" id="p4_5" class="practice-input" style="width: 100%; margin-top: 6px;" placeholder="พิมพ์ประโยคที่ถูกต้อง หรือพิมพ์คำแก้ เช่น play">
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 5: Unscramble Interactive -->
+        <section class="card" id="part5">
+            <h2 class="card-title">
+                <span>Part 5: Unscramble the Words (คลิกเรียงคำเป็นประโยค)</span>
+                <span class="badge-score">4 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 14px;">
+                คำชี้แจง: คลิกเลือกคำศัพท์ในกล่องด้านล่างเพื่อนำขึ้นมาเรียงเป็นประโยคที่ถูกต้อง (สามารถคลิกคำในช่องตอบเพื่อนำกลับลงมาได้)
+            </p>
+
+            <!-- Item 1 -->
+            <div class="unscramble-container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>ข้อ 1:</strong>
+                    <button class="btn btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;" onclick="resetUnscramble(1)">รีเซ็ตข้อนี้</button>
+                </div>
+                <div class="chip-slot" id="unscramble-slot-1"></div>
+                <div class="chip-pool" id="unscramble-pool-1"></div>
+                <div id="unscramble-res-1" class="answer-feedback"></div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="unscramble-container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>ข้อ 2:</strong>
+                    <button class="btn btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;" onclick="resetUnscramble(2)">รีเซ็ตข้อนี้</button>
+                </div>
+                <div class="chip-slot" id="unscramble-slot-2"></div>
+                <div class="chip-pool" id="unscramble-pool-2"></div>
+                <div id="unscramble-res-2" class="answer-feedback"></div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="unscramble-container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>ข้อ 3:</strong>
+                    <button class="btn btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;" onclick="resetUnscramble(3)">รีเซ็ตข้อนี้</button>
+                </div>
+                <div class="chip-slot" id="unscramble-slot-3"></div>
+                <div class="chip-pool" id="unscramble-pool-3"></div>
+                <div id="unscramble-res-3" class="answer-feedback"></div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="unscramble-container">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <strong>ข้อ 4:</strong>
+                    <button class="btn btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;" onclick="resetUnscramble(4)">รีเซ็ตข้อนี้</button>
+                </div>
+                <div class="chip-slot" id="unscramble-slot-4"></div>
+                <div class="chip-pool" id="unscramble-pool-4"></div>
+                <div id="unscramble-res-4" class="answer-feedback"></div>
+            </div>
+        </section>
+
+        <!-- PART 6: Verb 10 items Step-by-Step -->
+        <section class="card" id="part6">
+            <h2 class="card-title">
+                <span>Part 6: แบบฝึกสร้างประโยคจาก Verb 10 ข้อ (Step-by-Step)</span>
+                <span class="badge-score">10 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">
+                คำชี้แจง: ฝึกสร้างประโยคทีละขั้นตอน โดยในสเต็ป 1 พิมพ์ผันกริยาเป็น V.2 (ระบบจะตรวจให้คะแนนที่ช่องนี้) และนำคำนามในคลังคำช่วยชีวิตไปต่อเติมสเต็ป 2 และ 3
+            </p>
+
+            <!-- Word Bank -->
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-md); padding: 12px 16px; margin-bottom: 16px;">
+                <strong style="color: var(--primary); font-size: 0.92rem;">💡 คลังคำนามช่วยชีวิต (คลิกที่คำเพื่อคัดลอกทันที):</strong>
+                <div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    <span class="word-tag bank-chip" data-word="noodles">noodles</span>
+                    <span class="word-tag bank-chip" data-word="a new pen">a new pen</span>
+                    <span class="word-tag bank-chip" data-word="a movie">a movie</span>
+                    <span class="word-tag bank-chip" data-word="to school">to school</span>
+                    <span class="word-tag bank-chip" data-word="my room">my room</span>
+                    <span class="word-tag bank-chip" data-word="a cat">a cat</span>
+                    <span class="word-tag bank-chip" data-word="a comic book">a comic book</span>
+                    <span class="word-tag bank-chip" data-word="to music">to music</span>
+                    <span class="word-tag bank-chip" data-word="a letter">a letter</span>
+                    <span class="word-tag bank-chip" data-word="milk">milk</span>
+                    <span class="word-tag bank-chip" data-word="YouTube">YouTube</span>
+                    <span class="word-tag bank-chip" data-word="water">water</span>
+                </div>
+            </div>
+
+            <div class="custom-table-wrapper">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 6%; text-align: center;">ข้อ</th>
+                            <th style="width: 14%;">Verb (V.1)</th>
+                            <th style="width: 14%;">ความหมาย</th>
+                            <th style="width: 20%;">สเต็ป 1: ผันเป็น V.2</th>
+                            <th style="width: 22%;">สเต็ป 2: กรรม/สถานที่</th>
+                            <th style="width: 24%;">สเต็ป 3: ประโยคเต็ม</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8fafc; font-style: italic;">
+                            <td style="text-align: center;">Ex.</td>
+                            <td><strong>play</strong></td>
+                            <td>เล่น</td>
+                            <td><strong style="color: var(--primary);">played</strong></td>
+                            <td>football</td>
+                            <td>I played football yesterday.</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">1</td>
+                            <td><strong>eat</strong></td>
+                            <td>กิน</td>
+                            <td><input type="text" id="v_1" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น noodles"></td>
+                            <td><input type="text" class="practice-input" placeholder="I ate noodles yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">2</td>
+                            <td><strong>buy</strong></td>
+                            <td>ซื้อ</td>
+                            <td><input type="text" id="v_2" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น a new pen"></td>
+                            <td><input type="text" class="practice-input" placeholder="I bought a new pen yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">3</td>
+                            <td><strong>watch</strong></td>
+                            <td>ดู / ชม</td>
+                            <td><input type="text" id="v_3" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น a movie"></td>
+                            <td><input type="text" class="practice-input" placeholder="I watched a movie yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">4</td>
+                            <td><strong>go</strong></td>
+                            <td>ไป</td>
+                            <td><input type="text" id="v_4" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น to school"></td>
+                            <td><input type="text" class="practice-input" placeholder="I went to school yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">5</td>
+                            <td><strong>clean</strong></td>
+                            <td>ทำความสะอาด</td>
+                            <td><input type="text" id="v_5" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น my room"></td>
+                            <td><input type="text" class="practice-input" placeholder="I cleaned my room yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">6</td>
+                            <td><strong>see</strong></td>
+                            <td>เห็น / พบ</td>
+                            <td><input type="text" id="v_6" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น a cat"></td>
+                            <td><input type="text" class="practice-input" placeholder="I saw a cat yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">7</td>
+                            <td><strong>read</strong></td>
+                            <td>อ่าน</td>
+                            <td><input type="text" id="v_7" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น a comic book"></td>
+                            <td><input type="text" class="practice-input" placeholder="I read a comic book yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">8</td>
+                            <td><strong>listen</strong></td>
+                            <td>ฟัง</td>
+                            <td><input type="text" id="v_8" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น to music"></td>
+                            <td><input type="text" class="practice-input" placeholder="I listened to music yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">9</td>
+                            <td><strong>write</strong></td>
+                            <td>เขียน</td>
+                            <td><input type="text" id="v_9" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น a letter"></td>
+                            <td><input type="text" class="practice-input" placeholder="I wrote a letter yesterday."></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">10</td>
+                            <td><strong>drink</strong></td>
+                            <td>ดื่ม</td>
+                            <td><input type="text" id="v_10" class="practice-input" placeholder="ผัน V.2"></td>
+                            <td><input type="text" class="practice-input" placeholder="เช่น milk"></td>
+                            <td><input type="text" class="practice-input" placeholder="I drank milk yesterday."></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Master Answer Accordion / Reveal (Initially Hidden) -->
+        <section class="card master-answer-section" style="display: none; border: 2px solid #86efac; background: #f0fdf4;">
+            <h2 class="card-title" style="border-left-color: #166534; color: #166534;">
+                📋 คลังเฉลยละเอียดและวิเคราะห์จุดผิด (Master Answer Keys)
+            </h2>
+
+            <div style="background: white; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 18px; margin-bottom: 14px;">
+                <h4 style="color: #166534; margin-bottom: 8px;">Part 1: Regular & Irregular Verbs</h4>
+                <p style="font-size: 0.92rem; line-height: 1.8;">
+                    1. <strong>watched</strong> (เติม -ed ปกติ) | 2. <strong>studied</strong> (เปลี่ยน y เป็น i + ed) | 3. <strong>stopped</strong> (1 สระ 1 ตัวสะกด เบิ้ล p + ed) | 4. <strong>played</strong> (หน้า y เป็นสระ เติม -ed ได้เลย)<br>
+                    5. <strong>bought</strong> (buy เปลี่ยนรูป) | 6. <strong>saw</strong> (see เปลี่ยนรูป) | 7. <strong>wrote</strong> (write เปลี่ยนรูป) | 8. <strong>went</strong> (go เปลี่ยนรูป)
+                </p>
+            </div>
+
+            <div style="background: white; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 18px; margin-bottom: 14px;">
+                <h4 style="color: #166534; margin-bottom: 8px;">Part 2: Fill in the Blanks</h4>
+                <p style="font-size: 0.92rem; line-height: 1.8;">
+                    1. <strong>visited</strong> (กริยาปกติเติม -ed)<br>
+                    2. <strong>didn't have</strong> หรือ did not have (รูปปฏิเสธใช้ didn't + V.inf)<br>
+                    3. <strong>ate</strong> (eat เปลี่ยนรูปเป็น ate)<br>
+                    4. <strong>didn't watch</strong> หรือ did not watch (ปฏิเสธ didn't + V.inf ห้ามเติม -ed)<br>
+                    5. <strong>arrived</strong> (ลงท้ายด้วย e เติม -d ได้ทันที)<br>
+                    6. <strong>lost</strong> (lose เปลี่ยนรูปเป็น lost)
+                </p>
+            </div>
+
+            <div style="background: white; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 18px; margin-bottom: 14px;">
+                <h4 style="color: #166534; margin-bottom: 8px;">Part 3: Sentence Transformation</h4>
+                <p style="font-size: 0.92rem; line-height: 1.8;">
+                    1. (-) <strong>Ken didn't buy a new comic book yesterday.</strong> | (?) <strong>Did Ken buy a new comic book yesterday?</strong><br>
+                    2. (-) <strong>They didn't go to the cinema last Sunday.</strong> | (?) <strong>Did they go to the cinema last Sunday?</strong><br>
+                    3. (-) <strong>Jane didn't make a delicious cake for the party.</strong> | (?) <strong>Did Jane make a delicious cake for the party?</strong>
+                </p>
+            </div>
+
+            <div style="background: white; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 18px; margin-bottom: 14px;">
+                <h4 style="color: #166534; margin-bottom: 8px;">Part 4: Error Correction</h4>
+                <p style="font-size: 0.92rem; line-height: 1.8;">
+                    1. แก้เป็น: <strong>He didn't go to school yesterday because he was sick.</strong> (หลัง didn't ใช้ V.inf)<br>
+                    2. แก้เป็น: <strong>Did you see the news this morning?</strong> (หลัง Did ใช้ V.inf)<br>
+                    3. แก้เป็น: <strong>We studied English together last night.</strong> (สะกดผิด เปลี่ยน y เป็น i + ed)<br>
+                    4. แก้เป็น: <strong>My father drank coffee two hours ago.</strong> (อดีตใช้ V.2 คือ drank)<br>
+                    5. แก้เป็น: <strong>Did they play badminton after class yesterday?</strong> (มี Did แล้ว ใช้ play รูปเดิม)
+                </p>
+            </div>
+        </section>
+
+        <!-- Sticky Action Bar -->
+        <div class="action-sticky-bar" id="action-bar">
+            <div class="score-display">
+                <span>คะแนนที่ได้:</span>
+                <span id="total-score" class="score-badge">0 / 39</span>
+            </div>
+
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="checkAllAnswers()">✅ ตรวจคำตอบทั้งหมด</button>
+                <button class="btn btn-secondary" onclick="toggleMasterKeys()">📋 ดูเฉลยละเอียด</button>
+                <button class="btn btn-accent" style="background: #64748b;" onclick="resetAll()">🔄 ล้างคำตอบ</button>
+            </div>
+        </div>
+
+        <div id="score-feedback" class="answer-feedback" style="margin-top: 14px; text-align: center; font-size: 1.05rem; padding: 14px;"></div>
+    </main>
+
+    <footer class="footer">
+        <p>Past Simple Tense Learning Suite • โมดูลแบบฝึกหัดออนไลน์ Interactive</p>
+    </footer>
+
+    <script src="js/practice.js"></script>
+</body>
+</html>

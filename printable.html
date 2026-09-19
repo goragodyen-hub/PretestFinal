@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบงานแบบฝึกหัดพิมพ์ได้ (Printable Worksheets) • Past Simple Tense ม.2</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/print.css">
+    <style>
+        .print-control-bar {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: var(--shadow-md);
+        }
+        .ans-toggle-badge {
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+        .ans-toggle-badge.active {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #86efac;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar (Hidden in Print) -->
+    <header class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-brand-badge">P2</div>
+                <div>
+                    <div class="nav-brand-title">Past Simple Tense Suite</div>
+                    <div class="nav-brand-sub">โมดูลที่ 3: ใบงานสำหรับพิมพ์ (Printable Worksheets)</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">🏠 หน้าหลัก</a>
+                <a href="grammar.html" class="nav-link">📖 สรุปไวยากรณ์ & โค้ชผู้ปกครอง</a>
+                <a href="practice.html" class="nav-link">✍️ ทำแบบฝึกหัดออนไลน์</a>
+                <a href="printable.html" class="nav-link active">🖨️ ใบงานพิมพ์ได้ (Printable)</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Control Bar for Printing (Hidden in Print) -->
+        <div class="print-control-bar no-print">
+            <div>
+                <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 4px;">🖨️ เครื่องมือสั่งพิมพ์ใบงาน A4</h3>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">
+                    จัดขนาดหน้ากระดาษและซ่อนแถบเมนูที่ไม่จำเป็นสำหรับการพิมพ์อัตโนมัติ
+                </p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 0.92rem; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" id="toggle-keys-checkbox" onchange="toggleKeys()"> 
+                    <strong>พิมพ์เฉลยแนบท้ายด้วย</strong>
+                </label>
+                <button class="btn btn-primary" onclick="window.print()">
+                    🖨️ สั่งพิมพ์ทันที (Print / PDF)
+                </button>
+            </div>
+        </div>
+
+        <!-- Print-only Title Header -->
+        <div class="print-header" style="display: none;">
+            <h1>แบบฝึกหัดและแบบทดสอบ Past Simple Tense (ม.2)</h1>
+            <p>สาระการเรียนรู้ภาษาต่างประเทศ (ภาษาอังกฤษ) • หน่วยการเรียนรู้ Unit 5 & Unit 6</p>
+        </div>
+
+        <!-- Student Info Header -->
+        <div class="student-info-bar">
+            <div class="info-field">ชื่อ-นามสกุล: __________________________________________________</div>
+            <div class="info-field" style="max-width: 140px;">ชั้น: ม.2 / _______</div>
+            <div class="info-field" style="max-width: 120px;">เลขที่: _______</div>
+            <div class="info-field" style="max-width: 140px;">คะแนน: ________ / 25</div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- WORKSHEET 1: COMPREHENSIVE (25 MARKS) -->
+        <!-- ============================================================= -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.25rem; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--secondary); padding-bottom: 4px;">
+                ชุดที่ 1: ใบงานประเมินผลรอบด้าน (Comprehensive Worksheet - 25 คะแนน)
+            </h2>
+        </div>
+
+        <!-- Part 1 -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 1: Regular and Irregular Verbs 
+                <span class="badge-score">8 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: จงเขียนรูปอดีต (Past Form / V.2) ของคำกริยาที่กำหนดให้ถูกต้อง
+            </p>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Base Form (V.1)</th>
+                        <th style="width: 25%;">Past Form (V.2)</th>
+                        <th style="width: 25%;">Base Form (V.1)</th>
+                        <th style="width: 25%;">Past Form (V.2)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1. watch</td><td><span class="fill-line"></span></td><td>5. buy</td><td><span class="fill-line"></span></td></tr>
+                    <tr><td>2. study</td><td><span class="fill-line"></span></td><td>6. see</td><td><span class="fill-line"></span></td></tr>
+                    <tr><td>3. stop</td><td><span class="fill-line"></span></td><td>7. write</td><td><span class="fill-line"></span></td></tr>
+                    <tr><td>4. play</td><td><span class="fill-line"></span></td><td>8. go</td><td><span class="fill-line"></span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Part 2 -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 2: Fill in the Blanks 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: เติมคำในช่องว่างด้วยรูปกริยา Past Simple Tense ที่ถูกต้อง
+            </p>
+            <ol class="q-list" style="padding-left: 24px; line-height: 2;">
+                <li>Yesterday, Mark <span class="blank"></span> (visit) his grandparents in Ayutthaya.</li>
+                <li>We <span class="blank"></span> (not / have) school last Friday.</li>
+                <li>Sarah <span class="blank"></span> (eat) noodles for lunch two hours ago.</li>
+                <li>They <span class="blank"></span> (not / watch) the football match on TV last night.</li>
+                <li>The train <span class="blank"></span> (arrive) at the station late this morning.</li>
+                <li>I <span class="blank"></span> (lose) my key yesterday, but my brother found it.</li>
+            </ol>
+        </div>
+
+        <!-- Part 3 -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 3: Sentence Transformation 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: เปลี่ยนประโยคบอกเล่าต่อไปนี้เป็นประโยคปฏิเสธ (-) และประโยคคำถาม (?)
+            </p>
+            
+            <div style="margin-bottom: 14px;">
+                <strong>1. Ken bought a new comic book yesterday.</strong>
+                <div style="margin-top: 4px;">(-) __________________________________________________________________________________</div>
+                <div style="margin-top: 4px;">(?) __________________________________________________________________________________</div>
+            </div>
+
+            <div style="margin-bottom: 14px;">
+                <strong>2. They went to the cinema last Sunday.</strong>
+                <div style="margin-top: 4px;">(-) __________________________________________________________________________________</div>
+                <div style="margin-top: 4px;">(?) __________________________________________________________________________________</div>
+            </div>
+
+            <div>
+                <strong>3. Jane made a delicious cake for the party.</strong>
+                <div style="margin-top: 4px;">(-) __________________________________________________________________________________</div>
+                <div style="margin-top: 4px;">(?) __________________________________________________________________________________</div>
+            </div>
+        </div>
+
+        <!-- Part 4 -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 4: Error Correction 
+                <span class="badge-score">5 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: ขีดเส้นใต้คำที่ผิดในแต่ละประโยค แล้วเขียนแก้ไขประโยคให้ถูกต้องลงในช่องว่าง
+            </p>
+            <ol class="q-list" style="padding-left: 24px; line-height: 2.2;">
+                <li>
+                    He didn't went to school yesterday because he was sick.<br>
+                    แก้ไข: _____________________________________________________________________________
+                </li>
+                <li>
+                    Did you saw the news this morning?<br>
+                    แก้ไข: _____________________________________________________________________________
+                </li>
+                <li>
+                    We studyed English together last night.<br>
+                    แก้ไข: _____________________________________________________________________________
+                </li>
+                <li>
+                    My father drink coffee two hours ago.<br>
+                    แก้ไข: _____________________________________________________________________________
+                </li>
+                <li>
+                    Did they played badminton after class yesterday?<br>
+                    แก้ไข: _____________________________________________________________________________
+                </li>
+            </ol>
+        </div>
+
+        <!-- Page break for nice print layout -->
+        <div class="page-break"></div>
+
+        <!-- ============================================================= -->
+        <!-- WORKSHEET 2: SENTENCE BUILDING -->
+        <!-- ============================================================= -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.25rem; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--secondary); padding-bottom: 4px;">
+                ชุดที่ 2: แบบฝึกสร้างประโยคจาก Keyword (Sentence Building)
+            </h2>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">
+                ตอนที่ 1: Unscramble the Words (เรียงคำเป็นประโยค) 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <div style="margin-bottom: 14px;">
+                1. <span class="word-tag">football</span> <span class="word-tag">played</span> <span class="word-tag">after school</span> <span class="word-tag">They</span> <span class="word-tag">yesterday</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div style="margin-bottom: 14px;">
+                2. <span class="word-tag">watch</span> <span class="word-tag">didn't</span> <span class="word-tag">TV</span> <span class="word-tag">last night</span> <span class="word-tag">My brother</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div style="margin-bottom: 14px;">
+                3. <span class="word-tag">you</span> <span class="word-tag">go</span> <span class="word-tag">last weekend</span> <span class="word-tag">to the mall</span> <span class="word-tag">Did</span> <span class="word-tag">?</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div>
+                4. <span class="word-tag">a delicious cake</span> <span class="word-tag">baked</span> <span class="word-tag">Mom</span> <span class="word-tag">two days ago</span>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">
+                ตอนที่ 2: ผันกริยาและแต่งประโยคตามประเภทที่กำหนด 
+                <span class="badge-score">8 คะแนน</span>
+            </h2>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 32%;">คำที่กำหนดให้</th>
+                        <th style="width: 16%;">ชนิดประโยค</th>
+                        <th>เขียนประโยคที่ถูกต้องสมบูรณ์</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lisa / lose / her phone / yesterday</strong></td>
+                        <td><span style="color: green; font-weight: bold;">บอกเล่า (+)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>We / not see / the movie / last Sunday</strong></td>
+                        <td><span style="color: red; font-weight: bold;">ปฏิเสธ (-)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>you / eat / papaya salad / for lunch / ?</strong></td>
+                        <td><span style="color: blue; font-weight: bold;">คำถาม (?)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tom / buy / a new bike / last month</strong></td>
+                        <td><span style="color: green; font-weight: bold;">บอกเล่า (+)</span></td>
+                        <td><span class="write-blank"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">
+                ตอนที่ 3: บริบทเดียวแต่ง 3 ร่าง [ Peter / visit / Japan / last year ] 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <div style="margin-bottom: 12px;">
+                <strong>1. บอกเล่า (+):</strong>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <strong>2. ปฏิเสธ (-):</strong>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+            <div>
+                <strong>3. คำถาม (?):</strong>
+                <div class="write-blank" style="margin-top: 4px;">ตอบ: </div>
+            </div>
+        </div>
+
+        <!-- Page break for nice print layout -->
+        <div class="page-break"></div>
+
+        <!-- ============================================================= -->
+        <!-- WORKSHEET 3: VERB 10 ITEMS STEP-BY-STEP -->
+        <!-- ============================================================= -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.25rem; color: var(--primary); margin-bottom: 12px; border-bottom: 2px solid var(--secondary); padding-bottom: 4px;">
+                ชุดที่ 3: แบบฝึกสร้างประโยคจาก Verb คำเดียว (10 ข้อ Step-by-Step)
+            </h2>
+        </div>
+
+        <div class="card">
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: ฝึกฝนการแต่งประโยค Past Simple Tense ทีละขั้นตอน (1. ผันกริยา ➔ 2. เติมกรรม/สถานที่ ➔ 3. เขียนประโยคเต็ม)
+            </p>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%; text-align: center;">ข้อ</th>
+                        <th style="width: 14%; text-align: center;">Verb (V.1)</th>
+                        <th style="width: 13%; text-align: center;">ความหมาย</th>
+                        <th style="width: 16%; text-align: center;">สเต็ป 1: ผันเป็น V.2</th>
+                        <th style="width: 18%; text-align: center;">สเต็ป 2: ทำอะไร / ที่ไหน?</th>
+                        <th style="width: 34%;">สเต็ป 3: ประโยคเต็มสมบูรณ์</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #f8fafc; font-style: italic;">
+                        <td style="text-align: center;">Ex.</td>
+                        <td style="text-align: center; font-weight: bold;">play</td>
+                        <td style="text-align: center;">เล่น</td>
+                        <td style="text-align: center;">played</td>
+                        <td style="text-align: center;">football / ROV</td>
+                        <td>I played football yesterday.</td>
+                    </tr>
+                    <tr><td style="text-align: center;">1</td><td style="text-align: center; font-weight: bold;">eat</td><td style="text-align: center;">กิน</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">2</td><td style="text-align: center; font-weight: bold;">buy</td><td style="text-align: center;">ซื้อ</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">3</td><td style="text-align: center; font-weight: bold;">watch</td><td style="text-align: center;">ดู / ชม</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">4</td><td style="text-align: center; font-weight: bold;">go</td><td style="text-align: center;">ไป</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">5</td><td style="text-align: center; font-weight: bold;">clean</td><td style="text-align: center;">ทำความสะอาด</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">6</td><td style="text-align: center; font-weight: bold;">see</td><td style="text-align: center;">เห็น / พบ</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">7</td><td style="text-align: center; font-weight: bold;">read</td><td style="text-align: center;">อ่าน</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">8</td><td style="text-align: center; font-weight: bold;">listen</td><td style="text-align: center;">ฟัง (คู่กับ to)</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">9</td><td style="text-align: center; font-weight: bold;">write</td><td style="text-align: center;">เขียน</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                    <tr><td style="text-align: center;">10</td><td style="text-align: center; font-weight: bold;">drink</td><td style="text-align: center;">ดื่ม</td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td><td><span class="write-blank"></span></td></tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 12px; font-size: 0.85rem; color: #555;">
+                <strong>คลังคำนามช่วยชีวิต (Word Bank):</strong> noodles, a book, milk, my room, YouTube, a comic book, a movie, to school, a cat, music, a new pen, water
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- MASTER ANSWER KEYS (Optionally printed) -->
+        <!-- ============================================================= -->
+        <div id="print-answer-keys" class="answer-key-section" style="display: none;">
+            <h2 style="font-size: 1.3rem; color: var(--success); margin-bottom: 12px; border-bottom: 2px solid var(--success-border); padding-bottom: 4px;">
+                📋 เฉลยละเอียดสำหรับผู้ปกครอง / คุณครู (Master Answer Keys)
+            </h2>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลยชุดที่ 1: ใบงานประเมินผลรอบด้าน (25 คะแนน)</h3>
+                <p style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>Part 1:</strong> 1. watched | 2. studied | 3. stopped | 4. played | 5. bought | 6. saw | 7. wrote | 8. went<br>
+                    <strong>Part 2:</strong> 1. visited | 2. didn't have | 3. ate | 4. didn't watch | 5. arrived | 6. lost<br>
+                    <strong>Part 3:</strong><br>
+                    1. (-) Ken didn't buy a new comic book yesterday. | (?) Did Ken buy a new comic book yesterday?<br>
+                    2. (-) They didn't go to the cinema last Sunday. | (?) Did they go to the cinema last Sunday?<br>
+                    3. (-) Jane didn't make a delicious cake for the party. | (?) Did Jane make a delicious cake for the party?<br>
+                    <strong>Part 4:</strong><br>
+                    1. went ➔ go | 2. saw ➔ see | 3. studyed ➔ studied | 4. drink ➔ drank | 5. played ➔ play
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลยชุดที่ 2: แบบฝึกสร้างประโยคจาก Keyword</h3>
+                <p style="font-size: 0.9rem; line-height: 1.8;">
+                    <strong>ตอนที่ 1:</strong><br>
+                    1. They played football after school yesterday.<br>
+                    2. My brother didn't watch TV last night.<br>
+                    3. Did you go to the mall last weekend?<br>
+                    4. Mom baked a delicious cake two days ago.<br>
+                    <strong>ตอนที่ 2 & 3:</strong><br>
+                    1. Lisa lost her phone yesterday. | 2. We didn't see the movie last Sunday.<br>
+                    3. Did you eat papaya salad for lunch? | 4. Tom bought a new bike last month.<br>
+                    Peter (+): Peter visited Japan last year.<br>
+                    Peter (-): Peter didn't visit Japan last year.<br>
+                    Peter (?): Did Peter visit Japan last year?
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลยชุดที่ 3: แบบฝึก Verb 10 ข้อ</h3>
+                <p style="font-size: 0.9rem; line-height: 1.8;">
+                    1. eat ➔ <strong>ate</strong> (I ate noodles yesterday.)<br>
+                    2. buy ➔ <strong>bought</strong> (I bought a new pen yesterday.)<br>
+                    3. watch ➔ <strong>watched</strong> (I watched a movie yesterday.)<br>
+                    4. go ➔ <strong>went</strong> (I went to school yesterday.)<br>
+                    5. clean ➔ <strong>cleaned</strong> (I cleaned my room yesterday.)<br>
+                    6. see ➔ <strong>saw</strong> (I saw a cat yesterday.)<br>
+                    7. read ➔ <strong>read</strong> (I read a comic book yesterday.)<br>
+                    8. listen ➔ <strong>listened</strong> (I listened to music yesterday.)<br>
+                    9. write ➔ <strong>wrote</strong> (I wrote a letter yesterday.)<br>
+                    10. drink ➔ <strong>drank</strong> (I drank milk yesterday.)
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer no-print">
+        <p>Past Simple Tense Learning Suite • โมดูลใบงานพิมพ์ได้ (Printable Worksheets)</p>
+    </footer>
+
+    <script>
+        function toggleKeys() {
+            const chk = document.getElementById('toggle-keys-checkbox');
+            const keysSection = document.getElementById('print-answer-keys');
+            if (chk.checked) {
+                keysSection.style.display = 'block';
+            } else {
+                keysSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
