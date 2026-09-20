@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prepositions & Phrasal Verbs (Units 4 - 6) - Dark Mode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+  <style>
+    body { font-family: 'Prompt', sans-serif; }
+    .badge { display: inline-flex; align-items: center; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen pb-20 transition-colors duration-300">
+
+  <!-- Suite Top Navigation -->
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-brand-badge">P2</div>
+        <div>
+          <div class="nav-brand-title">Past Simple Tense Suite</div>
+          <div class="nav-brand-sub">โมดูลเสริม: Prepositions & Phrasal Verbs</div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">🏠 หน้าหลัก</a>
+        <a href="grammar.html" class="nav-link">📖 สรุปไวยากรณ์ & โค้ชผู้ปกครอง</a>
+        <a href="practice.html" class="nav-link">✍️ ทำแบบฝึกหัดออนไลน์</a>
+        <a href="printable.html" class="nav-link">🖨️ ใบงานพิมพ์ได้ (Printable)</a>
+        <a href="prepositions.html" class="nav-link active">📍 Prepositions & LOOK</a>
+        <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()">🌙 โหมดมืด</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Top Header Banner -->
+  <header class="bg-gradient-to-r from-teal-900 via-emerald-800 to-indigo-950 text-white shadow-lg sticky top-0 z-50 border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center justify-between w-full md:w-auto">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">📍</span>
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight">Prepositions & LOOK (Units 4, 5, 6)</h1>
+          </div>
+          <p class="text-emerald-300 text-xs sm:text-sm mt-0.5">รวมคำบุพบทบอกสถานที่ เวลา คำคู่กริยา (Collocations) และ Phrasal Verbs</p>
+        </div>
+
+        <!-- Dark/Light Mode Switcher Mobile -->
+        <button onclick="toggleTheme()" class="md:hidden p-2 rounded-xl bg-slate-800 text-amber-400 hover:bg-slate-700 transition" title="สลับโหมดมืด/สว่าง">
+          <span id="themeIconMobile">🌙</span>
+        </button>
+      </div>
+
+      <!-- Quick Category Filters & Desktop Theme Toggle -->
+      <div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+        <div class="flex flex-wrap gap-1.5 sm:gap-2" id="filter-buttons">
+          <button onclick="filterPrep('all', this)" class="filter-tab active px-3 py-1.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-500 text-slate-950 shadow transition">ทั้งหมด</button>
+          <button onclick="filterPrep('look', this)" class="filter-tab px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white transition">👀 ตระกูล LOOK</button>
+          <button onclick="filterPrep('place', this)" class="filter-tab px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white transition">🛋️ สถานที่ & เฟอร์นิเจอร์</button>
+          <button onclick="filterPrep('time', this)" class="filter-tab px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white transition">⏳ บอกเวลา</button>
+          <button onclick="filterPrep('dependent', this)" class="filter-tab px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-slate-800/90 text-slate-300 hover:bg-slate-700 hover:text-white transition">🔗 กริยาคู่ Preposition</button>
+        </div>
+
+        <!-- Dark/Light Mode Switcher Desktop -->
+        <button onclick="toggleTheme()" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-amber-300 hover:bg-slate-700 transition text-xs font-semibold" title="สลับโหมดมืด/สว่าง">
+          <span id="themeIconDesktop">🌙</span>
+          <span id="themeText">โหมดมืด</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search & Quick Tips -->
+  <div class="max-w-6xl mx-auto px-4 mt-6">
+    <div class="bg-slate-800/90 rounded-2xl p-4 shadow-sm border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="relative w-full sm:w-96">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">🔍</span>
+        <input type="text" id="prepSearch" onkeyup="searchPreps()" placeholder="ค้นหา Preposition, คำกริยา หรือ ความหมายไทย..." class="w-full pl-9 pr-4 py-2 text-sm rounded-xl bg-slate-900 border border-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition">
+      </div>
+      <div class="text-xs text-slate-400 flex items-center gap-3">
+        <span>💡 คลิกเลือกแท็บเพื่อกรอง หรือพิมพ์คำศัพท์ในช่องค้นหาได้ทันที</span>
+        <span class="bg-emerald-950 text-emerald-400 font-semibold px-3 py-1 rounded-full border border-emerald-800">โหมดถนอมสายตา</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="max-w-6xl mx-auto px-4 mt-6 space-y-8">
+
+    <!-- 1. PHRASAL VERBS WITH LOOK -->
+    <section class="prep-section" id="section-look">
+      <div class="flex items-center gap-3 mb-4 border-b border-rose-900/60 pb-2">
+        <span class="bg-rose-700 text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-lg shadow">UNIT 5 FOCUS</span>
+        <h2 class="text-xl font-bold text-rose-300">1. กริยาวลีตระกูล LOOK (Phrasal Verbs with LOOK)</h2>
+        <span class="text-xs sm:text-sm text-slate-400 font-normal ml-auto">หน้า 48 & 49</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- look up -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item hover:border-indigo-500 transition shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-bold text-indigo-400">look up</h3>
+            <span class="badge bg-indigo-950 text-indigo-300 border border-indigo-800">ค้นหาข้อมูล</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 mb-2">ความหมาย: ค้นหาคำศัพท์ หรือข้อมูลในแหล่งอ้างอิง</p>
+          <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-750 text-xs text-slate-300 space-y-1">
+            <p>• <strong>look up</strong> a word in the dictionary</p>
+            <p>• <strong>look up</strong> an address / a phone number on the internet</p>
+          </div>
+        </div>
+
+        <!-- look into -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item hover:border-blue-500 transition shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-bold text-blue-400">look into</h3>
+            <span class="badge bg-blue-950 text-blue-300 border border-blue-800">ตรวจสอบ/สืบสวน</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 mb-2">ความหมาย: สืบหาข้อเท็จจริง หรือสาเหตุของปัญหา</p>
+          <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-750 text-xs text-slate-300 space-y-1">
+            <p>• The police are <strong>looking into</strong> a crime / what happened last night.</p>
+            <p>• I'm <strong>looking into</strong> why my laptop stopped working.</p>
+          </div>
+        </div>
+
+        <!-- look at -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item hover:border-teal-500 transition shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-bold text-teal-400">look at</h3>
+            <span class="badge bg-teal-950 text-teal-300 border border-teal-800">มองดู/ชม</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 mb-2">ความหมาย: เพ่งมอง, จ้องดูภาพหรือสิ่งของ</p>
+          <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-750 text-xs text-slate-300 space-y-1">
+            <p>• <strong>Look at</strong> that bird. It's amazing!</p>
+            <p>• What are you <strong>looking at</strong>? - Some old photos.</p>
+          </div>
+        </div>
+
+        <!-- look after -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item hover:border-emerald-500 transition shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-bold text-emerald-400">look after</h3>
+            <span class="badge bg-emerald-950 text-emerald-300 border border-emerald-800">ดูแลเอาใจใส่</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 mb-2">ความหมาย: เลี้ยงดู, เฝ้าดูแล (take care of)</p>
+          <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-750 text-xs text-slate-300 space-y-1">
+            <p>• I've got to <strong>look after</strong> my little sister.</p>
+            <p>• She helps her dad <strong>look after</strong> the pets / little brothers.</p>
+          </div>
+        </div>
+
+        <!-- look for -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item hover:border-amber-500 transition shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-bold text-amber-400">look for</h3>
+            <span class="badge bg-amber-950 text-amber-300 border border-amber-800">ตามหา/มองหา</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 mb-2">ความหมาย: พยายามค้นหาสิ่งที่หาย หรือสิ่งที่ต้องการ</p>
+          <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-750 text-xs text-slate-300 space-y-1">
+            <p>• What are you <strong>looking for</strong>? - I'm looking for my pen / keys.</p>
+            <p>• My parents are <strong>looking for</strong> a new house.</p>
+          </div>
+        </div>
+
+        <!-- look in -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item hover:border-purple-500 transition shadow-sm">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-bold text-purple-400">look in</h3>
+            <span class="badge bg-purple-950 text-purple-300 border border-purple-800">ส่องกระจก</span>
+          </div>
+          <p class="text-sm font-medium text-slate-200 mb-2">ความหมาย: ส่องดูตัวเองในกระจกเงา</p>
+          <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-750 text-xs text-slate-300 space-y-1">
+            <p>• He is <strong>looking in</strong> the mirror to fix his hair.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PREPOSITIONS OF PLACE & FURNITURE -->
+    <section class="prep-section" id="section-place">
+      <div class="flex items-center gap-3 mb-4 border-b border-cyan-900/60 pb-2">
+        <span class="bg-cyan-700 text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-lg shadow">PLACE & FURNITURE</span>
+        <h2 class="text-xl font-bold text-cyan-300">2. คำบุพบทกับสถานที่ ตำแหน่ง และเฟอร์นิเจอร์</h2>
+        <span class="text-xs sm:text-sm text-slate-400 font-normal ml-auto">Mind Map & Crossword</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- In vs On for Furniture -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item">
+          <h3 class="font-bold text-cyan-300 text-base mb-3">🪑 จุดจำสับสน: เก้าอี้ vs โซฟา vs กระจก</h3>
+          <div class="space-y-2.5 text-sm">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-cyan-300">sit in</span> an armchair
+                <span class="block text-xs text-slate-400 mt-0.5">เก้าอี้มีที่วางแขน/มีพนักโอบล้อม (นั่ง "ใน")</span>
+              </div>
+              <span class="badge bg-cyan-950 text-cyan-300 border border-cyan-700 font-mono">in</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-blue-300">sit on</span> the sofa / floor
+                <span class="block text-xs text-slate-400 mt-0.5">โซฟา หรือ พื้นผิวราบ (นั่ง "บน")</span>
+              </div>
+              <span class="badge bg-blue-950 text-blue-300 border border-blue-700 font-mono">on</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-between">
+              <div>
+                <span class="font-bold text-purple-300">study at</span> a desk
+                <span class="block text-xs text-slate-400 mt-0.5">นั่งทำการบ้าน "ที่" โต๊ะเขียนหนังสือ</span>
+              </div>
+              <span class="badge bg-purple-950 text-purple-300 border border-purple-700 font-mono">at</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Positions in room -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item">
+          <h3 class="font-bold text-cyan-300 text-base mb-3">🏠 ตำแหน่งและทิศทางในบ้าน/สถานที่</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+            <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-700/80">
+              <strong class="text-slate-100">in front of</strong> the TV<br>
+              <span class="text-slate-400">(หน้าทีวี)</span>
+            </div>
+            <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-700/80">
+              <strong class="text-slate-100">under</strong> the window<br>
+              <span class="text-slate-400">(ใต้หน้าต่าง)</span>
+            </div>
+            <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-700/80">
+              <strong class="text-slate-100">down</strong> the stairs<br>
+              <span class="text-slate-400">(ลงบันได)</span>
+            </div>
+            <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-700/80">
+              <strong class="text-slate-100">live next to</strong> Sally<br>
+              <span class="text-slate-400">(อยู่ติดกับ/ข้างๆ แซลลี่)</span>
+            </div>
+            <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-700/80">
+              <strong class="text-slate-100">at</strong> the door / at home<br>
+              <span class="text-slate-400">(ที่ประตู / อยู่บ้าน)</span>
+            </div>
+            <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-700/80">
+              <strong class="text-slate-100">in</strong> the kitchen / bathroom<br>
+              <span class="text-slate-400">(ในห้องครัว / ห้องน้ำ)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PREPOSITIONS OF TIME -->
+    <section class="prep-section" id="section-time">
+      <div class="flex items-center gap-3 mb-4 border-b border-amber-900/60 pb-2">
+        <span class="bg-amber-700 text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-lg shadow">TIME EXPRESSIONS</span>
+        <h2 class="text-xl font-bold text-amber-300">3. คำบุพบทบอกเวลา (Prepositions of Time)</h2>
+        <span class="text-xs sm:text-sm text-slate-400 font-normal ml-auto">Unit 4, 5 & 6</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- at -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-amber-400 text-lg">at</h3>
+            <span class="badge bg-amber-950 text-amber-300 border border-amber-800">เวลาเจาะจง / เทศกาล</span>
+          </div>
+          <ul class="text-xs space-y-1.5 text-slate-300">
+            <li>• <strong>at</strong> 7 pm / <strong>at</strong> 8 pm / <strong>at</strong> 6.30 pm</li>
+            <li>• <strong>at</strong> three o'clock</li>
+            <li>• <strong>at</strong> the weekend</li>
+            <li>• <strong>at</strong> that time</li>
+          </ul>
+        </div>
+
+        <!-- on -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-blue-400 text-lg">on</h3>
+            <span class="badge bg-blue-950 text-blue-300 border border-blue-800">วันในสัปดาห์ / วันที่</span>
+          </div>
+          <ul class="text-xs space-y-1.5 text-slate-300">
+            <li>• <strong>on</strong> Friday / <strong>on</strong> Monday</li>
+            <li>• <strong>on</strong> Sundays (ทุกวันอาทิตย์)</li>
+            <li>• <strong>on</strong> Saturday evening</li>
+            <li>• <strong>on</strong> my birthday</li>
+          </ul>
+        </div>
+
+        <!-- in / for / before / after -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-5 prep-item">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-emerald-400 text-lg">in / for / after</h3>
+            <span class="badge bg-emerald-950 text-emerald-300 border border-emerald-800">ช่วงเวลา / ระยะเวลา</span>
+          </div>
+          <ul class="text-xs space-y-1.5 text-slate-300">
+            <li>• <strong>in</strong> the morning / afternoon / evening</li>
+            <li>• <strong>for</strong> three hours / <strong>for</strong> two weeks (เป็นเวลา...)</li>
+            <li>• <strong>before</strong> dinner / <strong>after</strong> school</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. DEPENDENT PREPOSITIONS & COLLOCATIONS -->
+    <section class="prep-section" id="section-dependent">
+      <div class="flex items-center gap-3 mb-4 border-b border-indigo-900/60 pb-2">
+        <span class="bg-indigo-700 text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-lg shadow">COLLOCATIONS</span>
+        <h2 class="text-xl font-bold text-indigo-300">4. กริยาและคุณศัพท์คู่ Preposition เฉพาะตัว</h2>
+        <span class="text-xs sm:text-sm text-slate-400 font-normal ml-auto">Dependent Prepositions</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- with -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-4 prep-item">
+          <h3 class="font-bold text-indigo-300 text-base mb-2">... with ...</h3>
+          <ul class="text-xs text-slate-200 space-y-2">
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>angry with</strong> someone<br><span class="text-slate-400">โกรธ/โมโหใส่ใคร</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>dance with</strong> someone<br><span class="text-slate-400">เต้นรำกับใคร</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>play with</strong> toys<br><span class="text-slate-400">เล่นกับ...</span></li>
+          </ul>
+        </div>
+
+        <!-- about -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-4 prep-item">
+          <h3 class="font-bold text-emerald-300 text-base mb-2">... about ...</h3>
+          <ul class="text-xs text-slate-200 space-y-2">
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>cares about</strong> someone<br><span class="text-slate-400">ใส่ใจ/ห่วงใยผู้อื่น</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>talk about</strong> something<br><span class="text-slate-400">พูดคุยเกี่ยวกับ...</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>confident about</strong> it<br><span class="text-slate-400">มั่นใจเกี่ยวกับเรื่องนั้น</span></li>
+          </ul>
+        </div>
+
+        <!-- to -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-4 prep-item">
+          <h3 class="font-bold text-blue-300 text-base mb-2">... to ...</h3>
+          <ul class="text-xs text-slate-200 space-y-2">
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>lent it to</strong> him<br><span class="text-slate-400">ให้เขายืมไป</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>give back to</strong> someone<br><span class="text-slate-400">ส่งคืนให้แก่ใคร</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700"><strong>listen to</strong> music<br><span class="text-slate-400">รับฟังดนตรี/เพลง</span></li>
+          </ul>
+        </div>
+
+        <!-- of -->
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 p-4 prep-item">
+          <h3 class="font-bold text-purple-300 text-base mb-2">... of ... (Double Genitive)</h3>
+          <ul class="text-xs text-slate-200 space-y-2">
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700">a friend <strong>of mine</strong><br><span class="text-slate-400">เพื่อนคนหนึ่งของฉัน</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700">a cousin <strong>of John's</strong><br><span class="text-slate-400">ลูกพี่ลูกน้องของจอห์น</span></li>
+            <li class="p-2 bg-slate-900 rounded-lg border border-slate-700">friends <strong>of ours</strong><br><span class="text-slate-400">เพื่อนของพวกเรา</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Dark / Light Mode Toggle (delegated to theme.js)
+    function toggleDarkMode() {
+      toggleTheme();
+    }
+
+    function filterPrep(type, btn) {
+      document.querySelectorAll('.filter-tab').forEach(b => {
+        b.classList.remove('bg-emerald-500', 'text-slate-950', 'font-semibold', 'shadow');
+        b.classList.add('bg-slate-800/90', 'text-slate-300');
+      });
+      btn.classList.remove('bg-slate-800/90', 'text-slate-300');
+      btn.classList.add('bg-emerald-500', 'text-slate-950', 'font-semibold', 'shadow');
+
+      const sections = document.querySelectorAll('.prep-section');
+      sections.forEach(sec => {
+        if (type === 'all') {
+          sec.style.display = 'block';
+        } else if (sec.id === 'section-' + type) {
+          sec.style.display = 'block';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+
+    function searchPreps() {
+      const q = document.getElementById('prepSearch').value.toLowerCase().trim();
+      const items = document.querySelectorAll('.prep-item');
+
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(q)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      if (q.length > 0) {
+        document.querySelectorAll('.prep-section').forEach(s => s.style.display = 'block');
+      }
+    }
+  </script>
+</body>
+</html>
