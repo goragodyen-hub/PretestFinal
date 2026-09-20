@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบงานพิมพ์ได้ (Printable A4) • Prepositions & Phrasal Verbs (ม.2)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/print.css">
+    <script src="js/theme.js"></script>
+    <style>
+        .print-control-bar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: var(--shadow-md);
+        }
+        .word-bank-box {
+            background: rgba(236, 72, 153, 0.08);
+            border: 1px dashed #ec4899;
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            font-size: 0.92rem;
+            color: var(--text-main);
+        }
+        .blank-line {
+            display: inline-block;
+            min-width: 90px;
+            border-bottom: 1.5px solid currentColor;
+            margin: 0 4px;
+            vertical-align: bottom;
+            height: 1.3em;
+        }
+        .error-item {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+        @media print {
+            .word-bank-box {
+                background: #fdf2f8 !important;
+                border: 1px dashed #be185d !important;
+                color: #000 !important;
+            }
+            .blank-line {
+                border-bottom: 1.5px solid #000 !important;
+            }
+            .error-item {
+                border: 1px solid #ccc !important;
+                background: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar (Hidden in Print) -->
+    <header class="top-nav">
+        <div class="top-nav-inner">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-brand-badge" style="background: linear-gradient(135deg, #db2777, #be185d);">U4</div>
+                <div>
+                    <div class="nav-brand-title">Past Simple Tense Suite</div>
+                    <div class="nav-brand-sub">โมดูลเสริม: ใบงานพิมพ์ได้ Prepositions & Phrasal Verbs</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">🏠 หน้าหลัก</a>
+                <a href="grammar.html" class="nav-link">📖 สรุปไวยากรณ์ & โค้ชผู้ปกครอง</a>
+                <a href="practice.html" class="nav-link">✍️ ทำแบบฝึกหัดออนไลน์</a>
+                <a href="printable.html" class="nav-link">🖨️ ใบงานพิมพ์ได้ (Past Simple)</a>
+                <a href="prepositions.html" class="nav-link">📍 สรุป Prepositions & LOOK</a>
+                <a href="prepositions_practice.html" class="nav-link">🎯 แบบฝึกหัด Prepositions</a>
+                <a href="prepositions_printable.html" class="nav-link active">🖨️ ใบงานพิมพ์ Prepositions</a>
+                <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()">🌙 โหมดมืด</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Control Bar for Printing (Hidden in Print) -->
+        <div class="print-control-bar no-print">
+            <div>
+                <h3 style="color: var(--primary); font-size: 1.15rem; margin-bottom: 4px;">🖨️ เครื่องมือสั่งพิมพ์ใบงาน A4 (Prepositions & Phrasal Verbs)</h3>
+                <p style="font-size: 0.88rem; color: var(--text-muted);">
+                    จัดหน้ามาตรฐาน A4 สะอาด คมชัด พร้อมตัวเลือกพิมพ์เฉลยละเอียดสำหรับครูหรือผู้ปกครอง
+                </p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 0.92rem; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" id="toggle-keys-checkbox" onchange="toggleKeys()"> 
+                    <strong>พิมพ์เฉลยละเอียดแนบท้ายด้วย</strong>
+                </label>
+                <button class="btn btn-primary" onclick="window.print()">
+                    🖨️ สั่งพิมพ์ทันที (Print / PDF)
+                </button>
+            </div>
+        </div>
+
+        <!-- Print-only Title Header -->
+        <div class="print-header" style="display: none;">
+            <h1>ใบงานแบบทดสอบ Prepositions & Phrasal Verbs (ม.2)</h1>
+            <p>สาระการเรียนรู้ภาษาต่างประเทศ (ภาษาอังกฤษ) • หน่วยการเรียนรู้ Unit 4 - Unit 6</p>
+        </div>
+
+        <!-- Student Info Header -->
+        <div class="student-info-bar">
+            <div class="info-field">ชื่อ-นามสกุล: __________________________________________________</div>
+            <div class="info-field" style="max-width: 140px;">ชั้น: ม.2 / _______</div>
+            <div class="info-field" style="max-width: 120px;">เลขที่: _______</div>
+            <div class="info-field" style="max-width: 140px;">คะแนน: ________ / 28</div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- WORKSHEET: PREPOSITIONS & PHRASAL VERBS (28 MARKS) -->
+        <!-- ============================================================= -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.25rem; color: #db2777; margin-bottom: 12px; border-bottom: 2px solid #db2777; padding-bottom: 4px;">
+                ใบงานประเมินความรู้: Prepositions of Place, Time, Collocations & LOOK Phrasal Verbs (28 คะแนน)
+            </h2>
+        </div>
+
+        <!-- Part 1: LOOK Phrasal Verbs -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 1: Phrasal Verbs ตระกูล LOOK 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: นำคำบุพบท/อนุภาคที่กำหนดให้ในกรอบ เติมลงในช่องว่างหลังกริยา LOOK ให้ได้ความหมายที่ถูกต้องสมบูรณ์
+            </p>
+            
+            <div class="word-bank-box">
+                <strong>กล่องคำศัพท์ (Word Box):</strong> &nbsp;&nbsp; 
+                <span style="letter-spacing: 2px; font-weight: bold;">up &nbsp;|&nbsp; into &nbsp;|&nbsp; at &nbsp;|&nbsp; after &nbsp;|&nbsp; for &nbsp;|&nbsp; in</span>
+            </div>
+
+            <ol style="padding-left: 20px; line-height: 2.2; font-size: 0.95rem;">
+                <li>You should look <span class="blank-line" style="min-width: 110px;"></span> the unknown words in an English dictionary. (ค้นหาความหมาย)</li>
+                <li>The detectives are looking <span class="blank-line" style="min-width: 110px;"></span> the mysterious bank robbery. (สืบสวน/ตรวจสอบ)</li>
+                <li>Look <span class="blank-line" style="min-width: 110px;"></span> that beautiful rainbow in the sky! (มองดู)</li>
+                <li>Who will look <span class="blank-line" style="min-width: 110px;"></span> your cat while your family is away on holiday? (ดูแล/เลี้ยงดู)</li>
+                <li>I've been looking <span class="blank-line" style="min-width: 110px;"></span> my house keys for half an hour, but I can't find them. (มองหา/ค้นหา)</li>
+                <li>She paused to look <span class="blank-line" style="min-width: 110px;"></span> the mirror before walking out of the room. (ส่องกระจก)</li>
+            </ol>
+        </div>
+
+        <!-- Part 2: Prepositions of Place & Furniture -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 2: Prepositions of Place & Furniture 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: เติมคำบุพบทบอกสถานที่และตำแหน่งของเครื่องเรือนลงในช่องว่างให้ถูกต้องตามกฎไวยากรณ์
+            </p>
+
+            <div class="word-bank-box">
+                <strong>ตัวเลือกคำบุพบท:</strong> &nbsp;&nbsp; 
+                <span style="letter-spacing: 2px; font-weight: bold;">in &nbsp;|&nbsp; on &nbsp;|&nbsp; at &nbsp;|&nbsp; under &nbsp;|&nbsp; in front of &nbsp;|&nbsp; next to</span>
+            </div>
+
+            <ol style="padding-left: 20px; line-height: 2.2; font-size: 0.95rem;">
+                <li>Grandfather loves reading his newspaper while sitting <span class="blank-line"></span> an armchair.</li>
+                <li>The whole family is sitting <span class="blank-line"></span> the comfortable sofa watching a movie.</li>
+                <li>Ken usually sits <span class="blank-line"></span> his desk to do homework every evening.</li>
+                <li>The sleepy cat is resting peacefully <span class="blank-line"></span> the wooden dining table.</li>
+                <li>Please don't stand <span class="blank-line" style="min-width: 120px;"></span> the television; I can't see the screen!</li>
+                <li>The post office is situated right <span class="blank-line"></span> the city library.</li>
+            </ol>
+        </div>
+
+        <!-- Page break for nice multi-page print -->
+        <div class="page-break"></div>
+
+        <!-- Part 3: Prepositions of Time -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 3: Prepositions of Time (at / on / in / for) 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: เติมคำบุพบทบอกเวลา (at, on, in, for) ลงในช่องว่างให้ถูกต้องตามช่วงเวลาที่กำหนด
+            </p>
+
+            <ol style="padding-left: 20px; line-height: 2.2; font-size: 0.95rem;">
+                <li>The live concert begins promptly <span class="blank-line"></span> 8.00 pm.</li>
+                <li>We always have English and Science classes <span class="blank-line"></span> Fridays.</li>
+                <li>My younger brother was born <span class="blank-line"></span> 2015.</li>
+                <li>I love jogging around the park early <span class="blank-line"></span> the morning.</li>
+                <li>What are you planning to do <span class="blank-line"></span> the weekend?</li>
+                <li>The students practiced playing guitar <span class="blank-line"></span> two hours yesterday afternoon.</li>
+            </ol>
+        </div>
+
+        <!-- Part 4: Collocations & Dependent Prepositions -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 4: Collocations & Dependent Prepositions 
+                <span class="badge-score">6 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: เติมคำบุพบทหรือรูปคำสรรพนามที่ใช้คู่กันตามสำนวนที่กำหนดให้ถูกต้อง
+            </p>
+
+            <ol style="padding-left: 20px; line-height: 2.2; font-size: 0.95rem;">
+                <li>Why are you so angry <span class="blank-line"></span> your best friend?</li>
+                <li>Our parents always care deeply <span class="blank-line"></span> our health and future.</li>
+                <li>Do you enjoy listening <span class="blank-line"></span> classical music in your free time?</li>
+                <li>Please remember to give the borrowed book back <span class="blank-line"></span> the librarian.</li>
+                <li>Lisa feels very confident <span class="blank-line"></span> passing her upcoming exam.</li>
+                <li>Mark invited a close friend <span class="blank-line" style="min-width: 120px;"></span> to join his birthday dinner. (Double Genitive: ... ของฉัน)</li>
+            </ol>
+        </div>
+
+        <!-- Part 5: Error Identification & Correction -->
+        <div class="card">
+            <h2 class="card-title">
+                Part 5: Error Identification & Correction 
+                <span class="badge-score">4 คะแนน</span>
+            </h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                คำชี้แจง: แต่ละประโยคมีจุดผิดทางไวยากรณ์ 1 ตำแหน่ง จงขีดเส้นใต้คำที่ผิด และเขียนคำที่ถูกต้องลงในช่องว่างด้านหลัง
+            </p>
+
+            <div class="error-item">
+                1. He was tired, so he sat <u>on</u> an armchair to take a nap.<br>
+                <div style="margin-top: 6px;">
+                    ➔ คำที่ถูกต้อง: <span class="blank-line" style="min-width: 180px;"></span>
+                </div>
+            </div>
+
+            <div class="error-item">
+                2. She called me <u>yesterday night</u> to talk about the homework.<br>
+                <div style="margin-top: 6px;">
+                    ➔ คำที่ถูกต้อง: <span class="blank-line" style="min-width: 180px;"></span>
+                </div>
+            </div>
+
+            <div class="error-item">
+                3. Jane introduced me to a classmate <u>of me</u>.<br>
+                <div style="margin-top: 6px;">
+                    ➔ คำที่ถูกต้อง: <span class="blank-line" style="min-width: 180px;"></span>
+                </div>
+            </div>
+
+            <div class="error-item">
+                4. Did you <u>listen music</u> before going to bed?<br>
+                <div style="margin-top: 6px;">
+                    ➔ คำที่ถูกต้อง: <span class="blank-line" style="min-width: 180px;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- MASTER ANSWER KEYS (Optionally printed) -->
+        <!-- ============================================================= -->
+        <div id="print-answer-keys" class="answer-key-section" style="display: none;">
+            <h2 style="font-size: 1.3rem; color: var(--success); margin-bottom: 12px; border-bottom: 2px solid var(--success-border); padding-bottom: 4px;">
+                📋 เฉลยละเอียดสำหรับผู้ปกครองและคุณครู (Master Answer Keys & Explanations)
+            </h2>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลย Part 1: Phrasal Verbs ตระกูล LOOK (6 คะแนน)</h3>
+                <ul style="font-size: 0.92rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>1. up (look up):</strong> ค้นหาคำศัพท์ ข้อมูล หรือความหมายในพจนานุกรม/อินเทอร์เน็ต</li>
+                    <li><strong>2. into (look into):</strong> สืบสวน ไต่สวน ตรวจสอบข้อเท็จจริง (ใช้กับตำรวจหรือการตรวจสอบ)</li>
+                    <li><strong>3. at (look at):</strong> มองดู จ้องมองสิ่งใดสิ่งหนึ่งโดยตรง (Look at that rainbow!)</li>
+                    <li><strong>4. after (look after):</strong> ดูแล เอาใจใส่ เลี้ยงดู (มีความหมายเหมือน take care of)</li>
+                    <li><strong>5. for (look for):</strong> มองหา ค้นหาสิ่งของที่หายไปหรือกำลังตามหา (seek / search for)</li>
+                    <li><strong>6. in (look in):</strong> ส่องดูข้างใน เช่น look in the mirror (ส่องกระจกดูเงาตัวเอง)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลย Part 2: Prepositions of Place & Furniture (6 คะแนน)</h3>
+                <ul style="font-size: 0.92rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>1. in (in an armchair):</strong> เก้าอี้มีที่วางแขนโอบล้อมตัวเรา จึงใช้ <em>in</em> (จุดออกสอบบ่อยมาก)</li>
+                    <li><strong>2. on (on the sofa):</strong> โซฟาเป็นพื้นผิวยาวเปิดกว้าง นั่งบนพื้นผิว ใช้ <em>on</em></li>
+                    <li><strong>3. at (at a desk):</strong> นั่งทำงานหรืออ่านหนังสือประจำโต๊ะ ใช้ <em>at</em> (บอกตำแหน่งจุดประสงค์การใช้งาน)</li>
+                    <li><strong>4. under (under the table):</strong> ใต้โต๊ะ ตำแหน่งที่อยู่ด้านล่างสิ่งของ</li>
+                    <li><strong>5. in front of (in front of the TV):</strong> ข้างหน้า / ด้านหน้า บังหน้าจอทีวี</li>
+                    <li><strong>6. next to (next to the library):</strong> ถัดจาก / ติดกันกับห้องสมุด</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลย Part 3: Prepositions of Time (6 คะแนน)</h3>
+                <ul style="font-size: 0.92rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>1. at (at 8.00 pm):</strong> ใช้ <em>at</em> กับเวลาตามเข็มนาฬิกาที่เฉพาะเจาะจง</li>
+                    <li><strong>2. on (on Fridays):</strong> ใช้ <em>on</em> กับวันในสัปดาห์ (Sunday - Saturday)</li>
+                    <li><strong>3. in (in 2015):</strong> ใช้ <em>in</em> กับปี ค.ศ., ศตวรรษ หรือเดือน</li>
+                    <li><strong>4. in (in the morning):</strong> สำนวนช่วงเวลาของวัน: in the morning, in the afternoon, in the evening</li>
+                    <li><strong>5. at (at the weekend):</strong> วันหยุดสุดสัปดาห์ (ภาษาอังกฤษแบบ British นิยมใช้ <em>at</em>, อเมริกันใช้ <em>on</em>)</li>
+                    <li><strong>6. for (for two hours):</strong> ใช้ <em>for</em> บอกระยะเวลาความยาวนาน (เป็นเวลา 2 ชั่วโมง)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลย Part 4: Collocations & Dependent Prepositions (6 คะแนน)</h3>
+                <ul style="font-size: 0.92rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>1. with (angry with someone):</strong> โกรธคน ใช้คู่กับ <em>with</em> (angry at something = โกรธเหตุการณ์)</li>
+                    <li><strong>2. about (care about):</strong> ห่วงใย ใส่ใจ หรือให้ความสำคัญกับสิ่งใด</li>
+                    <li><strong>3. to (listen to):</strong> ฟัง กริยา listen ต้องมี <em>to</em> เสมอเมื่อมีกรรมตามหลัง เช่น listen to music</li>
+                    <li><strong>4. to (give back to):</strong> คืนสิ่งของกลับไป 'ให้' ใคร ใช้ <em>give back to + person</em></li>
+                    <li><strong>5. about (confident about):</strong> มั่นใจในเรื่องใดเรื่องหนึ่ง (confident about + V.ing / noun)</li>
+                    <li><strong>6. of mine (a friend of mine):</strong> โครงสร้าง Double Genitive: a friend of mine = เพื่อนคนหนึ่งของฉัน (ห้ามใช้ of me)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3 style="color: var(--success); font-size: 1.05rem; margin-bottom: 8px;">เฉลย Part 5: Error Identification & Correction (4 คะแนน)</h3>
+                <ul style="font-size: 0.92rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>1. on an armchair ➔ in an armchair (หรือ in):</strong> เก้าอี้เท้าแขนโอบล้อมตัว ต้องใช้บุพบท <em>in</em></li>
+                    <li><strong>2. yesterday night ➔ last night:</strong> ภาษาอังกฤษไม่มีคำว่า yesterday night ต้องใช้ <strong>last night</strong> เสมอ</li>
+                    <li><strong>3. of me ➔ of mine (หรือ a classmate of mine):</strong> ต้องใช้ Possessive Pronoun (mine) ในรูป Double Genitive</li>
+                    <li><strong>4. listen music ➔ listen to music (หรือ to):</strong> กริยา listen จะต้องมีคำบุพบท <strong>to</strong> นำหน้ากรรมเสมอ</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer no-print">
+        <p>Past Simple Tense Learning Suite • โมดูลใบงานพิมพ์ได้ Prepositions & Phrasal Verbs</p>
+    </footer>
+
+    <script>
+        function toggleKeys() {
+            const chk = document.getElementById('toggle-keys-checkbox');
+            const keysSection = document.getElementById('print-answer-keys');
+            if (chk.checked) {
+                keysSection.style.display = 'block';
+            } else {
+                keysSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
