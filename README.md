@@ -1,23 +1,30 @@
-# EN22201 Extra English III - Final Examination (ม.2)
+# EN22201 Extra English III - Portal Hub (ม.2)
 
-ระบบข้อสอบออนไลน์และประเมินผลอัตโนมัติ วิชา **EN22201 Extra English III (Reading and Writing)** ชั้นมัธยมศึกษาปีที่ 2  
-ฉบับทางการ: **Teacher Techit Benjakul (Teacher Tae) Authentic Final Exam** (ระดับ A2 Level • 40 คะแนนเต็ม)
-
----
-
-## 📂 โครงสร้างไฟล์ในระบบ
-
-| ไฟล์ | รายละเอียด | สถานะ |
-| :--- | :--- | :---: |
-| **[index.html](index.html)** หรือ **[tae_final_exam.html](tae_final_exam.html)** | **ข้อสอบหลักออนไลน์ (Teacher Tae Authentic Exam)**<br>• Part 1: Reading Skills เรื่อง *"The Story of Google"* (20 ข้อ)<br>• Part 2: Writing Skills (Connectors, Commas, Error Correction) (20 ข้อ) | **ใช้งานหลัก (Active)** |
-| **[backup_exam_1/en22201_final_exam.html](backup_exam_1/en22201_final_exam.html)** | **ชุดข้อสอบที่ 1 (A1 Foundation Level - 40 ข้อ)**<br>• Reading Comprehension, Noun vs Verb, Mechanics | **สำรองไว้ (Archived)** |
-| **[backup_past_simple/index.html](backup_past_simple/index.html)** | **คลังชุดเดิม (Past Simple Tense Suite)**<br>• สื่อไวยากรณ์ Past Simple Tense, Prepositions, สไลด์ PPTX, ใบงาน A4 | **สำรองไว้ (Archived)** |
+ระบบศูนย์รวม **ข้อสอบจริง (Authentic Examination)** และ **แนวข้อสอบ (Exam Guidelines)** วิชา EN22201 Extra English III (Reading and Writing) ชั้นมัธยมศึกษาปีที่ 2 
 
 ---
 
-## ⚡ ฟังก์ชันเด่นของระบบ
-- **Auto-Grading & Live Modal**: ส่งคำตอบแล้วคิดคะแนนเต็ม 40 คะแนนทันที พร้อมเทียบเป็น 10% (คะแนนจริง 10 คะแนน)
-- **เฉลยละเอียดภาษาไทย**: อธิบายเหตุผล กฎไวยากรณ์ และชี้ตำแหน่งในเนื้อเรื่องทุกข้อ
-- **ปุ่มเปิด/ซ่อนเฉลย**: มีปุ่ม `แสดงเฉลย / ซ่อนเฉลย` สำหรับคุณครูหรือผู้ปกครองใช้ตรวจและสอน
-- **รองรับการพิมพ์ / Save PDF**: ปรับหน้ากระดาษเป็นสีขาว-ดำ สะอาดตา ไม่มีเมนูบาร์รบกวนเมื่อสั่งพิมพ์
-- **Smart Error Correction**: ระบบตรวจช่องพิมพ์คำตอบอัจฉริยะ ยืดหยุ่นต่อเว้นวรรคและตัวพิมพ์
+## 🎯 หมวดที่ 1: ข้อสอบปลายภาคฉบับจริง (Authentic Final Exam)
+
+| ไฟล์ | ชื่อชุดข้อสอบ | ระดับ | จำนวนข้อ | จุดเด่น |
+| :--- | :--- | :---: | :---: | :--- |
+| **[tae_final_exam.html](tae_final_exam.html)** | **Teacher Tae Authentic Final Exam** | A2 | 40 ข้อ (40 คะแนน) | • Part 1: Reading Skills *"The Story of Google"* (20 ข้อ)<br>• Part 2: Writing Skills (Connectors, Commas, Error Correction) (20 ข้อ)<br>• ระบบตรวจคะแนนอัตโนมัติ ตัดเกรด และปุ่มเปิด/ซ่อนเฉลย |
+
+---
+
+## 📚 หมวดที่ 2: แนวข้อสอบและสรุปบทเรียน (Exam Guidelines)
+
+| ไฟล์ | ชื่อแนวข้อสอบ | เนื้อหาสำคัญ |
+| :--- | :--- | :--- |
+| **[exam_guides/guide_1_writing_skills.html](exam_guides/guide_1_writing_skills.html)** | **แนวข้อสอบ 1: Writing Skills & Mock Exam** | สรุปกฎ Connectors (`and`, `but`, `so`), กฎ Oxford Comma, ข้อสอบจำลอง 15 ข้อ |
+| **[exam_guides/guide_2_pronouns_qskills.html](exam_guides/guide_2_pronouns_qskills.html)** | **แนวข้อสอบ 2: Pronouns (Q: Skills 1 p.119, 124)** | หลักการอ้างอิงสรรพนาม (Gender & Number), แบบฝึกหัดจริง 4 Passages รวม 12 ข้อย่อย |
+| **[exam_guides/guide_3_pronouns_hansel.html](exam_guides/guide_3_pronouns_hansel.html)** | **แนวข้อสอบ 3: Pronouns (Sentences & Hansel)** | แบบฝึกหัดประโยคเดี่ยว 8 ข้อ และการแกะรอยตัวละครในนิทาน Hansel and Gretel 10 จุด |
+| **[exam_guides/guide_4_story_of_google.html](exam_guides/guide_4_story_of_google.html)** | **แนวข้อสอบ 4: The Story of Google Analysis** | เจาะลึก 4 เสาหลัก: Headings, Business Verbs, ลำดับเวลา Chronology, ตาราง Pronouns 10 ข้อ |
+| **[exam_guides/guide_5_writing_mechanics.html](exam_guides/guide_5_writing_mechanics.html)** | **แนวข้อสอบ 5: Writing Mechanics & Red Pen** | สรุป 4 กฎเหล็กการเขียน, การสลับประโยคเหตุ-ผลด้วย `so`, และเทคนิคตรวจ Red Pen 5 จุด |
+| **[exam_guides/index.html](exam_guides/index.html)** | **ศูนย์รวมแนวข้อสอบ (Guidelines Hub)** | หน้ารวมสารบัญแนวข้อสอบทั้ง 5 ชุด |
+
+---
+
+## 📦 หมวดข้อมูลสำรอง (Archived)
+- **[backup_exam_1/en22201_final_exam.html](backup_exam_1/en22201_final_exam.html)**: ข้อสอบชุดที่ 1 เดิม (A1 Foundation Level - 40 ข้อ)
+- **[backup_past_simple/index.html](backup_past_simple/index.html)**: คลังบทเรียน Past Simple Tense Suite & Prepositions เดิม
