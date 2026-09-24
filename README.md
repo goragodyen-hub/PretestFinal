@@ -1,22 +1,35 @@
-# English Pre-Test & Exam Suite
+# EN22201 Final Examination Suite (ม.2 A1 Level)
 
-โปรเจกต์นี้ได้รับการเคลียร์พื้นที่และพร้อมสำหรับการใส่ข้อสอบ/เนื้อหาชุดใหม่เรียบร้อยแล้ว
-
----
-
-## 📦 การสำรองข้อมูลเดิม (Past Simple Tense Suite)
-
-ไฟล์ระบบเดิมทั้งหมด (Past Simple Tense, Prepositions & Phrasal Verbs, ใบงานพิมพ์ A4, สไลด์นำเสนอ ฯลฯ) ถูกสำรองไว้อย่างปลอดภัย:
-
-1. **โฟลเดอร์สำรองในโปรเจกต์**: `backup_past_simple/`
-   - สามารถเปิดใช้งานได้ผ่าน [backup_past_simple/index.html](backup_past_simple/index.html)
-2. **Git Branch สำรอง**: `backup/past-simple-tense`
-3. **Git Tag**: `v1.0-past-simple-backup`
+ระบบข้อสอบออนไลน์และแบบประเมินผลอัตโนมัติ วิชา **EN22201 Extra English III (Reading and Writing)** ระดับชั้นมัธยมศึกษาปีที่ 2 
 
 ---
 
-## 🚀 สถานะปัจจุบัน
+## 📋 โครงสร้างข้อสอบ (คะแนนเต็ม 40 คะแนน • คิดเป็น 10%)
 
-- โครงสร้างธีม (`css/style.css`) และระบบสลับโหมดมืด (`js/theme.js`) คงไว้พร้อมใช้งาน
-- หน้าหลัก (`index.html`) พร้อมเชื่อมต่อกับโมดูลข้อสอบใหม่ทันที
-- ส่งโจทย์ข้อสอบใหม่ (เนื้อหา, ช้อยส์, เฉลย, หรือไฟล์) เพื่อสร้างแบบฝึกหัดได้เลยครับ
+| ตอนที่ / หัวข้อ | จำนวนข้อ | คะแนน | รูปแบบข้อสอบ |
+| :--- | :---: | :---: | :--- |
+| **Section 1: Reading Comprehension** | **15 ข้อ** | **15** | |
+| • Part 1.1: Topic & Main Idea (5 ย่อหน้า) | ข้อ 1–10 | 10 | 4 ตัวเลือก (ปรนัย) |
+| • Part 1.2: Unseen Passage ("Tom's New Pet") | ข้อ 11–15 | 5 | 4 ตัวเลือก (ปรนัย) |
+| **Section 2: Vocabulary (Word Forms)** | **15 ข้อ** | **15** | |
+| • Part 2.1: Identifying Parts of Speech (Noun/Verb) | ข้อ 16–20 | 5 | 4 ตัวเลือก (ปรนัย) |
+| • Part 2.2: Complete the Sentences (Form selection) | ข้อ 21–25 | 5 | 2 ตัวเลือก (Noun vs Verb) |
+| • Part 2.3: Decide Noun or Verb (In context) | ข้อ 26–30 | 5 | 2 ตัวเลือก (Noun vs Verb) |
+| **Section 3: Writing (Mechanics)** | **10 ข้อ** | **10** | |
+| • Part 3.1: Sentence Capitalization & Punctuation | ข้อ 31–35 | 5 | 4 ตัวเลือก (ปรนัย) |
+| • Part 3.2: Paragraph Error Correction | ข้อ 36–40 | 5 | พิมพ์คำตอบแก้ไข (Interactive Text Input) |
+| **รวมทั้งสิ้น** | **40 ข้อ** | **40** | **คำนวณตัดเกรด & เฉลยละเอียดทันที** |
+
+---
+
+## 🚀 ฟีเจอร์เด่นของระบบ
+- **Auto-Grading & Live Feedback**: ตรวจคำตอบทันทีเมื่อกดส่ง พร้อมเฉลยละเอียดและคำอธิบายภาษาไทยทุกข้อ
+- **Smart Error Correction**: ช่องกรองคำตอบข้อ 36–40 รองรับทั้งตัวพิมพ์ใหญ่-เล็ก และเครื่องหมายวรรคตอนอย่างแม่นยำ
+- **Print & PDF Mode**: รองรับการสั่งพิมพ์ A4 หรือ Save เป็น PDF หน้ากระดาษเรียบหรูไม่มีเมนูบาร์รบกวน
+- **SweetAlert2 Modal**: แสดงผลคะแนนรวม คิดเป็นเปอร์เซ็นต์ และคะแนนเก็บจริง 10%
+
+---
+
+## 📂 ลิงก์ไฟล์ในโปรเจกต์
+- [index.html](index.html) หรือ [en22201_final_exam.html](en22201_final_exam.html): หน้าข้อสอบหลักพร้อมระบบตรวจคำตอบ
+- [backup_past_simple/index.html](backup_past_simple/index.html): คลังข้อสอบและสื่อการสอนชุดเดิม (Past Simple Tense)
