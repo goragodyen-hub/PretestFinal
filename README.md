@@ -1,23 +1,23 @@
-# EN22201 Extra English III Examination Suite (ม.2)
+# EN22201 Extra English III - Final Examination (ม.2)
 
-ระบบศูนย์รวมแบบทดสอบออนไลน์และประเมินผลอัตโนมัติ วิชา **EN22201 Extra English III (Reading and Writing)** ชั้นมัธยมศึกษาปีที่ 2 
+ระบบข้อสอบออนไลน์และประเมินผลอัตโนมัติ วิชา **EN22201 Extra English III (Reading and Writing)** ชั้นมัธยมศึกษาปีที่ 2  
+ฉบับทางการ: **Teacher Techit Benjakul (Teacher Tae) Authentic Final Exam** (ระดับ A2 Level • 40 คะแนนเต็ม)
 
 ---
 
-## 📂 โครงสร้างชุดข้อสอบในระบบ
+## 📂 โครงสร้างไฟล์ในระบบ
 
-| ลำดับ | ไฟล์ | ชื่อชุดข้อสอบ | ระดับ | จำนวนข้อ | จุดเน้นเนื้อหา |
-| :---: | :--- | :--- | :---: | :---: | :--- |
-| **🏠** | [index.html](index.html) | **Exam Portal Hub** | - | - | หน้าหลักสำหรับเลือกชุดข้อสอบ |
-| **1** | [en22201_final_exam.html](en22201_final_exam.html) | **ชุดที่ 1: Final Examination (A1 Level)** | A1 | 40 ข้อ (40 คะแนน) | Reading (Topic/Main Idea, Unseen), Word Forms (Noun vs Verb), Mechanics |
-| **2** | [tae_final_exam.html](tae_final_exam.html) | **ชุดที่ 2: Teacher Tae Authentic Exam (A2 Level)** | A2 | 40 ข้อ (40 คะแนน) | The Story of Google (Headings, Pronouns, Vocab, Chronology), Connectors & Commas, Red Pen Error Correction |
-| **📦** | [backup_past_simple/index.html](backup_past_simple/index.html) | **คลังชุดเดิม (Past Simple Tense Suite)** | ม.2 | 28+ ข้อ | สื่อไวยากรณ์ Past Simple Tense, Prepositions, สไลด์ PPTX, ใบงาน A4 |
+| ไฟล์ | รายละเอียด | สถานะ |
+| :--- | :--- | :---: |
+| **[index.html](index.html)** หรือ **[tae_final_exam.html](tae_final_exam.html)** | **ข้อสอบหลักออนไลน์ (Teacher Tae Authentic Exam)**<br>• Part 1: Reading Skills เรื่อง *"The Story of Google"* (20 ข้อ)<br>• Part 2: Writing Skills (Connectors, Commas, Error Correction) (20 ข้อ) | **ใช้งานหลัก (Active)** |
+| **[backup_exam_1/en22201_final_exam.html](backup_exam_1/en22201_final_exam.html)** | **ชุดข้อสอบที่ 1 (A1 Foundation Level - 40 ข้อ)**<br>• Reading Comprehension, Noun vs Verb, Mechanics | **สำรองไว้ (Archived)** |
+| **[backup_past_simple/index.html](backup_past_simple/index.html)** | **คลังชุดเดิม (Past Simple Tense Suite)**<br>• สื่อไวยากรณ์ Past Simple Tense, Prepositions, สไลด์ PPTX, ใบงาน A4 | **สำรองไว้ (Archived)** |
 
 ---
 
 ## ⚡ ฟังก์ชันเด่นของระบบ
-- **Auto-Grading & Live Modal**: ส่งคำตอบแล้วคิดคะแนนเต็ม 40 คะแนนทันที พร้อมเทียบเป็น 10% (คะแนนจริง)
+- **Auto-Grading & Live Modal**: ส่งคำตอบแล้วคิดคะแนนเต็ม 40 คะแนนทันที พร้อมเทียบเป็น 10% (คะแนนจริง 10 คะแนน)
 - **เฉลยละเอียดภาษาไทย**: อธิบายเหตุผล กฎไวยากรณ์ และชี้ตำแหน่งในเนื้อเรื่องทุกข้อ
-- **ปุ่มเปิด/ซ่อนเฉลย (ชุดที่ 2)**: มีปุ่ม `แสดงเฉลย / ซ่อนเฉลย` สำหรับคุณครูหรือผู้ปกครองใช้ตรวจและสอน
+- **ปุ่มเปิด/ซ่อนเฉลย**: มีปุ่ม `แสดงเฉลย / ซ่อนเฉลย` สำหรับคุณครูหรือผู้ปกครองใช้ตรวจและสอน
 - **รองรับการพิมพ์ / Save PDF**: ปรับหน้ากระดาษเป็นสีขาว-ดำ สะอาดตา ไม่มีเมนูบาร์รบกวนเมื่อสั่งพิมพ์
 - **Smart Error Correction**: ระบบตรวจช่องพิมพ์คำตอบอัจฉริยะ ยืดหยุ่นต่อเว้นวรรคและตัวพิมพ์

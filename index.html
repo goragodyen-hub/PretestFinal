@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EN22201 Extra English III - Portal Hub (ระบบสอบออนไลน์ ม.2)</title>
+  <title>EN22201 Extra English III - Final Examination (Teacher Tae Authentic Exam)</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Sarabun & Inter -->
@@ -12,7 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+  <!-- SweetAlert2 for pop-up score modal -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
   <style>
     body {
       font-family: 'Sarabun', 'Inter', sans-serif;
@@ -21,163 +23,1024 @@
       margin: 0;
       padding: 0;
     }
-    .portal-card {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Option selection hover effect */
+    .option-label {
+      transition: all 0.2s ease;
     }
-    .portal-card:hover {
-      transform: translateY(-4px);
+    .option-label:hover {
+      background-color: #1e293b;
+    }
+    input[type="radio"]:checked + span {
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    /* Natural Print / PDF Flow */
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .exam-container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+      }
+      .exam-card {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        margin-bottom: 24px !important;
+        break-inside: auto !important;
+      }
+      .text-slate-300, .text-slate-400, .text-slate-200 {
+        color: #1e293b !important;
+      }
+      .text-white {
+        color: #000000 !important;
+      }
+      .bg-slate-800, .bg-slate-900, .bg-slate-950 {
+        background: #f8fafc !important;
+      }
+      .border-slate-700, .border-slate-800 {
+        border-color: #cbd5e1 !important;
+      }
+      input[type="text"], select {
+        border: 1px solid #000000 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen pb-16">
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-6 py-4 shadow-xl">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-400 flex items-center justify-center text-white font-extrabold shadow-lg">
-          EN
-        </div>
-        <div>
-          <h1 class="text-base sm:text-lg font-extrabold text-white leading-tight">EN22201 Extra English III</h1>
-          <p class="text-xs text-slate-400">ระบบแบบทดสอบออนไลน์ & วัดผลสัมฤทธิ์ ม.2 (Grade 8)</p>
-        </div>
+  <!-- Top Sticky Control Bar (No Print) -->
+  <header class="no-print sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-3 shadow-xl">
+    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 rounded-full text-xs font-bold uppercase tracking-wider">
+          EN22201 ม.2 (A2 Level)
+        </span>
+        <span class="text-sm font-bold text-slate-200 hidden sm:inline">Teacher Tae Authentic Final Exam</span>
       </div>
 
       <div class="flex items-center gap-2">
-        <a href="backup_past_simple/index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="คลังข้อสอบ Past Simple Tense เดิม">
-          <i class="fa-solid fa-box-archive text-amber-400"></i>
-          <span>คลังชุดเดิม</span>
+        <!-- Live Score Counter Tag -->
+        <div id="top-score-badge" class="hidden px-3 py-1 bg-indigo-600/30 border border-indigo-500/50 rounded-lg text-xs font-bold text-indigo-300">
+          คะแนน: <span id="top-score-val">0</span> / 40
+        </div>
+
+        <!-- Submit Button -->
+        <button onclick="submitExam()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg shadow-md transition flex items-center gap-1.5">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>ส่งคำตอบ & ตรวจทันที</span>
+        </button>
+
+        <!-- Toggle Answer Box -->
+        <button id="btn-toggle-answers" onclick="toggleAllAnswers()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1">
+          <i class="fa-solid fa-key text-amber-400"></i>
+          <span id="btn-toggle-text">แสดงเฉลย</span>
+        </button>
+
+        <!-- Reset Button -->
+        <button onclick="resetExam()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1">
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>เริ่มใหม่</span>
+        </button>
+
+        <!-- Print / PDF -->
+        <button onclick="printExam()" class="px-3.5 py-1.5 bg-indigo-700 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg transition flex items-center gap-1">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span>Save PDF / พิมพ์</span>
+        </button>
+
+        <!-- Archive Link -->
+        <a href="backup_past_simple/index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1" title="ดูข้อสอบ Past Simple Tense เดิม">
+          <i class="fa-solid fa-box-archive"></i>
+          <span class="hidden md:inline">ชุดเดิม</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+  <!-- Main Exam Document -->
+  <main class="exam-container max-w-4xl mx-auto p-4 sm:p-8 space-y-8">
 
-    <div class="text-center space-y-3">
-      <span class="inline-flex items-center gap-2 px-3.5 py-1 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">
-        <i class="fa-solid fa-graduation-cap"></i> Examination Suite • First Semester 2026
-      </span>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">เลือกชุดข้อสอบปลายภาคที่ต้องการทดสอบ</h2>
-      <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
-        ระบบตรวจคำตอบอัตโนมัติ (Auto-Grading) คำนวณคะแนนและตัดเกรดทันที พร้อมเฉลยละเอียดและคำอธิบายภาษาไทยในทุกข้อ
-      </p>
-    </div>
-
-    <!-- Exam Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <!-- Exam Card 1: A1 Foundation -->
-      <div class="portal-card bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-        <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
-        
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full text-xs font-bold uppercase">
-              ชุดที่ 1 • A1 Foundation Level
-            </span>
-            <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-circle-question"></i> 40 ข้อ (40 คะแนน)</span>
-          </div>
-
-          <div>
-            <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition">EN22201 Final Examination</h3>
-            <p class="text-xs text-slate-400 mt-1">Reading Comprehension & Word Forms (Noun vs Verb)</p>
-          </div>
-
-          <div class="space-y-2.5 pt-2 text-sm text-slate-300 border-t border-slate-800">
-            <div class="flex items-start gap-2">
-              <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-              <span><strong>Section 1 (15 ข้อ):</strong> Reading Comprehension (Topic, Main Idea 5 ย่อหน้า และ Unseen Passage "Tom's New Pet")</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-              <span><strong>Section 2 (15 ข้อ):</strong> Word Forms จำแนก Noun vs Verb จากตำแหน่งและบริบท</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
-              <span><strong>Section 3 (10 ข้อ):</strong> Mechanics ตัวพิมพ์ใหญ่-เล็ก, เครื่องหมายวรรคตอน และ Paragraph Error Correction</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
-          <span class="text-xs text-slate-400">คำนวณเก็บจริง 10% (หาร 4)</span>
-          <a href="en22201_final_exam.html" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-emerald-900/40 transition flex items-center gap-2">
-            <span>เข้าทำข้อสอบชุดที่ 1</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
+    <!-- Paper Header -->
+    <section class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="text-center border-b border-slate-800 pb-5 mb-5">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Final Examination • First Semester 2026</span>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white">EN22201 Extra English III (Reading and Writing)</h1>
+        <p class="text-sm sm:text-base text-slate-400 mt-1">Teacher Techit Benjakul (Teacher Tae) • Total: 40 Marks</p>
       </div>
 
-      <!-- Exam Card 2: Teacher Tae Authentic Exam -->
-      <div class="portal-card bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-        <div class="absolute -right-10 -top-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition"></div>
-
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 rounded-full text-xs font-bold uppercase">
-              ชุดที่ 2 • Teacher Tae Authentic Exam
-            </span>
-            <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-circle-question"></i> 40 ข้อ (40 คะแนน)</span>
-          </div>
-
-          <div>
-            <h3 class="text-2xl font-bold text-white group-hover:text-indigo-400 transition">EN22201 Authentic Paper (A2)</h3>
-            <p class="text-xs text-slate-400 mt-1">Teacher Techit Benjakul • The Story of Google & Writing Skills</p>
-          </div>
-
-          <div class="space-y-2.5 pt-2 text-sm text-slate-300 border-t border-slate-800">
-            <div class="flex items-start gap-2">
-              <i class="fa-solid fa-check text-indigo-400 mt-1 text-xs"></i>
-              <span><strong>Part 1 (20 ข้อ):</strong> Reading Skills เรื่อง <em>"The Story of Google"</em> (Headings, Pronouns, Vocabulary in Context, ลำดับเหตุการณ์)</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <i class="fa-solid fa-check text-indigo-400 mt-1 text-xs"></i>
-              <span><strong>Part 2 (20 ข้อ):</strong> Writing Skills (Connectors <code>, but</code> <code>, so</code> <code>, and</code>, Oxford Comma, Join Sentences, Red Pen Error Correction)</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <i class="fa-solid fa-check text-indigo-400 mt-1 text-xs"></i>
-              <span><strong>ฟังก์ชันเฉลย:</strong> มีปุ่มแสดง/ซ่อนเฉลย และระบบพิมพ์ A4 สะอาดตา</span>
-            </div>
-          </div>
+      <!-- Student Info Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-300">
+        <div class="flex items-center gap-2">
+          <label for="student-name" class="font-bold text-slate-400">Name:</label>
+          <input type="text" id="student-name" placeholder="ชื่อ-นามสกุล" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500 w-full">
         </div>
-
-        <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
-          <span class="text-xs text-slate-400">คำนวณเก็บจริง 10% (หาร 4)</span>
-          <a href="tae_final_exam.html" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-indigo-900/40 transition flex items-center gap-2">
-            <span>เข้าทำข้อสอบชุดที่ 2 (Teacher Tae)</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
+        <div class="flex items-center gap-2">
+          <label for="student-class" class="font-bold text-slate-400">Class: ม. 2 /</label>
+          <input type="text" id="student-class" placeholder="ห้อง" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-indigo-500 w-16">
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="student-no" class="font-bold text-slate-400">No:</label>
+          <input type="text" id="student-no" placeholder="เลขที่" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-indigo-500 w-16">
+          <span id="header-score-tag" class="ml-auto font-bold text-emerald-400 hidden">0 / 40</span>
         </div>
       </div>
+    </section>
 
-    </div>
-
-    <!-- Bottom Archive & Reference Info -->
-    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-amber-400 text-lg">
-          <i class="fa-solid fa-database"></i>
-        </div>
+    <!-- PART 1: READING SKILLS (20 MARKS) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3 border-l-4 border-sky-500 pl-3">
         <div>
-          <div class="font-bold text-white">ต้องการทบทวนเนื้อหา Past Simple Tense เดิม?</div>
-          <div class="text-xs text-slate-400">สื่อการสอน, ใบงานพิมพ์ A4 และแบบฝึกหัด 28 ข้อเดิมถูกสำรองไว้ครบถ้วน</div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">PART 1: READING SKILLS</h2>
+          <p class="text-xs sm:text-sm text-sky-400">20 Marks (Headings • Pronoun References • Vocabulary • Chronology)</p>
         </div>
       </div>
-      <a href="backup_past_simple/index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition flex items-center gap-2">
-        <span>เปิดดูคลังข้อมูลเดิม (Past Simple)</span>
-        <i class="fa-solid fa-up-right-from-square text-xs"></i>
-      </a>
+
+      <!-- Reading Passage Card -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-5">
+        <div class="border-b border-slate-800 pb-3">
+          <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Passage</span>
+          <h3 class="text-xl font-extrabold text-white mt-2">The Story of Google</h3>
+        </div>
+
+        <!-- Section A: Matching Headings (Questions 1 - 3) -->
+        <div class="p-4 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-3 text-sm">
+          <span class="font-bold text-sky-300 text-xs sm:text-sm uppercase tracking-wider block">
+            <i class="fa-solid fa-heading mr-1"></i> Section A: Look at the headings below and match them to Paragraphs 1 – 3 (3 Marks)
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono bg-slate-900 p-3 rounded-lg border border-slate-800 text-slate-300">
+            <div>• Goals Then and Now</div>
+            <div>• The Growth of Google</div>
+            <div>• Ideas and Creativity</div>
+            <div>• Stanford University (Extra)</div>
+            <div>• Google Earth (Extra)</div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+            <!-- Q1 -->
+            <div class="question-block space-y-1" id="block-q1" data-correct="Goals Then and Now">
+              <label class="text-xs text-slate-300 font-bold">1. Paragraph 1 Heading:</label>
+              <select id="select-q1" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-sky-500">
+                <option value="">-- เลือกหัวข้อ --</option>
+                <option value="Goals Then and Now">Goals Then and Now</option>
+                <option value="The Growth of Google">The Growth of Google</option>
+                <option value="Ideas and Creativity">Ideas and Creativity</option>
+                <option value="Stanford University">Stanford University</option>
+                <option value="Google Earth">Google Earth</option>
+              </select>
+              <span class="status-indicator text-xs font-bold block"></span>
+              <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+                <strong>เฉลย:</strong> Goals Then and Now (กล่าวถึงเป้าหมายแรกเริ่มในปี 1995 และเป้าหมาย 3 ข้อในปัจจุบัน)
+              </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-block space-y-1" id="block-q2" data-correct="The Growth of Google">
+              <label class="text-xs text-slate-300 font-bold">2. Paragraph 2 Heading:</label>
+              <select id="select-q2" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-sky-500">
+                <option value="">-- เลือกหัวข้อ --</option>
+                <option value="Goals Then and Now">Goals Then and Now</option>
+                <option value="The Growth of Google">The Growth of Google</option>
+                <option value="Ideas and Creativity">Ideas and Creativity</option>
+                <option value="Stanford University">Stanford University</option>
+                <option value="Google Earth">Google Earth</option>
+              </select>
+              <span class="status-indicator text-xs font-bold block"></span>
+              <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+                <strong>เฉลย:</strong> The Growth of Google (กล่าวถึงการเติบโตอย่างรวดเร็วและการขยายบริการต่างๆ)
+              </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-block space-y-1" id="block-q3" data-correct="Ideas and Creativity">
+              <label class="text-xs text-slate-300 font-bold">3. Paragraph 3 Heading:</label>
+              <select id="select-q3" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-sky-500">
+                <option value="">-- เลือกหัวข้อ --</option>
+                <option value="Goals Then and Now">Goals Then and Now</option>
+                <option value="The Growth of Google">The Growth of Google</option>
+                <option value="Ideas and Creativity">Ideas and Creativity</option>
+                <option value="Stanford University">Stanford University</option>
+                <option value="Google Earth">Google Earth</option>
+              </select>
+              <span class="status-indicator text-xs font-bold block"></span>
+              <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+                <strong>เฉลย:</strong> Ideas and Creativity (กล่าวถึงสถานที่ทำงานที่สร้างสรรค์และการประกวดผลงานศิลปะ)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Text Body -->
+        <div class="space-y-4 text-base sm:text-lg text-slate-200 leading-relaxed font-sans bg-slate-950/60 p-5 rounded-xl border border-slate-800/80">
+          <p>
+            <strong class="text-sky-400 font-mono">[Paragraph 1]</strong> Google is a huge technology company. <strong class="text-amber-300 underline">(4) It</strong> specializes in online advertising and searching, as well as other Internet-related products. Google was started by Larry Page and Sergey Brin. <strong class="text-amber-300 underline">(5) They</strong> met at Stanford University in 1995. Their goal was to organize all of the information on the Web. Today, their company employs more than 40,000 people around the world. <strong class="text-amber-300 underline">(6) The two partners</strong> created a company that made searching the Internet easy. Now they focus on three main areas: making search fast and smart, developing products for different devices, and helping new businesses find customers.
+          </p>
+          <p>
+            <strong class="text-sky-400 font-mono">[Paragraph 2]</strong> Google grew very quickly. Page and Brin registered the domain name Google.com in 1997. In 1998, they set up a small office in a garage and hired their first employee, Craig Silverstein. They ran their business in the garage until they could move to a larger space. In 2000, people could do Internet searches in 15 languages. Google introduced a map service in 2005 called Google Maps. The same year, <strong class="text-amber-300 underline">(7) it</strong> came out with a program called Google Earth. <strong class="text-amber-300 underline">(8) This program</strong> allowed users to see close-up pictures of cities and neighborhoods when <strong class="text-amber-300 underline">(9) they</strong> typed in an address. In 2006, the name "Google" became a verb in English dictionaries. <strong class="text-amber-300 underline">(10) This</strong> shows the company's influence on modern life.
+          </p>
+          <p>
+            <strong class="text-sky-400 font-mono">[Paragraph 3]</strong> Today, Google is a creative workplace where employees share ideas with <strong class="text-amber-300 underline">(11) each other</strong>. In 2011, the company released a program that helped people explore the world's top museums from their computer. Google was also continuing its work on a self-driving car. In the future, this car could help people who cannot see well to drive. The company extends its services to the community, too. In 2008, <strong class="text-amber-300 underline">(12) it</strong> started a yearly art contest for students. Google believes that creativity is important. In addition to producing famous Internet products, Google gives people opportunities to be creative, <strong class="text-amber-300 underline">(13) which</strong> leads to success.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section B: Pronoun References (Questions 4 - 13 = 10 Marks) -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
+        <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Section B: Pronoun References (10 Marks)</span>
+        <p class="text-sm text-slate-300">Directions: Notice the bold underlined words in the text. Choose what each word or phrase refers to.</p>
+
+        <div class="space-y-4 pt-2">
+          <!-- Q4 -->
+          <div class="question-block space-y-2" id="block-q4" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>4. What does the word "It" (Paragraph 1, line 1) refer to?</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q4" value="A"> <span>A. Advertising</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q4" value="B"> <span>B. Searching</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q4" value="C"> <span>C. Google</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q4" value="D"> <span>D. Stanford University</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย C:</strong> "It" แทนบริษัท Google ที่กล่าวถึงในประโยคแรก</div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="question-block space-y-2" id="block-q5" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>5. What does the word "They" (Paragraph 1, line 4) refer to?</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q5" value="A"> <span>A. Larry Page and Sergey Brin</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q5" value="B"> <span>B. Advertising and searching</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q5" value="C"> <span>C. Staff at the company</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q5" value="D"> <span>D. The university students</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย A:</strong> "They" อ้างถึงสองผู้ก่อตั้ง คือ Larry Page และ Sergey Brin</div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="question-block space-y-2" id="block-q6" data-correct="B">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>6. The phrase "The two partners" (Paragraph 1, line 7) refers to:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q6" value="A"> <span>A. Larry Page and Craig Silverstein</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q6" value="B"> <span>B. Larry Page and Sergey Brin</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q6" value="C"> <span>C. Craig Silverstein and Sergey Brin</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q6" value="D"> <span>D. Page and Brin's employees</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย B:</strong> หุ้นส่วนทั้งสองคนหมายถึง Larry Page และ Sergey Brin</div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="question-block space-y-2" id="block-q7" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>7. The word "it" (Paragraph 2, line 25) refers to:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q7" value="A"> <span>A. Google's headquarters</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q7" value="B"> <span>B. Google Maps</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q7" value="C"> <span>C. Google</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q7" value="D"> <span>D. Page's staff</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย C:</strong> "it" หมายถึง บริษัท Google ที่เปิดตัวโปรแกรม Google Earth ในปีเดียวกัน</div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="question-block space-y-2" id="block-q8" data-correct="B">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>8. "This program" (Paragraph 2, line 26) means:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q8" value="A"> <span>A. Google Maps</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q8" value="B"> <span>B. Google Earth</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q8" value="C"> <span>C. Google Translate</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q8" value="D"> <span>D. Google Classroom</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย B:</strong> "This program" คือ Google Earth ที่เพิ่งกล่าวถึงในประโยคก่อนหน้า</div>
+          </div>
+
+          <!-- Q9 -->
+          <div class="question-block space-y-2" id="block-q9" data-correct="D">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>9. The pronoun "they" (Paragraph 2, line 27) refers to:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q9" value="A"> <span>A. Programs by Google</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q9" value="B"> <span>B. Google founders</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q9" value="C"> <span>C. The developers</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q9" value="D"> <span>D. The users</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย D:</strong> "they" แทนผู้ใช้งาน (users) ที่พิมพ์ค้นหาที่อยู่</div>
+          </div>
+
+          <!-- Q10 -->
+          <div class="question-block space-y-2" id="block-q10" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>10. The word "This" (Paragraph 2, line 29) refers to:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q10" value="A"> <span>A. The company's influence on modern life</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q10" value="B"> <span>B. The English language</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q10" value="C"> <span>C. The name "Google" becoming a verb in English dictionaries</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q10" value="D"> <span>D. The year 2006</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย C:</strong> "This" อ้างถึงเหตุการณ์ที่ชื่อ Google ถูกบรรจุเป็นคำกริยาในพจนานุกรมภาษาอังกฤษ</div>
+          </div>
+
+          <!-- Q11 -->
+          <div class="question-block space-y-2" id="block-q11" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>11. What does the word "each other" in line 33 refer to?</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q11" value="A"> <span>A. Google employees</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q11" value="B"> <span>B. Creative workplaces</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q11" value="C"> <span>C. Ideas</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q11" value="D"> <span>D. Larry Page and Sergey Brin</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย A:</strong> พนักงานแชร์ความคิดเห็นซึ่งกันและกัน (each other = Google employees)</div>
+          </div>
+
+          <!-- Q12 -->
+          <div class="question-block space-y-2" id="block-q12" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>12. The word "it" in line 42 refers to:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q12" value="A"> <span>A. The community</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q12" value="B"> <span>B. The art contest</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q12" value="C"> <span>C. Google</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q12" value="D"> <span>D. Students</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย C:</strong> "it" หมายถึง บริษัท Google ที่จัดประกวดศิลปะ</div>
+          </div>
+
+          <!-- Q13 -->
+          <div class="question-block space-y-2" id="block-q13" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>13. The word "which" (line 47) refers to:</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q13" value="A"> <span>A. Giving the opportunities to be creative</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q13" value="B"> <span>B. Famous Internet products</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q13" value="C"> <span>C. Google</span></label>
+              <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q13" value="D"> <span>D. The community</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300"><strong>เฉลย A:</strong> "which" อ้างถึงการเปิดโอกาสให้ผู้คนได้ใช้ความคิดสร้างสรรค์ ซึ่งนำไปสู่ความสำเร็จ</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section C: Vocabulary in Context (Questions 14 - 17 = 4 Marks) -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
+        <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Section C: Vocabulary in Context (4 Marks)</span>
+        <p class="text-sm text-slate-300">Directions: Match each word from the passage with its correct definition.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono bg-slate-950 p-3 rounded-lg border border-slate-800 text-slate-300 mb-2">
+          <div>A. set up (สร้างบริษัท / ก่อตั้ง)</div>
+          <div>B. employ (จ้างงาน)</div>
+          <div>C. specializes (เชี่ยวชาญเฉพาะด้าน)</div>
+          <div>D. extends (ขยาย / เพิ่มเติม)</div>
+        </div>
+
+        <div class="space-y-3 pt-1">
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q14" data-correct="specializes">
+            <span class="text-sm text-slate-200">14. Studies or works on a particular subject to become an expert:</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q14" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">-- คำตอบ --</option>
+                <option value="set up">set up</option>
+                <option value="employ">employ</option>
+                <option value="specializes">specializes</option>
+                <option value="extends">extends</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> specializes (เชี่ยวชาญเฉพาะด้าน)</div>
+          </div>
+
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q15" data-correct="set up">
+            <span class="text-sm text-slate-200">15. Formally established a new company, system, or office:</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q15" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">-- คำตอบ --</option>
+                <option value="set up">set up</option>
+                <option value="employ">employ</option>
+                <option value="specializes">specializes</option>
+                <option value="extends">extends</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> set up (จัดตั้ง / สร้างบริษัท)</div>
+          </div>
+
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q16" data-correct="employ">
+            <span class="text-sm text-slate-200">16. Has someone work or do a job for you and pays them for it:</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q16" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">-- คำตอบ --</option>
+                <option value="set up">set up</option>
+                <option value="employ">employ</option>
+                <option value="specializes">specializes</option>
+                <option value="extends">extends</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> employ (จ้างงาน)</div>
+          </div>
+
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q17" data-correct="extends">
+            <span class="text-sm text-slate-200">17. Adds to something in order to make it bigger or longer:</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q17" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">-- คำตอบ --</option>
+                <option value="set up">set up</option>
+                <option value="employ">employ</option>
+                <option value="specializes">specializes</option>
+                <option value="extends">extends</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> extends (ขยายบริการ)</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section D: Chronological Ordering (Questions 18 - 20 = 3 Marks) -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
+        <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Section D: Chronological Ordering (3 Marks)</span>
+        <p class="text-sm text-slate-300">Directions: Put the events (18 – 20) in the correct order (ลำดับ 1, 2, 3 จากเหตุการณ์ที่เกิดขึ้นก่อน-หลัง).</p>
+
+        <div class="space-y-3 pt-1">
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex items-center justify-between" id="block-q18" data-correct="1">
+            <span class="text-sm text-slate-200">18. Page and Brin registered the domain name Google.com (1997).</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q18" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">ลำดับ</option>
+                <option value="1">ลำดับที่ 1</option>
+                <option value="2">ลำดับที่ 2</option>
+                <option value="3">ลำดับที่ 3</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> ลำดับที่ 1 (ปี 1997)</div>
+          </div>
+
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex items-center justify-between" id="block-q19" data-correct="2">
+            <span class="text-sm text-slate-200">19. Google introduced a map program called Google Maps (2005).</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q19" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">ลำดับ</option>
+                <option value="1">ลำดับที่ 1</option>
+                <option value="2">ลำดับที่ 2</option>
+                <option value="3">ลำดับที่ 3</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> ลำดับที่ 2 (ปี 2005)</div>
+          </div>
+
+          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex items-center justify-between" id="block-q20" data-correct="3">
+            <span class="text-sm text-slate-200">20. Google started a yearly art contest for students (2008).</span>
+            <div class="flex items-center gap-2">
+              <select id="select-q20" class="bg-slate-900 border border-slate-700 rounded px-2.5 py-1 text-xs text-white">
+                <option value="">ลำดับ</option>
+                <option value="1">ลำดับที่ 1</option>
+                <option value="2">ลำดับที่ 2</option>
+                <option value="3">ลำดับที่ 3</option>
+              </select>
+              <span class="status-indicator text-xs font-bold"></span>
+            </div>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-1"><strong>เฉลย:</strong> ลำดับที่ 3 (ปี 2008)</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- PART 2: WRITING SKILLS (20 MARKS) -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3 border-l-4 border-emerald-500 pl-3">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">PART 2: WRITING SKILLS</h2>
+          <p class="text-xs sm:text-sm text-emerald-400">20 Marks (Connectors • Commas • Sentence Combining • Red Pen Error Correction)</p>
+        </div>
+      </div>
+
+      <!-- Section A: Multiple Choice - Connectors and Commas (Questions 21 - 30 = 10 Marks) -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
+        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded text-xs font-bold uppercase">Section A: Connectors and Commas Multiple Choice (10 Marks)</span>
+        <p class="text-sm text-slate-300">Directions: Circle the letter of the option that best completes each sentence.</p>
+
+        <div class="space-y-4 pt-2">
+          <!-- Q21 -->
+          <div class="question-block space-y-2" id="block-q21" data-correct="B">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>21. He went to the grocery store, ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q21" value="A"> <span>A. so did not buy any milk</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q21" value="B"> <span>B. but he did not have enough money</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q21" value="C"> <span>C. but, he did not have enough money</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q21" value="D"> <span>D. so, he did not buy any milk</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย B:</strong> เชื่อมประโยคขัดแย้งใช้ <code>, but</code> โดยห้ามมี comma หลัง but
+            </div>
+          </div>
+
+          <!-- Q22 -->
+          <div class="question-block space-y-2" id="block-q22" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>22. I washed the dishes, ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q22" value="A"> <span>A. and my brother swept the floor</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q22" value="B"> <span>B. and my brother, swept the floor</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q22" value="C"> <span>C. so my brother, swept the floor</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q22" value="D"> <span>D. but, my brother swept the floor</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย A:</strong> โครงสร้าง <code>S + V, and S + V</code> มีความหมายคล้อยตามกันอย่างถูกต้อง
+            </div>
+          </div>
+
+          <!-- Q23 -->
+          <div class="question-block space-y-2" id="block-q23" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>23. The bus was delayed, ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q23" value="A"> <span>A. and, she missed her lesson</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q23" value="B"> <span>B. so missed her lesson</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q23" value="C"> <span>C. so she missed her first lesson</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q23" value="D"> <span>D. , and, she missed her lesson</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย C:</strong> ความสัมพันธ์เชิงเหตุ-ผล <code>S + V, so S + V</code> ต้องมีประธาน she ครบถ้วน
+            </div>
+          </div>
+
+          <!-- Q24 -->
+          <div class="question-block space-y-2" id="block-q24" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>24. Thatakamol practises the piano every day, ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q24" value="A"> <span>A. and she good at it</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q24" value="B"> <span>B. but she is really good at it</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q24" value="C"> <span>C. so she is really good at it</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q24" value="D"> <span>D. so she is not good at it</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย C:</strong> ซ้อมเปียโนทุกวัน "ดังนั้น" จึงเล่นเก่งมาก ใช้ <code>so she is really good at it</code>
+            </div>
+          </div>
+
+          <!-- Q25 -->
+          <div class="question-block space-y-2" id="block-q25" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>25. He went to the ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q25" value="A"> <span>A. grocery store, the local market, and the supermarket</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q25" value="B"> <span>B. grocery store the local market and the supermarket</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q25" value="C"> <span>C. grocery store the local market, and the supermarket</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q25" value="D"> <span>D. grocery store the local market and, the supermarket</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย A:</strong> ของ 3 สิ่งขึ้นไปตามกฎ Oxford Comma: <code>A, B, and C</code>
+            </div>
+          </div>
+
+          <!-- Q26 -->
+          <div class="question-block space-y-2" id="block-q26" data-correct="C">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>26. The puppy that belongs to that old lady is ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q26" value="A"> <span>A. soft and playful adorable</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q26" value="B"> <span>B. soft, and playful</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q26" value="C"> <span>C. soft, playful, and adorable</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q26" value="D"> <span>D. soft, playful</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย C:</strong> คุณศัพท์ 3 ตัวแจกแจงรายการ: <code>soft, playful, and adorable</code>
+            </div>
+          </div>
+
+          <!-- Q27 -->
+          <div class="question-block space-y-2" id="block-q27" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>27. Sirin has travelled to ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q27" value="A"> <span>A. China and Japan</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q27" value="B"> <span>B. China, and Japan</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q27" value="C"> <span>C. China Japan, and Hong Kong</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q27" value="D"> <span>D. China, Japan, Hong Kong</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย A:</strong> ของแค่ 2 สิ่ง (A and B) ห้ามใส่ Comma เด็ดขาด
+            </div>
+          </div>
+
+          <!-- Q28 -->
+          <div class="question-block space-y-2" id="block-q28" data-correct="B">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>28. Pandh's favourite school subjects are ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q28" value="A"> <span>A. English, and maths</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q28" value="B"> <span>B. English and maths</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q28" value="C"> <span>C. English maths, and science</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q28" value="D"> <span>D. English and maths and science</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย B:</strong> ของแค่ 2 สิ่ง (two things) ห้ามใส่ Comma
+            </div>
+          </div>
+
+          <!-- Q29 -->
+          <div class="question-block space-y-2" id="block-q29" data-correct="B">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>29. Natalie was not ready for the English test, ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q29" value="A"> <span>A. so she had been studying all morning</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q29" value="B"> <span>B. but she had been studying all morning</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q29" value="C"> <span>C. and, she had been studying all morning</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q29" value="D"> <span>D. but, she was not ready</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย B:</strong> ความหมายขัดแย้งกันอย่างถูกต้อง: "ยังไม่พร้อมสอบ แต่เธออ่านหนังสือมาทั้งเช้า"
+            </div>
+          </div>
+
+          <!-- Q30 -->
+          <div class="question-block space-y-2" id="block-q30" data-correct="A">
+            <p class="text-base font-bold text-white flex items-center justify-between">
+              <span>30. He studied hard, ________.</span>
+              <span class="status-indicator text-sm"></span>
+            </p>
+            <div class="space-y-1.5 text-sm text-slate-300">
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q30" value="A"> <span>A. so he passed the exam</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q30" value="B"> <span>B. but he passed the exam</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q30" value="C"> <span>C. and, passed the exam</span></label>
+              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q30" value="D"> <span>D. so, passed the exam</span></label>
+            </div>
+            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
+              <strong>เฉลย A:</strong> "เขาตั้งใจเรียน ดังนั้นเขาจึงสอบผ่าน" (เหตุ → ผล ใช้ <code>so he passed the exam</code>)
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section B: Sentence Combining (Questions 31 - 35 = 5 Marks) -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
+        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded text-xs font-bold uppercase">Section B: Join Sentences (5 Marks)</span>
+        <p class="text-sm text-slate-300">Directions: Join two sentences with the conjunction in brackets. พิมพ์ประโยคที่ถูกต้องลงในช่องคำตอบ</p>
+
+        <div class="space-y-4 pt-1 text-sm">
+          <!-- Q31 -->
+          <div class="question-block p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2" id="block-q31" data-type="text" data-keywords="the car is old, but it runs really fast.|the car is old, but it runs really fast|car is old, but it runs really fast">
+            <span class="text-slate-200">31. The car is old. It runs really fast. <strong>(but)</strong></span>
+            <input type="text" id="input-q31" placeholder="พิมพ์ประโยคคำตอบที่รวมแล้ว..." class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <code>The car is old, but it runs really fast.</code> (ใส่ comma หน้า but)
+            </div>
+          </div>
+
+          <!-- Q32 -->
+          <div class="question-block p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2" id="block-q32" data-type="text" data-keywords="i had broken my mom's rules, so she punished me|broken my mom's rules, so she punished me|broken her rules, so she punished me|rules, so she punished me">
+            <span class="text-slate-200">32. My mom punished me. I had broken her rules. <strong>(so)</strong></span>
+            <input type="text" id="input-q32" placeholder="พิมพ์ประโยคคำตอบที่รวมแล้ว (ระวังเหตุ-ผล)..." class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <code>I had broken my mom's rules, so she punished me.</code> (ต้องสลับเอา "เหตุ" ขึ้นก่อน "ผล")
+            </div>
+          </div>
+
+          <!-- Q33 -->
+          <div class="question-block p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2" id="block-q33" data-type="text" data-keywords="we went to san juan, and all of us danced all night.|we went to san juan, and all of us danced all night|san juan, and all of us danced all night">
+            <span class="text-slate-200">33. We went to San Juan. All of us danced all night. <strong>(and)</strong></span>
+            <input type="text" id="input-q33" placeholder="พิมพ์ประโยคคำตอบที่รวมแล้ว..." class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <code>We went to San Juan, and all of us danced all night.</code> (ใส่ comma หน้า and)
+            </div>
+          </div>
+
+          <!-- Q34 -->
+          <div class="question-block p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2" id="block-q34" data-type="text" data-keywords="jennie forgot her jacket, so she felt cold during the walk.|jennie forgot her jacket, so she felt cold|forgot her jacket, so she felt cold">
+            <span class="text-slate-200">34. Jennie felt cold during the walk. She forgot her jacket. <strong>(so)</strong></span>
+            <input type="text" id="input-q34" placeholder="พิมพ์ประโยคคำตอบที่รวมแล้ว (ระวังเหตุ-ผล)..." class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <code>Jennie forgot her jacket, so she felt cold during the walk.</code> (สลับเอาการลืมเสื้อขึ้นก่อน)
+            </div>
+          </div>
+
+          <!-- Q35 -->
+          <div class="question-block p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2" id="block-q35" data-type="text" data-keywords="jessie does not like bananas, but she loves pears|jessie loves pears, but she does not like bananas|does not like bananas, but she loves pears">
+            <span class="text-slate-200">35. Jessie does not like bananas. She loves pears. <strong>(but)</strong></span>
+            <input type="text" id="input-q35" placeholder="พิมพ์ประโยคคำตอบที่รวมแล้ว..." class="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <code>Jessie does not like bananas, but she loves pears.</code>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Section C: Error Correction (Questions 36 - 40 = 5 Marks) -->
+      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="px-2.5 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded text-xs font-bold uppercase">Section C: Red Pen Error Correction (5 Marks)</span>
+          <span class="text-xs text-rose-400 font-semibold"><i class="fa-solid fa-pen"></i> One mistake per sentence</span>
+        </div>
+        <p class="text-sm text-slate-300">Directions: There is ONE mistake in each sentence. พิมพ์คำตอบแก้ไขที่ถูกต้องลงในช่องว่าง</p>
+
+        <div class="space-y-3 pt-1 text-sm">
+          <!-- Q36 -->
+          <div class="question-block p-3.5 bg-slate-800/60 rounded-xl border border-slate-700 space-y-1.5" id="block-q36" data-type="text" data-keywords="homework, and she|homework, and|and she">
+            <span class="text-slate-200">36. Sarah finished her homework <u class="text-rose-400 font-bold">and she</u> watched TV.</span>
+            <input type="text" id="input-q36" placeholder="พิมพ์คำที่ถูกต้อง (เช่น homework, and she)..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <strong>homework, and she</strong> (เชื่อม 2 ประโยคสมบูรณ์ต้องมี Comma หน้า and)
+            </div>
+          </div>
+
+          <!-- Q37 -->
+          <div class="question-block p-3.5 bg-slate-800/60 rounded-xl border border-slate-700 space-y-1.5" id="block-q37" data-type="text" data-keywords="she|but she">
+            <span class="text-slate-200">37. I called my friend, but <u class="text-rose-400 font-bold">She</u> did not answer.</span>
+            <input type="text" id="input-q37" placeholder="พิมพ์คำที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <strong>she</strong> (อยู่กลางประโยคหลัง comma ห้ามใช้ตัวพิมพ์ใหญ่)
+            </div>
+          </div>
+
+          <!-- Q38 -->
+          <div class="question-block p-3.5 bg-slate-800/60 rounded-xl border border-slate-700 space-y-1.5" id="block-q38" data-type="text" data-keywords="reading and|reading and swimming">
+            <span class="text-slate-200">38. She likes <u class="text-rose-400 font-bold">reading, and</u> swimming.</span>
+            <input type="text" id="input-q38" placeholder="พิมพ์คำที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <strong>reading and</strong> (แจกแจงของแค่ 2 สิ่ง ห้ามมี comma)
+            </div>
+          </div>
+
+          <!-- Q39 -->
+          <div class="question-block p-3.5 bg-slate-800/60 rounded-xl border border-slate-700 space-y-1.5" id="block-q39" data-type="text" data-keywords="and|and four books">
+            <span class="text-slate-200">39. My bag contains two pens, three pencils, <u class="text-rose-400 font-bold">And</u> four books.</span>
+            <input type="text" id="input-q39" placeholder="พิมพ์คำที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <strong>and</strong> (คำเชื่อมอยู่กลางประโยค ห้ามใช้ตัวพิมพ์ใหญ่)
+            </div>
+          </div>
+
+          <!-- Q40 -->
+          <div class="question-block p-3.5 bg-slate-800/60 rounded-xl border border-slate-700 space-y-1.5" id="block-q40" data-type="text" data-keywords="trousers, jackets,|trousers, jackets|trousers, jackets, and">
+            <span class="text-slate-200">40. The shop sells shirts, <u class="text-rose-400 font-bold">trousers jackets</u>, and shoes.</span>
+            <input type="text" id="input-q40" placeholder="พิมพ์คำที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
+            <span class="status-indicator text-xs font-bold block"></span>
+            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
+              <strong>เฉลย:</strong> <strong>trousers, jackets,</strong> (การแจกแจงรายการ 4 สิ่ง ต้องมี comma คั่นระหว่าง trousers และ jackets)
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Bottom Action Bar (No Print) -->
+    <div class="no-print p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+      <div>
+        <h4 class="text-lg font-bold text-white">พร้อมส่งคำตอบแล้วหรือยัง?</h4>
+        <p class="text-xs text-slate-400">ระบบจะประมวลผลคะแนนเต็ม 40 คะแนน พร้อมแสดงเฉลยและคำอธิบายภาษาไทยทันที</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="resetExam()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl border border-slate-700 transition">
+          เคลียร์คำตอบ
+        </button>
+        <button onclick="submitExam()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>ส่งคำตอบ & ตรวจคะแนน</span>
+        </button>
+      </div>
     </div>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500">
-    EN22201 Extra English III • Grade 8 (ม.2) Examination Platform • Ready for Print & PDF
-  </footer>
+  <!-- Interactive Grading Script -->
+  <script>
+    let answersVisible = false;
 
+    function toggleAllAnswers() {
+      answersVisible = !answersVisible;
+      const explanationBoxes = document.querySelectorAll('.explanation-box');
+      explanationBoxes.forEach(box => {
+        if (answersVisible) {
+          box.classList.remove('hidden');
+        } else {
+          box.classList.add('hidden');
+        }
+      });
+      document.getElementById('btn-toggle-text').textContent = answersVisible ? 'ซ่อนเฉลย' : 'แสดงเฉลย';
+    }
+
+    function submitExam() {
+      let score = 0;
+      const totalQuestions = 40;
+      let unansweredCount = 0;
+
+      // Check Select Dropdowns (Q1 - Q3 & Q14 - Q20)
+      const selectIDs = [1, 2, 3, 14, 15, 16, 17, 18, 19, 20];
+      selectIDs.forEach(i => {
+        const block = document.getElementById(`block-q${i}`);
+        const sel = document.getElementById(`select-q${i}`);
+        const correctVal = block.getAttribute('data-correct');
+        const statusSpan = block.querySelector('.status-indicator');
+        const explanation = block.querySelector('.explanation-box');
+
+        if (sel.value === "") {
+          unansweredCount++;
+          statusSpan.innerHTML = '<span class="text-amber-400 text-xs">ไม่ได้เลือก</span>';
+          sel.classList.add('border-amber-500');
+        } else if (sel.value === correctVal) {
+          score++;
+          statusSpan.innerHTML = '<span class="text-emerald-400 text-xs font-bold">✓ (+1)</span>';
+          sel.classList.remove('border-rose-500', 'border-amber-500');
+          sel.classList.add('border-emerald-500', 'bg-emerald-950/40');
+        } else {
+          statusSpan.innerHTML = '<span class="text-rose-400 text-xs font-bold">✗ (0)</span>';
+          sel.classList.remove('border-emerald-500', 'border-amber-500');
+          sel.classList.add('border-rose-500', 'bg-rose-950/40');
+        }
+        if (explanation) explanation.classList.remove('hidden');
+      });
+
+      // Check Radios (Q4 - Q13 & Q21 - Q30)
+      const radioIDs = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+      radioIDs.forEach(i => {
+        const block = document.getElementById(`block-q${i}`);
+        const correctVal = block.getAttribute('data-correct');
+        const selectedRadio = document.querySelector(`input[name="q${i}"]:checked`);
+        const statusSpan = block.querySelector('.status-indicator');
+        const explanation = block.querySelector('.explanation-box');
+        const optionLabels = block.querySelectorAll('.option-label');
+
+        optionLabels.forEach(lbl => {
+          lbl.classList.remove('border-emerald-500', 'bg-emerald-950/40', 'border-rose-500', 'bg-rose-950/40');
+        });
+
+        if (selectedRadio) {
+          const userVal = selectedRadio.value;
+          if (userVal === correctVal) {
+            score++;
+            statusSpan.innerHTML = '<span class="text-emerald-400 font-bold">✓ ถูกต้อง (+1)</span>';
+            const chosenLabel = block.querySelector(`label[data-choice="${userVal}"]`);
+            if (chosenLabel) chosenLabel.classList.add('border-emerald-500', 'bg-emerald-950/40');
+          } else {
+            statusSpan.innerHTML = '<span class="text-rose-400 font-bold">✗ ผิด (0)</span>';
+            const wrongLabel = block.querySelector(`label[data-choice="${userVal}"]`);
+            const correctLabel = block.querySelector(`label[data-choice="${correctVal}"]`);
+            if (wrongLabel) wrongLabel.classList.add('border-rose-500', 'bg-rose-950/40');
+            if (correctLabel) correctLabel.classList.add('border-emerald-500', 'bg-emerald-950/40');
+          }
+        } else {
+          unansweredCount++;
+          statusSpan.innerHTML = '<span class="text-amber-400 font-bold">ไม่ได้ตอบ</span>';
+          const correctLabel = block.querySelector(`label[data-choice="${correctVal}"]`);
+          if (correctLabel) correctLabel.classList.add('border-emerald-500', 'bg-emerald-950/40');
+        }
+        if (explanation) explanation.classList.remove('hidden');
+      });
+
+      // Check Text Inputs (Q31 - Q40)
+      for (let i = 31; i <= 40; i++) {
+        const block = document.getElementById(`block-q${i}`);
+        const inputElem = document.getElementById(`input-q${i}`);
+        const statusSpan = block.querySelector('.status-indicator');
+        const explanation = block.querySelector('.explanation-box');
+
+        const userVal = inputElem.value.trim().toLowerCase();
+        const keywords = block.getAttribute('data-keywords').toLowerCase().split('|');
+
+        let isCorrect = false;
+        if (userVal.length > 0) {
+          isCorrect = keywords.some(kw => userVal.includes(kw));
+        }
+
+        if (userVal.length === 0) {
+          unansweredCount++;
+          statusSpan.innerHTML = '<span class="text-amber-400 text-xs">ไม่ได้ตอบ</span>';
+          inputElem.classList.add('border-amber-500');
+        } else if (isCorrect) {
+          score++;
+          statusSpan.innerHTML = '<span class="text-emerald-400 text-xs font-bold">✓ ถูกต้อง (+1)</span>';
+          inputElem.classList.remove('border-rose-500', 'border-amber-500');
+          inputElem.classList.add('border-emerald-500', 'bg-emerald-950/20');
+        } else {
+          statusSpan.innerHTML = '<span class="text-rose-400 text-xs font-bold">✗ ผิด (0)</span>';
+          inputElem.classList.remove('border-emerald-500', 'border-amber-500');
+          inputElem.classList.add('border-rose-500', 'bg-rose-950/20');
+        }
+        if (explanation) explanation.classList.remove('hidden');
+      }
+
+      // Update Top Status Bar
+      const scoreBadge = document.getElementById('top-score-badge');
+      const scoreVal = document.getElementById('top-score-val');
+      const headerScore = document.getElementById('header-score-tag');
+      
+      scoreBadge.classList.remove('hidden');
+      scoreVal.textContent = score;
+      headerScore.classList.remove('hidden');
+      headerScore.textContent = `Score: ${score} / ${totalQuestions}`;
+
+      // Pop-up Result Modal
+      const studentName = document.getElementById('student-name').value.trim() || 'นักเรียน';
+      const percent = ((score / totalQuestions) * 100).toFixed(1);
+
+      Swal.fire({
+        title: `ผลคะแนนสอบ: ${studentName}`,
+        html: `
+          <div class="text-center space-y-3 py-2">
+            <div class="text-5xl font-extrabold text-emerald-400 font-mono">${score} / ${totalQuestions}</div>
+            <div class="text-base text-slate-300 font-medium">คิดเป็น: <span class="font-bold text-white">${percent}%</span> (เทียบเป็น 10% = <span class="text-sky-300 font-bold">${(score/4).toFixed(2)}</span> คะแนนจริง)</div>
+            ${unansweredCount > 0 ? `<div class="text-xs text-amber-400 mt-2">หมายเหตุ: มีข้อที่ไม่ได้ตอบ ${unansweredCount} ข้อ</div>` : ''}
+            <div class="text-xs text-slate-400 pt-2 border-t border-slate-800">ระบบได้แสดงเฉลยตัวเลือกที่ถูกต้องและคำอธิบายภาษาไทยในทุกข้อด้านล่างเรียบร้อยแล้ว</div>
+          </div>
+        `,
+        icon: score >= 20 ? 'success' : 'info',
+        background: '#0f172a',
+        color: '#f8fafc',
+        confirmButtonColor: '#10b981',
+        confirmButtonText: 'ดูเฉลยละเอียดรายข้อ'
+      });
+    }
+
+    function resetExam() {
+      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+      document.querySelectorAll('select').forEach(s => {
+        s.value = '';
+        s.classList.remove('border-emerald-500', 'border-rose-500', 'border-amber-500', 'bg-emerald-950/40', 'bg-rose-950/40');
+      });
+      document.querySelectorAll('input[type="text"]').forEach(input => {
+        if (input.id.startsWith('input-q')) {
+          input.value = '';
+          input.classList.remove('border-emerald-500', 'border-rose-500', 'border-amber-500', 'bg-emerald-950/20', 'bg-rose-950/20');
+        }
+      });
+      document.querySelectorAll('.status-indicator').forEach(s => s.innerHTML = '');
+      document.querySelectorAll('.explanation-box').forEach(e => e.classList.add('hidden'));
+      document.querySelectorAll('.option-label').forEach(lbl => {
+        lbl.classList.remove('border-emerald-500', 'bg-emerald-950/40', 'border-rose-500', 'bg-rose-950/40');
+      });
+
+      document.getElementById('top-score-badge').classList.add('hidden');
+      document.getElementById('header-score-tag').classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function printExam() {
+      window.print();
+    }
+  </script>
 </body>
 </html>
