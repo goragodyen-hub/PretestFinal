@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EN22201 Final Examination - Online Test & Grading System (A1 Level)</title>
+  <title>EN22201 Extra English III - Portal Hub (ระบบสอบออนไลน์ ม.2)</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Sarabun & Inter -->
@@ -12,9 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- SweetAlert2 for polished score modals -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
+
   <style>
     body {
       font-family: 'Sarabun', 'Inter', sans-serif;
@@ -23,1066 +21,163 @@
       margin: 0;
       padding: 0;
     }
-
-    /* Option selection highlight before submit */
-    .option-label {
-      transition: all 0.2s ease;
+    .portal-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .option-label:hover {
-      background-color: #1e293b;
-    }
-    input[type="radio"]:checked + span {
-      font-weight: 700;
-      color: #38bdf8;
-    }
-
-    /* Print styling */
-    @media print {
-      body {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-      }
-      .no-print {
-        display: none !important;
-      }
-      .exam-container {
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-      .exam-card {
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        color: #000000 !important;
-        box-shadow: none !important;
-        margin-bottom: 24px !important;
-        break-inside: avoid;
-      }
-      .text-slate-300, .text-slate-400, .text-slate-200 {
-        color: #1e293b !important;
-      }
-      .text-white {
-        color: #000000 !important;
-      }
-      .bg-slate-800, .bg-slate-900, .bg-slate-950 {
-        background: #f8fafc !important;
-      }
-      .border-slate-700, .border-slate-800 {
-        border-color: #cbd5e1 !important;
-      }
+    .portal-card:hover {
+      transform: translateY(-4px);
     }
   </style>
 </head>
-<body class="min-h-screen pb-16">
+<body class="min-h-screen flex flex-col justify-between">
 
-  <!-- Top Sticky Control & Score Bar (No Print) -->
-  <header class="no-print sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-4 py-3 shadow-xl">
-    <div class="max-w-4xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full text-xs font-bold uppercase tracking-wider">
-          EN22201 ม.2 (A1 Level)
-        </span>
-        <span class="text-sm font-bold text-slate-200 hidden sm:inline">ระบบตรวจข้อสอบออนไลน์ (Auto-Grading)</span>
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur border-b border-slate-800 px-6 py-4 shadow-xl">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-400 flex items-center justify-center text-white font-extrabold shadow-lg">
+          EN
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-extrabold text-white leading-tight">EN22201 Extra English III</h1>
+          <p class="text-xs text-slate-400">ระบบแบบทดสอบออนไลน์ & วัดผลสัมฤทธิ์ ม.2 (Grade 8)</p>
+        </div>
       </div>
 
       <div class="flex items-center gap-2">
-        <!-- Live Score Counter Tag -->
-        <div id="top-score-badge" class="hidden px-3 py-1 bg-indigo-600/30 border border-indigo-500/50 rounded-lg text-xs font-bold text-indigo-300">
-          คะแนน: <span id="top-score-val">0</span> / 40
-        </div>
-
-        <!-- Submit Button -->
-        <button onclick="submitExam()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg shadow-md transition flex items-center gap-1.5">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span>ส่งคำตอบ & ตรวจทันที</span>
-        </button>
-
-        <!-- Reset Button -->
-        <button onclick="resetExam()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1">
-          <i class="fa-solid fa-rotate-right"></i>
-          <span>เริ่มใหม่</span>
-        </button>
-
-        <!-- Print / PDF -->
-        <button onclick="printExam()" class="px-3 py-1.5 bg-indigo-700 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg transition flex items-center gap-1">
-          <i class="fa-solid fa-file-pdf"></i>
-          <span>Save PDF</span>
-        </button>
-
-        <!-- Archive Link -->
-        <a href="backup_past_simple/index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1" title="ดูข้อสอบ Past Simple Tense เดิม">
-          <i class="fa-solid fa-box-archive"></i>
-          <span class="hidden md:inline">ชุดเดิม</span>
+        <a href="backup_past_simple/index.html" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center gap-1.5" title="คลังข้อสอบ Past Simple Tense เดิม">
+          <i class="fa-solid fa-box-archive text-amber-400"></i>
+          <span>คลังชุดเดิม</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Main Exam Document -->
-  <main class="exam-container max-w-4xl mx-auto p-4 sm:p-8 space-y-8">
+  <!-- Hero Section -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
 
-    <!-- Paper Header -->
-    <section class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl">
-      <div class="text-center border-b border-slate-800 pb-5 mb-5">
-        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-1">Final Examination • Semester 1</span>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-white">EN22201 Extra English III (Reading and Writing)</h1>
-        <p class="text-sm sm:text-base text-slate-400 mt-1">มัธยมศึกษาปีที่ 2 • Total: 40 Marks (Divided by 4 = 10%)</p>
-      </div>
+    <div class="text-center space-y-3">
+      <span class="inline-flex items-center gap-2 px-3.5 py-1 bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">
+        <i class="fa-solid fa-graduation-cap"></i> Examination Suite • First Semester 2026
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white">เลือกชุดข้อสอบปลายภาคที่ต้องการทดสอบ</h2>
+      <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+        ระบบตรวจคำตอบอัตโนมัติ (Auto-Grading) คำนวณคะแนนและตัดเกรดทันที พร้อมเฉลยละเอียดและคำอธิบายภาษาไทยในทุกข้อ
+      </p>
+    </div>
 
-      <!-- Student Info Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-slate-300">
-        <div class="flex items-center gap-2">
-          <label for="student-name" class="font-bold text-slate-400">Name:</label>
-          <input type="text" id="student-name" placeholder="ชื่อ-นามสกุล" class="bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500 w-full">
-        </div>
-        <div class="flex items-center gap-2">
-          <label for="student-class" class="font-bold text-slate-400">Class: ม. 2 /</label>
-          <input type="text" id="student-class" placeholder="ห้อง" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-indigo-500 w-16">
-        </div>
-        <div class="flex items-center gap-2">
-          <label for="student-no" class="font-bold text-slate-400">No:</label>
-          <input type="text" id="student-no" placeholder="เลขที่" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-indigo-500 w-16">
-          <span id="header-score-tag" class="ml-auto font-bold text-emerald-400 hidden">0 / 40</span>
-        </div>
-      </div>
-    </section>
+    <!-- Exam Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <!-- SECTION 1: READING (15 MARKS) -->
-    <section class="space-y-6">
-      <div class="flex items-center gap-3 border-l-4 border-sky-500 pl-3">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white">SECTION 1: READING COMPREHENSION</h2>
-          <p class="text-xs sm:text-sm text-sky-400">15 Marks (Part 1.1: 10 Marks • Part 1.2: 5 Marks)</p>
-        </div>
-      </div>
-
-      <!-- Part 1.1: Topic and Main Idea -->
-      <div class="space-y-6">
-        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 text-sm text-slate-300">
-          <span class="font-bold text-sky-300">Directions:</span> Read each short paragraph. Choose the correct <strong class="text-white">TOPIC</strong> and <strong class="text-white">MAIN IDEA</strong>.
-        </div>
-
-        <!-- Paragraph 1 -->
-        <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-          <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Paragraph 1</span>
-          <p class="text-base sm:text-lg text-slate-200 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            Healthy breakfast gives students energy for the morning. Eating eggs, bread, and milk helps you feel full and happy. Students who eat breakfast can listen to teachers better in class. A good breakfast helps you learn and stay strong every day.
-          </p>
-
-          <div class="space-y-4 pt-2">
-            <!-- Q1 -->
-            <div class="question-block space-y-2" id="block-q1" data-correct="B">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>1. What is the TOPIC of Paragraph 1?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q1" value="A"> <span>A. Cooking dinner at night</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q1" value="B"> <span>B. The benefits of a healthy breakfast</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q1" value="C"> <span>C. How to buy fresh milk</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q1" value="D"> <span>D. Playing sports at school</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย B:</strong> ย่อหน้านี้พูดถึง "ประโยชน์ของอาหารเช้าที่มีต่อร่างกายและพลังงานของเด็กนักเรียน"
-              </div>
-            </div>
-
-            <!-- Q2 -->
-            <div class="question-block space-y-2" id="block-q2" data-correct="A">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>2. What is the MAIN IDEA of Paragraph 1?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q2" value="A"> <span>A. Eating breakfast gives energy and helps students learn better.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q2" value="B"> <span>B. Students should only drink cold water in the morning.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q2" value="C"> <span>C. Bread is more expensive than eggs.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q2" value="D"> <span>D. Teachers cook breakfast for all students.</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย A:</strong> ใจความสำคัญคือ อาหารเช้าให้พลังงานและช่วยให้ผู้เรียนเข้าใจบทเรียนได้ดีขึ้น
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Paragraph 2 -->
-        <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-          <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Paragraph 2</span>
-          <p class="text-base sm:text-lg text-slate-200 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            Dogs are wonderful pets for families. They love to play with balls in the garden and greet you when you come home. Walking a dog every day keeps you healthy and active. Having a friendly dog brings lots of love and fun to your house.
-          </p>
-
-          <div class="space-y-4 pt-2">
-            <!-- Q3 -->
-            <div class="question-block space-y-2" id="block-q3" data-correct="B">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>3. What is the TOPIC of Paragraph 2?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q3" value="A"> <span>A. Wild animals in the forest</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q3" value="B"> <span>B. Why dogs make great family pets</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q3" value="C"> <span>C. How to buy garden flowers</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q3" value="D"> <span>D. Playing football at the stadium</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย B:</strong> ย่อหน้านี้พูดถึงสุนัขเป็นสัตว์เลี้ยงที่ดีสำหรับครอบครัว
-              </div>
-            </div>
-
-            <!-- Q4 -->
-            <div class="question-block space-y-2" id="block-q4" data-correct="A">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>4. What is the MAIN IDEA of Paragraph 2?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q4" value="A"> <span>A. Dogs are playful pets that bring happiness and health to families.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q4" value="B"> <span>B. Dogs only eat fish and vegetables.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q4" value="C"> <span>C. Families should never play outside.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q4" value="D"> <span>D. All dogs sleep twenty hours a day.</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย A:</strong> สุนัขเป็นสัตว์เลี้ยงที่มอบความสุข สนุกสนาน และช่วยให้คนในบ้านมีสุขภาพแข็งแรง
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Paragraph 3 -->
-        <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-          <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Paragraph 3</span>
-          <p class="text-base sm:text-lg text-slate-200 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            Drinking clean water is important for your body. When you study or run in PE class, your body loses water. Doctors say students should drink about six to eight glasses of water every day. Drinking enough water keeps your brain clear and stops headaches.
-          </p>
-
-          <div class="space-y-4 pt-2">
-            <!-- Q5 -->
-            <div class="question-block space-y-2" id="block-q5" data-correct="B">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>5. What is the TOPIC of Paragraph 3?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q5" value="A"> <span>A. How to swim in the pool</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q5" value="B"> <span>B. The importance of drinking water</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q5" value="C"> <span>C. Making sweet fruit juice</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q5" value="D"> <span>D. Buying new water glasses</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย B:</strong> หัวข้อคือ "ความสำคัญของการดื่มน้ำสะอาด"
-              </div>
-            </div>
-
-            <!-- Q6 -->
-            <div class="question-block space-y-2" id="block-q6" data-correct="A">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>6. What is the MAIN IDEA of Paragraph 3?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q6" value="A"> <span>A. Drinking enough water keeps your body healthy and helps your brain.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q6" value="B"> <span>B. Students should drink water only on Sundays.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q6" value="C"> <span>C. Soft drinks are better than clean water.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q6" value="D"> <span>D. Running in PE class never makes you thirsty.</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย A:</strong> การดื่มน้ำอย่างเพียงพอส่งผลดีต่อสุขภาพและช่วยให้สมองแจ่มใส
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Paragraph 4 -->
-        <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-          <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Paragraph 4</span>
-          <p class="text-base sm:text-lg text-slate-200 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            Reading English storybooks is a fun way to learn new words. When you read simple stories every day, you see how words make sentences. You do not need to look up every word in the dictionary. Reading thirty minutes a day makes you read faster and better.
-          </p>
-
-          <div class="space-y-4 pt-2">
-            <!-- Q7 -->
-            <div class="question-block space-y-2" id="block-q7" data-correct="B">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>7. What is the TOPIC of Paragraph 4?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q7" value="A"> <span>A. Writing long letters to friends</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q7" value="B"> <span>B. Learning English by reading storybooks</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q7" value="C"> <span>C. Drawing pictures in notebooks</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q7" value="D"> <span>D. Selling books at the market</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย B:</strong> หัวข้อคือการเรียนภาษาอังกฤษผ่านการอ่านหนังสือนิทาน
-              </div>
-            </div>
-
-            <!-- Q8 -->
-            <div class="question-block space-y-2" id="block-q8" data-correct="A">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>8. What is the MAIN IDEA of Paragraph 4?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q8" value="A"> <span>A. Reading simple stories daily helps you improve your English skills.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q8" value="B"> <span>B. Dictionaries are the only books students should read.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q8" value="C"> <span>C. Reading books makes students very tired.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q8" value="D"> <span>D. Storybooks are too difficult for teenagers.</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย A:</strong> การอ่านนิทานสั้นๆ ทุกวันเป็นประจำช่วยพัฒนาทักษะภาษาอังกฤษให้ดีขึ้นได้อย่างเป็นธรรมชาติ
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Paragraph 5 -->
-        <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-          <span class="px-2.5 py-1 bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded text-xs font-bold uppercase">Paragraph 5</span>
-          <p class="text-base sm:text-lg text-slate-200 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            Riding a bicycle to school is good for your health and nature. First, cycling gives you daily exercise and keeps your legs strong. Second, bicycles do not make smoke, so the air stays fresh and clean. Riding a bike is an easy, green way to travel around your town.
-          </p>
-
-          <div class="space-y-4 pt-2">
-            <!-- Q9 -->
-            <div class="question-block space-y-2" id="block-q9" data-correct="A">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>9. What is the TOPIC of Paragraph 5?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q9" value="A"> <span>A. Riding a bicycle to school</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q9" value="B"> <span>B. Buying motorbikes</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q9" value="C"> <span>C. Repairing broken cars</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q9" value="D"> <span>D. Washing school buses</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย A:</strong> หัวข้อคือ "การปั่นจักรยานไปโรงเรียน"
-              </div>
-            </div>
-
-            <!-- Q10 -->
-            <div class="question-block space-y-2" id="block-q10" data-correct="A">
-              <p class="text-base font-bold text-white flex items-center justify-between">
-                <span>10. What is the MAIN IDEA of Paragraph 5?</span>
-                <span class="status-indicator text-sm"></span>
-              </p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q10" value="A"> <span>A. Riding a bicycle keeps you healthy and keeps the air clean.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q10" value="B"> <span>B. Cars make less smoke than bicycles.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q10" value="C"> <span>C. Students should only ride bicycles inside their house.</span></label>
-                <label class="option-label p-2.5 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q10" value="D"> <span>D. Bicycles are too heavy to ride.</span></label>
-              </div>
-              <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-                <strong>เฉลย A:</strong> การปั่นจักรยานช่วยให้ร่างกายแข็งแรงและช่วยรักษาอากาศให้บริสุทธิ์
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- Part 1.2: Unseen Passage -->
-      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-        <div class="flex items-center justify-between">
-          <span class="px-2.5 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded text-xs font-bold uppercase">Part 1.2: Unseen Passage (5 Marks)</span>
-          <span class="text-xs text-slate-400">Questions 11–15</span>
-        </div>
-
-        <div class="bg-slate-950/70 p-5 rounded-xl border border-slate-800 space-y-2.5">
-          <h3 class="text-lg font-bold text-white text-center">Tom's New Pet</h3>
-          <p class="text-base text-slate-200 leading-relaxed">
-            Tom has a cute brown cat named Milo. Milo likes to sit on the warm sofa and drink fresh milk in the morning. In the afternoon, Tom plays with Milo using a small toy mouse. Milo is very soft and friendly. When Tom studies his English homework, Milo sleeps quietly beside his desk. Tom loves his little cat very much.
-          </p>
-        </div>
-
-        <div class="space-y-4 pt-2">
-          <!-- Q11 -->
-          <div class="question-block space-y-2" id="block-q11" data-correct="A">
-            <p class="text-base font-bold text-white flex items-center justify-between">
-              <span>11. What is Milo?</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="grid grid-cols-2 gap-2 text-sm text-slate-300">
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q11" value="A"> <span>A. A cute brown cat</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q11" value="B"> <span>B. A big dog</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q11" value="C"> <span>C. A green bird</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q11" value="D"> <span>D. A small rabbit</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย A:</strong> บรรทัดที่ 1: "Tom has a cute brown cat named Milo."
-            </div>
-          </div>
-
-          <!-- Q12 -->
-          <div class="question-block space-y-2" id="block-q12" data-correct="B">
-            <p class="text-base font-bold text-white flex items-center justify-between">
-              <span>12. What does Milo drink in the morning?</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="grid grid-cols-2 gap-2 text-sm text-slate-300">
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q12" value="A"> <span>A. Apple juice</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q12" value="B"> <span>B. Fresh milk</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q12" value="C"> <span>C. Hot tea</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q12" value="D"> <span>D. Cold water</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย B:</strong> "drink fresh milk in the morning"
-            </div>
-          </div>
-
-          <!-- Q13 -->
-          <div class="question-block space-y-2" id="block-q13" data-correct="C">
-            <p class="text-base font-bold text-white flex items-center justify-between">
-              <span>13. What toy does Tom use to play with Milo?</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="grid grid-cols-2 gap-2 text-sm text-slate-300">
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q13" value="A"> <span>A. A toy car</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q13" value="B"> <span>B. A yellow ball</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q13" value="C"> <span>C. A small toy mouse</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q13" value="D"> <span>D. A paper plane</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย C:</strong> "using a small toy mouse"
-            </div>
-          </div>
-
-          <!-- Q14 -->
-          <div class="question-block space-y-2" id="block-q14" data-correct="A">
-            <p class="text-base font-bold text-white flex items-center justify-between">
-              <span>14. Where does Milo sleep when Tom does homework?</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="grid grid-cols-2 gap-2 text-sm text-slate-300">
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q14" value="A"> <span>A. Beside his desk</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q14" value="B"> <span>B. Outside the garden</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q14" value="C"> <span>C. Under the car</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q14" value="D"> <span>D. In the kitchen box</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย A:</strong> "Milo sleeps quietly beside his desk."
-            </div>
-          </div>
-
-          <!-- Q15 -->
-          <div class="question-block space-y-2" id="block-q15" data-correct="A">
-            <p class="text-base font-bold text-white flex items-center justify-between">
-              <span>15. How does Tom feel about his cat?</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="grid grid-cols-2 gap-2 text-sm text-slate-300">
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q15" value="A"> <span>A. He loves Milo very much.</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q15" value="B"> <span>B. He is afraid of Milo.</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q15" value="C"> <span>C. He wants to sell Milo.</span></label>
-              <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q15" value="D"> <span>D. He is angry with Milo.</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย A:</strong> ประโยคปิดท้าย: "Tom loves his little cat very much."
-            </div>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <!-- SECTION 2: VOCABULARY (NOUN vs VERB) (15 MARKS) -->
-    <section class="space-y-6">
-      <div class="flex items-center gap-3 border-l-4 border-emerald-500 pl-3">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white">SECTION 2: VOCABULARY (WORD FORMS)</h2>
-          <p class="text-xs sm:text-sm text-emerald-400">15 Marks (Part 2.1: 5 Marks • Part 2.2: 5 Marks • Part 2.3: 5 Marks)</p>
-        </div>
-      </div>
-
-      <!-- Part 2.1: Identifying Parts of Speech -->
-      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded text-xs font-bold uppercase">Part 2.1: Identifying Parts of Speech (5 Marks)</span>
-        
-        <!-- Q16 -->
-        <div class="question-block space-y-2" id="block-q16" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>16. Which underlined word is a <span class="text-emerald-400">NOUN</span> (คำนาม)?</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q16" value="A"> <span>A. We <u>eat</u> bananas.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q16" value="B"> <span>B. This is a nice <u>book</u>.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q16" value="C"> <span>C. Birds <u>fly</u> high.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q16" value="D"> <span>D. They <u>run</u> fast.</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> "book" (หนังสือ) คือคำนาม (Noun)
-          </div>
-        </div>
-
-        <!-- Q17 -->
-        <div class="question-block space-y-2" id="block-q17" data-correct="C">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>17. Which underlined word is a <span class="text-sky-400">VERB</span> (คำกริยา)?</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q17" value="A"> <span>A. The blue <u>pen</u></span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q17" value="B"> <span>B. A yellow <u>sun</u></span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q17" value="C"> <span>C. I <u>wash</u> my hands.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q17" value="D"> <span>D. My small <u>dog</u></span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย C:</strong> "wash" (ล้าง) เป็นคำกริยา (Verb) แสดงการกระทำ
-          </div>
-        </div>
-
-        <!-- Q18 -->
-        <div class="question-block space-y-2" id="block-q18" data-correct="C">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>18. In which sentence is "drink" used as a <span class="text-emerald-400">NOUN</span> (คำนาม = เครื่องดื่ม)?</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q18" value="A"> <span>A. I drink milk every day.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q18" value="B"> <span>B. They drink cold water.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q18" value="C"> <span>C. This is a sweet <u>drink</u>.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q18" value="D"> <span>D. We drink orange juice.</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย C:</strong> "a sweet drink" แปลว่า "เครื่องดื่มแสนหวาน" อยู่หลัง Article และคุณศัพท์ ทำหน้าที่เป็น Noun
-          </div>
-        </div>
-
-        <!-- Q19 -->
-        <div class="question-block space-y-2" id="block-q19" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>19. In which sentence is "water" used as a <span class="text-sky-400">VERB</span> (คำกริยา = รดน้ำ)?</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q19" value="A"> <span>A. I drink cold water.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q19" value="B"> <span>B. Farmers <u>water</u> the trees.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q19" value="C"> <span>C. There is water in the cup.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q19" value="D"> <span>D. The bottle of water is full.</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> "water" ในข้อ B ทำหน้าที่เป็นกริยาแท้ของ Farmers แปลว่า "รดน้ำ"
-          </div>
-        </div>
-
-        <!-- Q20 -->
-        <div class="question-block space-y-2" id="block-q20" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>20. How many sentences use the word "help" as a <span class="text-sky-400">VERB</span> (กริยา = ช่วยเหลือ)?</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800 text-sm text-slate-300 space-y-1 font-mono">
-            <div>• I: Good students <u>help</u> teachers.</div>
-            <div>• II: Thank you for your <u>help</u>.</div>
-            <div>• III: We can <u>help</u> you today.</div>
-          </div>
-          <div class="grid grid-cols-3 gap-2 text-sm text-slate-300 pt-1">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q20" value="A"> <span>A. 1 sentence</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q20" value="B"> <span>B. 2 sentences</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q20" value="C"> <span>C. 3 sentences</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> มี 2 ประโยคคือ I ("help teachers") และ III ("can help you") ส่วน II เป็นคำนาม ("your help")
-          </div>
-        </div>
-      </article>
-
-      <!-- Part 2.2: Complete the Sentences -->
-      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded text-xs font-bold uppercase">Part 2.2: Complete the Sentences (5 Marks)</span>
+      <!-- Exam Card 1: A1 Foundation -->
+      <div class="portal-card bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+        <div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
         
         <div class="space-y-4">
-          <!-- Q21 -->
-          <div class="question-block space-y-1.5" id="block-q21" data-correct="A">
-            <p class="text-base text-white flex items-center justify-between">
-              <span>21. My brother can __________ English very well.</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="flex gap-4 text-sm text-slate-300">
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="A"><input type="radio" name="q21" value="A"> <span>A. speak (Verb)</span></label>
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="B"><input type="radio" name="q21" value="B"> <span>B. speaker (Noun)</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-2.5 bg-slate-950 rounded border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย A:</strong> หลัง Modal verb "can" ต้องใช้รูปกริยาแท้ (speak)
-            </div>
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full text-xs font-bold uppercase">
+              ชุดที่ 1 • A1 Foundation Level
+            </span>
+            <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-circle-question"></i> 40 ข้อ (40 คะแนน)</span>
           </div>
 
-          <!-- Q22 -->
-          <div class="question-block space-y-1.5" id="block-q22" data-correct="B">
-            <p class="text-base text-white flex items-center justify-between">
-              <span>22. He gave a nice __________ to his teacher on Teacher's Day.</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="flex gap-4 text-sm text-slate-300">
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="A"><input type="radio" name="q22" value="A"> <span>A. give (Verb)</span></label>
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="B"><input type="radio" name="q22" value="B"> <span>B. gift (Noun)</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-2.5 bg-slate-950 rounded border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย B:</strong> หลัง Article "a" และคุณศัพท์ "nice" ต้องการคำนาม (gift = ของขวัญ)
-            </div>
+          <div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition">EN22201 Final Examination</h3>
+            <p class="text-xs text-slate-400 mt-1">Reading Comprehension & Word Forms (Noun vs Verb)</p>
           </div>
 
-          <!-- Q23 -->
-          <div class="question-block space-y-1.5" id="block-q23" data-correct="A">
-            <p class="text-base text-white flex items-center justify-between">
-              <span>23. She will __________ dinner for her family tonight.</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="flex gap-4 text-sm text-slate-300">
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="A"><input type="radio" name="q23" value="A"> <span>A. cook (Verb)</span></label>
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="B"><input type="radio" name="q23" value="B"> <span>B. cooker (Noun)</span></label>
+          <div class="space-y-2.5 pt-2 text-sm text-slate-300 border-t border-slate-800">
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
+              <span><strong>Section 1 (15 ข้อ):</strong> Reading Comprehension (Topic, Main Idea 5 ย่อหน้า และ Unseen Passage "Tom's New Pet")</span>
             </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-2.5 bg-slate-950 rounded border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย A:</strong> หลัง "will" ต้องใช้กริยาแท้รูปเดิม (cook = ทำอาหาร)
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
+              <span><strong>Section 2 (15 ข้อ):</strong> Word Forms จำแนก Noun vs Verb จากตำแหน่งและบริบท</span>
             </div>
-          </div>
-
-          <!-- Q24 -->
-          <div class="question-block space-y-1.5" id="block-q24" data-correct="B">
-            <p class="text-base text-white flex items-center justify-between">
-              <span>24. Mrs. Smith is a very kind __________ in our school.</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="flex gap-4 text-sm text-slate-300">
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="A"><input type="radio" name="q24" value="A"> <span>A. teach (Verb)</span></label>
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="B"><input type="radio" name="q24" value="B"> <span>B. teacher (Noun)</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-2.5 bg-slate-950 rounded border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย B:</strong> ต้องการคำนามบอกบุคคล (teacher = คุณครู)
-            </div>
-          </div>
-
-          <!-- Q25 -->
-          <div class="question-block space-y-1.5" id="block-q25" data-correct="A">
-            <p class="text-base text-white flex items-center justify-between">
-              <span>25. Birds like to __________ in the big green tree.</span>
-              <span class="status-indicator text-sm"></span>
-            </p>
-            <div class="flex gap-4 text-sm text-slate-300">
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="A"><input type="radio" name="q25" value="A"> <span>A. sing (Verb)</span></label>
-              <label class="option-label px-3 py-1.5 rounded-lg bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="B"><input type="radio" name="q25" value="B"> <span>B. song (Noun)</span></label>
-            </div>
-            <div class="explanation-box hidden text-xs sm:text-sm p-2.5 bg-slate-950 rounded border border-emerald-500/40 text-emerald-300">
-              <strong>เฉลย A:</strong> หลัง to-infinitive ("to sing") ต้องเป็นกริยาแท้
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-check text-emerald-400 mt-1 text-xs"></i>
+              <span><strong>Section 3 (10 ข้อ):</strong> Mechanics ตัวพิมพ์ใหญ่-เล็ก, เครื่องหมายวรรคตอน และ Paragraph Error Correction</span>
             </div>
           </div>
         </div>
-      </article>
 
-      <!-- Part 2.3: Decide Noun or Verb -->
-      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-        <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded text-xs font-bold uppercase">Part 2.3: Decide Noun or Verb (5 Marks)</span>
-        <p class="text-sm text-slate-400">Directions: Decide whether the bold underlined word is a <strong class="text-emerald-400">NOUN</strong> or a <strong class="text-sky-400">VERB</strong>.</p>
-
-        <div class="space-y-3">
-          <!-- Q26 -->
-          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q26" data-correct="Verb">
-            <span class="text-base text-slate-200">26. I <u><strong>watch</strong></u> TV after school.</span>
-            <div class="flex items-center gap-3 text-sm">
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Noun"><input type="radio" name="q26" value="Noun"> <span>Noun</span></label>
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Verb"><input type="radio" name="q26" value="Verb"> <span>Verb</span></label>
-              <span class="status-indicator text-sm font-bold"></span>
-            </div>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-2"><strong>เฉลย:</strong> "watch" เป็นกริยาแท้ แปลว่า "ดูทีวี"</div>
-          </div>
-
-          <!-- Q27 -->
-          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q27" data-correct="Noun">
-            <span class="text-base text-slate-200">27. My father bought a new gold <u><strong>watch</strong></u>.</span>
-            <div class="flex items-center gap-3 text-sm">
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Noun"><input type="radio" name="q27" value="Noun"> <span>Noun</span></label>
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Verb"><input type="radio" name="q27" value="Verb"> <span>Verb</span></label>
-              <span class="status-indicator text-sm font-bold"></span>
-            </div>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-2"><strong>เฉลย:</strong> "watch" อยู่หลังคุณศัพท์ ทำหน้าที่เป็น Noun แปลว่า "นาฬิกาข้อมือ"</div>
-          </div>
-
-          <!-- Q28 -->
-          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q28" data-correct="Verb">
-            <span class="text-base text-slate-200">28. We like to <u><strong>play</strong></u> football on Friday.</span>
-            <div class="flex items-center gap-3 text-sm">
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Noun"><input type="radio" name="q28" value="Noun"> <span>Noun</span></label>
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Verb"><input type="radio" name="q28" value="Verb"> <span>Verb</span></label>
-              <span class="status-indicator text-sm font-bold"></span>
-            </div>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-2"><strong>เฉลย:</strong> หลัง to-infinitive เป็นกริยาแท้ แปลว่า "เล่น"</div>
-          </div>
-
-          <!-- Q29 -->
-          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q29" data-correct="Noun">
-            <span class="text-base text-slate-200">29. We went to see a school <u><strong>play</strong></u> last night.</span>
-            <div class="flex items-center gap-3 text-sm">
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Noun"><input type="radio" name="q29" value="Noun"> <span>Noun</span></label>
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Verb"><input type="radio" name="q29" value="Verb"> <span>Verb</span></label>
-              <span class="status-indicator text-sm font-bold"></span>
-            </div>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-2"><strong>เฉลย:</strong> อยู่หลัง Article "a" ทำหน้าที่เป็น Noun แปลว่า "ละครเวที"</div>
-          </div>
-
-          <!-- Q30 -->
-          <div class="question-block p-3 bg-slate-950/60 rounded-xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2" id="block-q30" data-correct="Verb">
-            <span class="text-base text-slate-200">30. Students <u><strong>walk</strong></u> to school every morning.</span>
-            <div class="flex items-center gap-3 text-sm">
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Noun"><input type="radio" name="q30" value="Noun"> <span>Noun</span></label>
-              <label class="option-label px-2.5 py-1 rounded bg-slate-800/60 border border-slate-700/60 cursor-pointer" data-choice="Verb"><input type="radio" name="q30" value="Verb"> <span>Verb</span></label>
-              <span class="status-indicator text-sm font-bold"></span>
-            </div>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300 w-full mt-2"><strong>เฉลย:</strong> เป็นกริยาแท้ของประธาน Students แปลว่า "เดิน"</div>
-          </div>
-        </div>
-      </article>
-    </section>
-
-    <!-- SECTION 3: WRITING (10 MARKS) -->
-    <section class="space-y-6">
-      <div class="flex items-center gap-3 border-l-4 border-rose-500 pl-3">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white">SECTION 3: WRITING (MECHANICS)</h2>
-          <p class="text-xs sm:text-sm text-rose-400">10 Marks (Part 3.1: 5 Marks • Part 3.2: 5 Marks)</p>
+        <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+          <span class="text-xs text-slate-400">คำนวณเก็บจริง 10% (หาร 4)</span>
+          <a href="en22201_final_exam.html" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-emerald-900/40 transition flex items-center gap-2">
+            <span>เข้าทำข้อสอบชุดที่ 1</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
         </div>
       </div>
 
-      <!-- Part 3.1: Multiple Choice Mechanics -->
-      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-        <span class="px-2.5 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded text-xs font-bold uppercase">Part 3.1: Which sentence is written correctly? (5 Marks)</span>
-        
-        <!-- Q31 -->
-        <div class="question-block space-y-2" id="block-q31" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>31. Choose the correctly written sentence:</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="space-y-1.5 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q31" value="A"> <span>A. i have two pet cats.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q31" value="B"> <span>B. I have two pet cats.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q31" value="C"> <span>C. I have two pet cats</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q31" value="D"> <span>D. i have two pet Cats</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> สรรพนาม "I" ต้องเป็นตัวพิมพ์ใหญ่ และจบด้วย Full stop (.)
-          </div>
-        </div>
+      <!-- Exam Card 2: Teacher Tae Authentic Exam -->
+      <div class="portal-card bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
+        <div class="absolute -right-10 -top-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition"></div>
 
-        <!-- Q32 -->
-        <div class="question-block space-y-2" id="block-q32" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>32. Choose the correctly written sentence:</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="space-y-1.5 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q32" value="A"> <span>A. We do not go to school on sunday.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q32" value="B"> <span>B. We do not go to school on Sunday.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q32" value="C"> <span>C. we do not go to school on Sunday</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q32" value="D"> <span>D. We do not go to School on sunday.</span></label>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 rounded-full text-xs font-bold uppercase">
+              ชุดที่ 2 • Teacher Tae Authentic Exam
+            </span>
+            <span class="text-xs text-slate-400 font-semibold"><i class="fa-solid fa-circle-question"></i> 40 ข้อ (40 คะแนน)</span>
           </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> ชื่อวัน "Sunday" เป็นชื่อเฉพาะ ต้องขึ้นด้วยตัวพิมพ์ใหญ่เสมอ
-          </div>
-        </div>
 
-        <!-- Q33 -->
-        <div class="question-block space-y-2" id="block-q33" data-correct="C">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>33. Choose the correctly written sentence:</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="space-y-1.5 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q33" value="A"> <span>A. What is your name.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q33" value="B"> <span>B. what is your name?</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q33" value="C"> <span>C. What is your name?</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q33" value="D"> <span>D. What is your Name</span></label>
+          <div>
+            <h3 class="text-2xl font-bold text-white group-hover:text-indigo-400 transition">EN22201 Authentic Paper (A2)</h3>
+            <p class="text-xs text-slate-400 mt-1">Teacher Techit Benjakul • The Story of Google & Writing Skills</p>
           </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย C:</strong> ประโยคคำถาม Wh-question ต้องขึ้นต้นด้วยตัวพิมพ์ใหญ่ และลงท้ายด้วย Question mark (?)
-          </div>
-        </div>
 
-        <!-- Q34 -->
-        <div class="question-block space-y-2" id="block-q34" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>34. Choose the correctly written sentence:</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="space-y-1.5 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q34" value="A"> <span>A. My best friend lives in bangkok.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q34" value="B"> <span>B. My best friend lives in Bangkok.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q34" value="C"> <span>C. my best friend lives in Bangkok</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q34" value="D"> <span>D. My best Friend lives in bangkok.</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> ชื่อเมืองเฉพาะ "Bangkok" ต้องขึ้นต้นด้วยตัวพิมพ์ใหญ่ และลงท้ายด้วย Period
-          </div>
-        </div>
-
-        <!-- Q35 -->
-        <div class="question-block space-y-2" id="block-q35" data-correct="B">
-          <p class="text-base font-bold text-white flex items-center justify-between">
-            <span>35. Choose the correctly written sentence:</span>
-            <span class="status-indicator text-sm"></span>
-          </p>
-          <div class="space-y-1.5 text-sm text-slate-300">
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="A"><input type="radio" name="q35" value="A"> <span>A. I like apples bananas and oranges.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="B"><input type="radio" name="q35" value="B"> <span>B. I like apples, bananas, and oranges.</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="C"><input type="radio" name="q35" value="C"> <span>C. i like apples, bananas, and oranges</span></label>
-            <label class="option-label p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-2 cursor-pointer" data-choice="D"><input type="radio" name="q35" value="D"> <span>D. I like apples bananas, and oranges.</span></label>
-          </div>
-          <div class="explanation-box hidden text-xs sm:text-sm p-3 bg-slate-950 rounded-lg border border-emerald-500/40 text-emerald-300">
-            <strong>เฉลย B:</strong> การแจกแจงรายการสิ่งของ 3 สิ่งขึ้นไป ต้องมี Comma คั่นอย่างถูกต้อง
-          </div>
-        </div>
-      </article>
-
-      <!-- Part 3.2: Paragraph Error Correction -->
-      <article class="exam-card bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-7 space-y-4">
-        <div class="flex items-center justify-between">
-          <span class="px-2.5 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 rounded text-xs font-bold uppercase">Part 3.2: Error Correction (5 Marks)</span>
-          <span class="text-xs text-rose-400 font-semibold"><i class="fa-solid fa-pen"></i> Type your corrections</span>
-        </div>
-
-        <p class="text-sm text-slate-300">
-          Directions: Read the short paragraph below. Find the <strong class="text-rose-400">5 mistakes</strong> (Capital letters and Punctuation). พิมพ์คำที่แก้ถูกต้องลงในช่องคำตอบ
-        </p>
-
-        <div class="bg-slate-950 p-4 rounded-xl border border-rose-500/30 text-base sm:text-lg text-slate-200 leading-relaxed font-sans">
-          "my name is Ben. I live in bangkok with my family. On sundays, I ride my red bike with my brother I love my bike very much do you have a bike."
-        </div>
-
-        <!-- Interactive Text Inputs for Error Correction -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-sm">
-          <!-- Error 36 -->
-          <div class="question-block p-3 bg-slate-800/50 rounded-lg border border-slate-700 space-y-1.5" id="block-q36" data-type="text" data-keywords="my name|my">
-            <span class="text-xs text-slate-400 font-bold">1. แก้ไขคำว่า <span class="text-rose-400">my name</span>:</span>
-            <input type="text" id="input-q36" placeholder="พิมพ์คำตอบที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
-            <span class="status-indicator text-xs font-bold block"></span>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
-              <strong>เฉลย:</strong> <strong>My name</strong> (ขึ้นต้นประโยคแรกต้องใช้ตัวพิมพ์ใหญ่)
+          <div class="space-y-2.5 pt-2 text-sm text-slate-300 border-t border-slate-800">
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-check text-indigo-400 mt-1 text-xs"></i>
+              <span><strong>Part 1 (20 ข้อ):</strong> Reading Skills เรื่อง <em>"The Story of Google"</em> (Headings, Pronouns, Vocabulary in Context, ลำดับเหตุการณ์)</span>
             </div>
-          </div>
-
-          <!-- Error 37 -->
-          <div class="question-block p-3 bg-slate-800/50 rounded-lg border border-slate-700 space-y-1.5" id="block-q37" data-type="text" data-keywords="bangkok">
-            <span class="text-xs text-slate-400 font-bold">2. แก้ไขคำว่า <span class="text-rose-400">bangkok</span>:</span>
-            <input type="text" id="input-q37" placeholder="พิมพ์คำตอบที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
-            <span class="status-indicator text-xs font-bold block"></span>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
-              <strong>เฉลย:</strong> <strong>Bangkok</strong> (ชื่อเฉพาะเมืองหลวงต้องใช้ตัวพิมพ์ใหญ่)
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-check text-indigo-400 mt-1 text-xs"></i>
+              <span><strong>Part 2 (20 ข้อ):</strong> Writing Skills (Connectors <code>, but</code> <code>, so</code> <code>, and</code>, Oxford Comma, Join Sentences, Red Pen Error Correction)</span>
             </div>
-          </div>
-
-          <!-- Error 38 -->
-          <div class="question-block p-3 bg-slate-800/50 rounded-lg border border-slate-700 space-y-1.5" id="block-q38" data-type="text" data-keywords="sundays|sunday">
-            <span class="text-xs text-slate-400 font-bold">3. แก้ไขคำว่า <span class="text-rose-400">sundays</span>:</span>
-            <input type="text" id="input-q38" placeholder="พิมพ์คำตอบที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
-            <span class="status-indicator text-xs font-bold block"></span>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
-              <strong>เฉลย:</strong> <strong>Sundays</strong> (ชื่อวันต้องใช้ตัวพิมพ์ใหญ่เสมอ)
-            </div>
-          </div>
-
-          <!-- Error 39 -->
-          <div class="question-block p-3 bg-slate-800/50 rounded-lg border border-slate-700 space-y-1.5" id="block-q39" data-type="text" data-keywords="brother.|brother. i">
-            <span class="text-xs text-slate-400 font-bold">4. แก้ไขระหว่าง <span class="text-rose-400">brother I</span> (ขาดจุดจบประโยค):</span>
-            <input type="text" id="input-q39" placeholder="พิมพ์คำตอบที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
-            <span class="status-indicator text-xs font-bold block"></span>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
-              <strong>เฉลย:</strong> <strong>brother. I</strong> หรือ <strong>brother.</strong> (ต้องมีจุด Period คั่นจบประโยค)
-            </div>
-          </div>
-
-          <!-- Error 40 -->
-          <div class="question-block p-3 bg-slate-800/50 rounded-lg border border-slate-700 space-y-1.5 sm:col-span-2" id="block-q40" data-type="text" data-keywords="bike?|?">
-            <span class="text-xs text-slate-400 font-bold">5. แก้ไขเครื่องหมายท้ายประโยค <span class="text-rose-400">bike.</span>:</span>
-            <input type="text" id="input-q40" placeholder="พิมพ์คำตอบที่ถูกต้อง..." class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1 text-sm text-white focus:outline-none focus:border-indigo-500">
-            <span class="status-indicator text-xs font-bold block"></span>
-            <div class="explanation-box hidden text-xs p-2 bg-slate-900 rounded text-emerald-300">
-              <strong>เฉลย:</strong> <strong>bike?</strong> (ประโยคคำถาม ต้องลงท้ายด้วยเครื่องหมาย Question mark)
+            <div class="flex items-start gap-2">
+              <i class="fa-solid fa-check text-indigo-400 mt-1 text-xs"></i>
+              <span><strong>ฟังก์ชันเฉลย:</strong> มีปุ่มแสดง/ซ่อนเฉลย และระบบพิมพ์ A4 สะอาดตา</span>
             </div>
           </div>
         </div>
-      </article>
-    </section>
 
-    <!-- Bottom Action Card (No Print) -->
-    <div class="no-print p-6 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
-      <div>
-        <h4 class="text-lg font-bold text-white">พร้อมส่งกระดาษคำตอบแล้วหรือยัง?</h4>
-        <p class="text-xs text-slate-400">ระบบจะทำการตรวจเฉลย คำนวณคะแนน และอธิบายเหตุผลภาษาไทยให้ครบทั้ง 40 ข้อทันที</p>
+        <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
+          <span class="text-xs text-slate-400">คำนวณเก็บจริง 10% (หาร 4)</span>
+          <a href="tae_final_exam.html" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-indigo-900/40 transition flex items-center gap-2">
+            <span>เข้าทำข้อสอบชุดที่ 2 (Teacher Tae)</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
       </div>
+
+    </div>
+
+    <!-- Bottom Archive & Reference Info -->
+    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
       <div class="flex items-center gap-3">
-        <button onclick="resetExam()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl border border-slate-700 transition">
-          เคลียร์คำตอบ
-        </button>
-        <button onclick="submitExam()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition flex items-center gap-2">
-          <i class="fa-solid fa-paper-plane"></i>
-          <span>ส่งคำตอบ & ตรวจคะแนน</span>
-        </button>
+        <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-amber-400 text-lg">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <div>
+          <div class="font-bold text-white">ต้องการทบทวนเนื้อหา Past Simple Tense เดิม?</div>
+          <div class="text-xs text-slate-400">สื่อการสอน, ใบงานพิมพ์ A4 และแบบฝึกหัด 28 ข้อเดิมถูกสำรองไว้ครบถ้วน</div>
+        </div>
       </div>
+      <a href="backup_past_simple/index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition flex items-center gap-2">
+        <span>เปิดดูคลังข้อมูลเดิม (Past Simple)</span>
+        <i class="fa-solid fa-up-right-from-square text-xs"></i>
+      </a>
     </div>
 
   </main>
 
-  <!-- Grading & Interactivity Logic -->
-  <script>
-    function submitExam() {
-      let score = 0;
-      const totalQuestions = 40;
-      let unansweredCount = 0;
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-6 text-center text-xs text-slate-500">
+    EN22201 Extra English III • Grade 8 (ม.2) Examination Platform • Ready for Print & PDF
+  </footer>
 
-      // Check Questions 1 to 35 (Radio multiple-choice)
-      for (let i = 1; i <= 35; i++) {
-        const block = document.getElementById(`block-q${i}`);
-        if (!block) continue;
-
-        const correctAns = block.getAttribute('data-correct');
-        const selectedRadio = document.querySelector(`input[name="q${i}"]:checked`);
-        const statusSpan = block.querySelector('.status-indicator');
-        const explanation = block.querySelector('.explanation-box');
-        const optionLabels = block.querySelectorAll('.option-label');
-
-        // Reset previous feedback styles
-        optionLabels.forEach(lbl => {
-          lbl.classList.remove('border-emerald-500', 'bg-emerald-950/40', 'border-rose-500', 'bg-rose-950/40');
-        });
-
-        if (selectedRadio) {
-          const userVal = selectedRadio.value;
-          if (userVal === correctAns) {
-            score++;
-            statusSpan.innerHTML = '<span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle-check"></i> ถูกต้อง (+1)</span>';
-            const chosenLabel = block.querySelector(`label[data-choice="${userVal}"]`);
-            if (chosenLabel) chosenLabel.classList.add('border-emerald-500', 'bg-emerald-950/40');
-          } else {
-            statusSpan.innerHTML = '<span class="text-rose-400 font-bold"><i class="fa-solid fa-circle-xmark"></i> ผิด (0)</span>';
-            const wrongLabel = block.querySelector(`label[data-choice="${userVal}"]`);
-            const correctLabel = block.querySelector(`label[data-choice="${correctAns}"]`);
-            if (wrongLabel) wrongLabel.classList.add('border-rose-500', 'bg-rose-950/40');
-            if (correctLabel) correctLabel.classList.add('border-emerald-500', 'bg-emerald-950/40');
-          }
-        } else {
-          unansweredCount++;
-          statusSpan.innerHTML = '<span class="text-amber-400 font-bold"><i class="fa-solid fa-triangle-exclamation"></i> ไม่ได้ตอบ</span>';
-          const correctLabel = block.querySelector(`label[data-choice="${correctAns}"]`);
-          if (correctLabel) correctLabel.classList.add('border-emerald-500', 'bg-emerald-950/40');
-        }
-
-        // Reveal explanation
-        if (explanation) explanation.classList.remove('hidden');
-      }
-
-      // Check Questions 36 to 40 (Error Correction Text Inputs)
-      const errorAnswers = {
-        q36: ["my name", "my"],
-        q37: ["bangkok"],
-        q38: ["sundays", "sunday"],
-        q39: ["brother.", "brother. i", "brother.i", "brother . i", "brother ."],
-        q40: ["bike?", "?", "have a bike?", "a bike?"]
-      };
-
-      for (let i = 36; i <= 40; i++) {
-        const block = document.getElementById(`block-q${i}`);
-        const inputElem = document.getElementById(`input-q${i}`);
-        const statusSpan = block.querySelector('.status-indicator');
-        const explanation = block.querySelector('.explanation-box');
-
-        const userVal = inputElem.value.trim();
-        const validKeywords = errorAnswers[`q${i}`];
-
-        let isCorrect = false;
-        if (userVal.length > 0) {
-          // Flexible match
-          const normalized = userVal.toLowerCase();
-          isCorrect = validKeywords.some(kw => normalized.includes(kw));
-
-          // Strict check for capitalization on 36, 37, 38
-          if (i === 36 && !userVal.startsWith('My') && !userVal.startsWith('MY')) isCorrect = false;
-          if (i === 37 && !userVal.startsWith('Bangkok') && !userVal.startsWith('BANGKOK')) isCorrect = false;
-          if (i === 38 && !userVal.startsWith('Sunday') && !userVal.startsWith('SUNDAY')) isCorrect = false;
-        }
-
-        if (userVal.length === 0) {
-          unansweredCount++;
-          statusSpan.innerHTML = '<span class="text-amber-400"><i class="fa-solid fa-triangle-exclamation"></i> ไม่ได้ตอบ</span>';
-          inputElem.classList.add('border-amber-500');
-        } else if (isCorrect) {
-          score++;
-          statusSpan.innerHTML = '<span class="text-emerald-400"><i class="fa-solid fa-circle-check"></i> ถูกต้อง (+1)</span>';
-          inputElem.classList.remove('border-rose-500', 'border-amber-500');
-          inputElem.classList.add('border-emerald-500', 'bg-emerald-950/20');
-        } else {
-          statusSpan.innerHTML = '<span class="text-rose-400"><i class="fa-solid fa-circle-xmark"></i> ผิด (0)</span>';
-          inputElem.classList.remove('border-emerald-500', 'border-amber-500');
-          inputElem.classList.add('border-rose-500', 'bg-rose-950/20');
-        }
-
-        if (explanation) explanation.classList.remove('hidden');
-      }
-
-      // Update Top Bars
-      const scoreBadge = document.getElementById('top-score-badge');
-      const scoreVal = document.getElementById('top-score-val');
-      const headerScore = document.getElementById('header-score-tag');
-      
-      scoreBadge.classList.remove('hidden');
-      scoreVal.textContent = score;
-      headerScore.classList.remove('hidden');
-      headerScore.textContent = `Score: ${score} / ${totalQuestions} (${((score/totalQuestions)*100).toFixed(0)}%)`;
-
-      // Pop-up Result
-      const studentName = document.getElementById('student-name').value.trim() || 'นักเรียน';
-      const percent = ((score / totalQuestions) * 100).toFixed(1);
-
-      let gradeBadge = 'เกณฑ์ผ่านระดับดีเยี่ยม 🌟';
-      if (score < 20) gradeBadge = 'ควรทบทวนเนื้อหาเพิ่มเติม 📖';
-      else if (score < 30) gradeBadge = 'ผลการเรียนอยู่ในเกณฑ์ดี 👍';
-
-      Swal.fire({
-        title: `ผลคะแนนสอบ: ${studentName}`,
-        html: `
-          <div class="text-center space-y-3 py-2">
-            <div class="text-5xl font-extrabold text-emerald-400 font-mono">${score} / 40</div>
-            <div class="text-base text-slate-300 font-medium">คิดเป็น: <span class="font-bold text-white">${percent}%</span> (หาร 4 = <span class="text-sky-300 font-bold">${(score/4).toFixed(2)}</span> / 10 คะแนนจริง)</div>
-            <div class="inline-block px-3 py-1 bg-slate-800 border border-slate-700 rounded-full text-xs font-semibold text-emerald-300">${gradeBadge}</div>
-            ${unansweredCount > 0 ? `<div class="text-xs text-amber-400 mt-2">หมายเหตุ: มีข้อที่ไม่ได้ตอบ ${unansweredCount} ข้อ</div>` : ''}
-            <div class="text-xs text-slate-400 pt-2 border-t border-slate-800">ระบบได้แสดงเฉลยตัวเลือกที่ถูกต้องและคำอธิบายภาษาไทยในทุกข้อด้านล่างเรียบร้อยแล้ว</div>
-          </div>
-        `,
-        icon: score >= 20 ? 'success' : 'info',
-        background: '#0f172a',
-        color: '#f8fafc',
-        confirmButtonColor: '#10b981',
-        confirmButtonText: 'ดูเฉลยละเอียดรายข้อ'
-      });
-    }
-
-    function resetExam() {
-      // Clear radios
-      document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
-      // Clear inputs
-      document.querySelectorAll('input[type="text"]').forEach(input => {
-        if (input.id.startsWith('input-q')) {
-          input.value = '';
-          input.classList.remove('border-emerald-500', 'border-rose-500', 'border-amber-500', 'bg-emerald-950/20', 'bg-rose-950/20');
-        }
-      });
-      // Clear statuses & explanations
-      document.querySelectorAll('.status-indicator').forEach(s => s.innerHTML = '');
-      document.querySelectorAll('.explanation-box').forEach(e => e.classList.add('hidden'));
-      document.querySelectorAll('.option-label').forEach(lbl => {
-        lbl.classList.remove('border-emerald-500', 'bg-emerald-950/40', 'border-rose-500', 'bg-rose-950/40');
-      });
-
-      // Hide scores
-      document.getElementById('top-score-badge').classList.add('hidden');
-      document.getElementById('header-score-tag').classList.add('hidden');
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function printExam() {
-      window.print();
-    }
-  </script>
 </body>
 </html>
